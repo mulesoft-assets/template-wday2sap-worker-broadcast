@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:core="http://www.mulesoft.org/schema/mule/core"
+	xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
+	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+    <data-mapper:config name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_" transformationGraphPath="getworkersresponsetype_to_xml_bapi_employee_getlist_.grf" doc:name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_"/>
+    <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
+
+    <batch:job name="broadcastUsers">
+        <batch:threading-profile poolExhaustedAction="WAIT"/>
+        <batch:process-records>
+            <batch:step name="GetServiceNowUserIfExists">
+                <enricher source="#[payload]" target="#[recordVars['usersInSAP']]" doc:name="store in recordVars['usersInSAP']">
+                    <processor-chain doc:name="Processor Chain">
+                        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETLIST" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP">
+                            <sap:definition><![CDATA[<jco>
+   <import> 
+   	<field name="SUR_NAME_SEARK">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName())]</field>
+    <field name="LST_NAME_SEARK">#[#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName())]</field>
+ </import>
+</jco>]]></sap:definition>
+                        </sap:outbound-endpoint>
+                        <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+                        <logger message="sap: #[payload]" level="INFO" doc:name="Logger"/>
+                    </processor-chain>
+
+
+                </enricher>
+
+            </batch:step>
+            <batch:step name="UpsertUser" >
+
+                <choice doc:name="Choice">
+                    <when expression="#[payload['id'] == '00000000']">
+                        <logger level="INFO" doc:name="Logger" message="bbbb"/>
+                    </when>
+
+                    <otherwise>
+                        <expression-component doc:name="add the servicenow Id to the object to be updated"><![CDATA[payload.put('sysId', recordVars['listOfUsersInServiceNow'].getGetRecordsResult().get(0).getSysId());]]></expression-component>
+
+                    </otherwise>
+                </choice>
+            </batch:step>
+        </batch:process-records>
+        <batch:on-complete>
+            <json:object-to-json-transformer doc:name=" transform response to JSON"/>
+            <logger level="INFO" doc:name="Logger" message="Batch completed: #[payload]"/>
+        </batch:on-complete>
+    </batch:job>
+</mule>

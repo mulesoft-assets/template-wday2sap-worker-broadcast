@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="Admin" created="Wed Nov 12 08:26:40 CET 2014" description="XML To Map" guiVersion="3.4.4.P" id="1415777699969" licenseCode="Unlicensed" licenseType="Unknown" modified="Wed Nov 12 08:26:40 CET 2014" modifiedBy="Admin" name="XML_To_Map" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="0" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST" _dataStructure="OBJECT" _id="__id" _type="Input" id="58f397c9-405f-47f5-96bf-1135edbd8c5d">
+<Record fieldDelimiter="," name="BAPI_EMPLOYEE_GETLIST" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/BUILDING_SEARK" containerType="SINGLE" label="BUILDING_SEARK" name="BUILDING_SEARK" type="string"/>
+<Field __index="1" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/INHOUSE_TEL1_SEARK" containerType="SINGLE" label="INHOUSE_TEL1_SEARK" name="INHOUSE_TEL1_SEARK" type="string"/>
+<Field __index="2" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/INHOUSE_TEL2_SEARK" containerType="SINGLE" label="INHOUSE_TEL2_SEARK" name="INHOUSE_TEL2_SEARK" type="string"/>
+<Field __index="3" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/JOB_SEARK" containerType="SINGLE" label="JOB_SEARK" name="JOB_SEARK" type="string"/>
+<Field __index="4" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/LST_NAME_SEARK" containerType="SINGLE" label="LST_NAME_SEARK" name="LST_NAME_SEARK" type="string"/>
+<Field __index="5" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/OBJECT_ID" containerType="SINGLE" label="OBJECT_ID" name="OBJECT_ID" type="string"/>
+<Field __index="6" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/ORG_SEARK" containerType="SINGLE" label="ORG_SEARK" name="ORG_SEARK" type="string"/>
+<Field __index="7" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/ROOM_SEARK" containerType="SINGLE" label="ROOM_SEARK" name="ROOM_SEARK" type="string"/>
+<Field __index="8" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/SEARCH_DATE" containerType="SINGLE" label="SEARCH_DATE" name="SEARCH_DATE" type="string"/>
+<Field __index="9" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/import/SUR_NAME_SEARK" containerType="SINGLE" label="SUR_NAME_SEARK" name="SUR_NAME_SEARK" type="string"/>
+<Field __index="10" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/export/OBJECT_ID" containerType="SINGLE" label="OBJECT_ID" name="OBJECT_ID_1" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="24" __referenceCounter="0" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="58f397c9-405f-47f5-96bf-1135edbd8c5d" _parent_id="__parent_id" _type="Input" id="723fedb6-c2b9-4fb8-9f42-70da6aff5c05">
+<Record fieldDelimiter="," name="exception" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="24" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception/@key" containerType="SINGLE" label="key" name="key" type="string"/>
+<Field __index="25" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception/@messageClass" containerType="SINGLE" label="messageClass" name="messageClass" type="string"/>
+<Field __index="26" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception/@messageNumber" containerType="SINGLE" label="messageNumber" name="messageNumber" type="string"/>
+<Field __index="27" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception/@messageType" containerType="SINGLE" label="messageType" name="messageType" type="string"/>
+<Field __index="28" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/exceptions/exception/@text()" containerType="SINGLE" label="text()" name="text" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="11" __referenceCounter="1" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="58f397c9-405f-47f5-96bf-1135edbd8c5d" _parent_id="__parent_id" _type="Input" id="4467d5d0-93de-4370-a843-4f8c7524dd98">
+<Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="11" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/PERNR" containerType="SINGLE" label="PERNR" name="PERNR" type="string"/>
+<Field __index="12" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ENAME" containerType="SINGLE" label="ENAME" name="ENAME" type="string"/>
+<Field __index="13" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ORG_ID" containerType="SINGLE" label="ORG_ID" name="ORG_ID" type="string"/>
+<Field __index="14" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ORG_TEXT" containerType="SINGLE" label="ORG_TEXT" name="ORG_TEXT" type="string"/>
+<Field __index="15" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/JOB_ID" containerType="SINGLE" label="JOB_ID" name="JOB_ID" type="string"/>
+<Field __index="16" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/JOB_TEXT" containerType="SINGLE" label="JOB_TEXT" name="JOB_TEXT" type="string"/>
+<Field __index="17" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/TEL01" containerType="SINGLE" label="TEL01" name="TEL01" type="string"/>
+<Field __index="18" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/TEL02" containerType="SINGLE" label="TEL02" name="TEL02" type="string"/>
+<Field __index="19" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/GEBNR" containerType="SINGLE" label="GEBNR" name="GEBNR" type="string"/>
+<Field __index="20" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ZIMNR" containerType="SINGLE" label="ZIMNR" name="ZIMNR" type="string"/>
+<Field __index="21" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/USRID" containerType="SINGLE" label="USRID" name="USRID" type="string"/>
+<Field __index="22" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ARCHIV_ID" containerType="SINGLE" label="ARCHIV_ID" name="ARCHIV_ID" type="string"/>
+<Field __index="23" __sourcePath="{}/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row/ARC_DOC_ID" containerType="SINGLE" label="ARC_DOC_ID" name="ARC_DOC_ID" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/worker" _dataStructure="OBJECT" _id="__id" _type="Output" id="468de306-e2a8-4c36-9b45-63ff23736f45">
+<Record fieldDelimiter="," name="worker" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/worker/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __sourcePath="{}/worker/name" containerType="SINGLE" label="name" name="name" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'row' -&gt; 'worker'" guiX="460" guiY="20" id="FOREACH_ROW_WORKER" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.id = input.PERNR;
+output.name = input.ENAME;]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<worker xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <id>$0.id</id>
+  <name>$0.name</name>
+</worker>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/BAPI_EMPLOYEE_GETLIST.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/BAPI_EMPLOYEE_GETLIST/tables/EMPLOYEE_LIST/row">
+  <Mapping cloverField="PERNR" trim="true" xpath="PERNR"/>
+  <Mapping cloverField="ENAME" trim="true" xpath="ENAME"/>
+  <Mapping cloverField="ORG_ID" trim="true" xpath="ORG_ID"/>
+  <Mapping cloverField="ORG_TEXT" trim="true" xpath="ORG_TEXT"/>
+  <Mapping cloverField="JOB_ID" trim="true" xpath="JOB_ID"/>
+  <Mapping cloverField="JOB_TEXT" trim="true" xpath="JOB_TEXT"/>
+  <Mapping cloverField="TEL01" trim="true" xpath="TEL01"/>
+  <Mapping cloverField="TEL02" trim="true" xpath="TEL02"/>
+  <Mapping cloverField="GEBNR" trim="true" xpath="GEBNR"/>
+  <Mapping cloverField="ZIMNR" trim="true" xpath="ZIMNR"/>
+  <Mapping cloverField="USRID" trim="true" xpath="USRID"/>
+  <Mapping cloverField="ARCHIV_ID" trim="true" xpath="ARCHIV_ID"/>
+  <Mapping cloverField="ARC_DOC_ID" trim="true" xpath="ARC_DOC_ID"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[BAPI_EMPLOYEE_GETLIST]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_ROW_WORKER:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="468de306-e2a8-4c36-9b45-63ff23736f45" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="4467d5d0-93de-4370-a843-4f8c7524dd98" outPort="Port 0 (out)" toNode="FOREACH_ROW_WORKER:0"/>
+</Phase>
+</Graph>

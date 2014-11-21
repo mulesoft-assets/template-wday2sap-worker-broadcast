@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="Admin" created="Thu Nov 20 13:38:33 CET 2014" description="Map To WorkdayAccountForWorkerUpdateType" guiVersion="3.4.4.P" id="1416488134689" licenseCode="Unlicensed" licenseType="Unknown" modified="Thu Nov 20 13:38:33 CET 2014" modifiedBy="Admin" name="Map_To_WorkdayAccountForWorkerUpdateType" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="4" __referenceCounter="0" __sourcePath="{}/object/workdayAccountForWorkerData/delegatedAuthenticationIntegrationSystemReference/ID" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="7a17658d-725d-41bc-a1da-0820ad5b45b1" _parent_id="__parent_id" _type="Output" id="3ee44cc8-beb0-4bf7-bc16-ad79c7223f8b">
+<Record fieldDelimiter="," name="ID" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="4" __sourcePath="{}/object/workdayAccountForWorkerData/delegatedAuthenticationIntegrationSystemReference/ID/type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="5" __sourcePath="{}/object/workdayAccountForWorkerData/delegatedAuthenticationIntegrationSystemReference/ID/value" containerType="SINGLE" label="value" name="value" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="11" __referenceCounter="0" __sourcePath="{}/object/workdayAccountForWorkerData/localeReference/ID" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="7a17658d-725d-41bc-a1da-0820ad5b45b1" _parent_id="__parent_id" _type="Output" id="6148ea97-b696-4517-b104-b1dd45da36eb">
+<Record fieldDelimiter="," name="ID" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="11" __sourcePath="{}/object/workdayAccountForWorkerData/localeReference/ID/type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="12" __sourcePath="{}/object/workdayAccountForWorkerData/localeReference/ID/value" containerType="SINGLE" label="value" name="value" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="20" __referenceCounter="0" __sourcePath="{}/object/workdayAccountForWorkerData/preferredSearchScopeReference/ID" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="7a17658d-725d-41bc-a1da-0820ad5b45b1" _parent_id="__parent_id" _type="Output" id="f1de4c7f-2b30-41df-b7e1-858e401a70fd">
+<Record fieldDelimiter="," name="ID" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="20" __sourcePath="{}/object/workdayAccountForWorkerData/preferredSearchScopeReference/ID/type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="21" __sourcePath="{}/object/workdayAccountForWorkerData/preferredSearchScopeReference/ID/value" containerType="SINGLE" label="value" name="value" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="27" __referenceCounter="0" __sourcePath="{}/object/workdayAccountForWorkerData/userLanguageReference/ID" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="7a17658d-725d-41bc-a1da-0820ad5b45b1" _parent_id="__parent_id" _type="Output" id="af41e652-7f93-452a-826a-fe35417ce225">
+<Record fieldDelimiter="," name="ID" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __index="27" __sourcePath="{}/object/workdayAccountForWorkerData/userLanguageReference/ID/type" containerType="SINGLE" label="type" name="type" type="string"/>
+<Field __index="28" __sourcePath="{}/object/workdayAccountForWorkerData/userLanguageReference/ID/value" containerType="SINGLE" label="value" name="value" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/user" _dataStructure="OBJECT" _id="__id" _type="Input" id="0b0275d2-355b-47f4-8d65-96a319ef70c3">
+<Record fieldDelimiter="," name="user" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/user/id" containerType="SINGLE" label="id" name="id" type="string"/>
+<Field __index="1" __sourcePath="{}/user/username" containerType="SINGLE" label="username" name="username" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/object" _dataStructure="OBJECT" _id="__id" _type="Output" id="7a17658d-725d-41bc-a1da-0820ad5b45b1">
+<Record fieldDelimiter="," name="WorkdayAccountForWorkerUpdateType" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/object/version" containerType="SINGLE" label="version" name="version" type="string"/>
+<Field __index="1" __sourcePath="{}/object/workdayAccountForWorkerData/accountDisabled" containerType="SINGLE" label="accountDisabled" name="accountDisabled" type="boolean"/>
+<Field __dmType="Calendar" __index="2" __sourcePath="{}/object/workdayAccountForWorkerData/accountExpirationDate" containerType="SINGLE" label="accountExpirationDate" name="accountExpirationDate" type="string"/>
+<Field __index="3" __sourcePath="{}/object/workdayAccountForWorkerData/allowMixedLanguageTransactions" containerType="SINGLE" label="allowMixedLanguageTransactions" name="allowMixedLanguageTransactions" type="boolean"/>
+<Field __index="6" __sourcePath="{}/object/workdayAccountForWorkerData/delegatedAuthenticationIntegrationSystemReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor" type="string"/>
+<Field __index="7" __sourcePath="{}/object/workdayAccountForWorkerData/displayXMLIconOnReports" containerType="SINGLE" label="displayXMLIconOnReports" name="displayXMLIconOnReports" type="boolean"/>
+<Field __index="8" __sourcePath="{}/object/workdayAccountForWorkerData/enableWorkbox" containerType="SINGLE" label="enableWorkbox" name="enableWorkbox" type="boolean"/>
+<Field __index="9" __sourcePath="{}/object/workdayAccountForWorkerData/exemptFromDelegatedAuthentication" containerType="SINGLE" label="exemptFromDelegatedAuthentication" name="exemptFromDelegatedAuthentication" type="boolean"/>
+<Field __index="10" __sourcePath="{}/object/workdayAccountForWorkerData/generateRandomPassword" containerType="SINGLE" label="generateRandomPassword" name="generateRandomPassword" type="boolean"/>
+<Field __index="13" __sourcePath="{}/object/workdayAccountForWorkerData/localeReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_1" type="string"/>
+<Field __index="14" __sourcePath="{}/object/workdayAccountForWorkerData/oneTimePasscodeExempt" containerType="SINGLE" label="oneTimePasscodeExempt" name="oneTimePasscodeExempt" type="boolean"/>
+<Field __index="15" __sourcePath="{}/object/workdayAccountForWorkerData/oneTimePasscodeGracePeriodEnabled" containerType="SINGLE" label="oneTimePasscodeGracePeriodEnabled" name="oneTimePasscodeGracePeriodEnabled" type="boolean"/>
+<Field __index="16" __sourcePath="{}/object/workdayAccountForWorkerData/oneTimePasscodeGracePeriodLoginRemainingCount" containerType="SINGLE" label="oneTimePasscodeGracePeriodLoginRemainingCount" name="oneTimePasscodeGracePeriodLoginRemainingCount" type="decimal"/>
+<Field __index="17" __sourcePath="{}/object/workdayAccountForWorkerData/openIDIdentifier" containerType="SINGLE" label="openIDIdentifier" name="openIDIdentifier" type="string"/>
+<Field __index="18" __sourcePath="{}/object/workdayAccountForWorkerData/openIDInternalIdentifier" containerType="SINGLE" label="openIDInternalIdentifier" name="openIDInternalIdentifier" type="string"/>
+<Field __index="19" __sourcePath="{}/object/workdayAccountForWorkerData/password" containerType="SINGLE" label="password" name="password" type="string"/>
+<Field __index="22" __sourcePath="{}/object/workdayAccountForWorkerData/preferredSearchScopeReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_2" type="string"/>
+<Field __index="23" __sourcePath="{}/object/workdayAccountForWorkerData/receiveEmailNotifications" containerType="SINGLE" label="receiveEmailNotifications" name="receiveEmailNotifications" type="boolean"/>
+<Field __index="24" __sourcePath="{}/object/workdayAccountForWorkerData/requireNewPasswordAtNextSignIn" containerType="SINGLE" label="requireNewPasswordAtNextSignIn" name="requireNewPasswordAtNextSignIn" type="boolean"/>
+<Field __index="25" __sourcePath="{}/object/workdayAccountForWorkerData/sessionTimeoutMinutes" containerType="SINGLE" label="sessionTimeoutMinutes" name="sessionTimeoutMinutes" type="decimal"/>
+<Field __index="26" __sourcePath="{}/object/workdayAccountForWorkerData/showUserNameInBrowserWindow" containerType="SINGLE" label="showUserNameInBrowserWindow" name="showUserNameInBrowserWindow" type="boolean"/>
+<Field __index="29" __sourcePath="{}/object/workdayAccountForWorkerData/userLanguageReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_3" type="string"/>
+<Field __index="30" __sourcePath="{}/object/workdayAccountForWorkerData/userName" containerType="SINGLE" label="userName" name="userName" type="string"/>
+<Field __index="31" __sourcePath="{}/object/workerReference/contingentWorkerReference/integrationIDReference/ID/systemID" containerType="SINGLE" label="systemID" name="systemID" type="string"/>
+<Field __index="32" __sourcePath="{}/object/workerReference/contingentWorkerReference/integrationIDReference/ID/value" containerType="SINGLE" label="value" name="value" type="string"/>
+<Field __index="33" __sourcePath="{}/object/workerReference/contingentWorkerReference/integrationIDReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_4" type="string"/>
+<Field __index="34" __sourcePath="{}/object/workerReference/employeeReference/integrationIDReference/ID/systemID" containerType="SINGLE" label="systemID" name="systemID_1" type="string"/>
+<Field __index="35" __sourcePath="{}/object/workerReference/employeeReference/integrationIDReference/ID/value" containerType="SINGLE" label="value" name="value_1" type="string"/>
+<Field __index="36" __sourcePath="{}/object/workerReference/employeeReference/integrationIDReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_5" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Map&lt;k,v&gt; READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="id" trim="true" xpath="id"/>
+  <Mapping cloverField="username" trim="true" xpath="username"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Pojo WRITER" guiX="900" guiY="20" id="BEAN_WRITER0" type="BEAN_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<object xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <version>$0.version</version>
+  <workdayAccountForWorkerData>
+    <accountDisabled>$0.accountDisabled</accountDisabled>
+    <accountExpirationDate>$0.accountExpirationDate</accountExpirationDate>
+    <allowMixedLanguageTransactions>$0.allowMixedLanguageTransactions</allowMixedLanguageTransactions>
+    <delegatedAuthenticationIntegrationSystemReference>
+      <descriptor>$0.descriptor</descriptor>
+    </delegatedAuthenticationIntegrationSystemReference>
+    <displayXMLIconOnReports>$0.displayXMLIconOnReports</displayXMLIconOnReports>
+    <enableWorkbox>$0.enableWorkbox</enableWorkbox>
+    <exemptFromDelegatedAuthentication>$0.exemptFromDelegatedAuthentication</exemptFromDelegatedAuthentication>
+    <generateRandomPassword>$0.generateRandomPassword</generateRandomPassword>
+    <localeReference>
+      <descriptor>$0.descriptor_1</descriptor>
+    </localeReference>
+    <oneTimePasscodeExempt>$0.oneTimePasscodeExempt</oneTimePasscodeExempt>
+    <oneTimePasscodeGracePeriodEnabled>$0.oneTimePasscodeGracePeriodEnabled</oneTimePasscodeGracePeriodEnabled>
+    <oneTimePasscodeGracePeriodLoginRemainingCount>$0.oneTimePasscodeGracePeriodLoginRemainingCount</oneTimePasscodeGracePeriodLoginRemainingCount>
+    <openIDIdentifier>$0.openIDIdentifier</openIDIdentifier>
+    <openIDInternalIdentifier>$0.openIDInternalIdentifier</openIDInternalIdentifier>
+    <password>$0.password</password>
+    <preferredSearchScopeReference>
+      <descriptor>$0.descriptor_2</descriptor>
+    </preferredSearchScopeReference>
+    <receiveEmailNotifications>$0.receiveEmailNotifications</receiveEmailNotifications>
+    <requireNewPasswordAtNextSignIn>$0.requireNewPasswordAtNextSignIn</requireNewPasswordAtNextSignIn>
+    <sessionTimeoutMinutes>$0.sessionTimeoutMinutes</sessionTimeoutMinutes>
+    <showUserNameInBrowserWindow>$0.showUserNameInBrowserWindow</showUserNameInBrowserWindow>
+    <userLanguageReference>
+      <descriptor>$0.descriptor_3</descriptor>
+    </userLanguageReference>
+    <userName>$0.userName</userName>
+  </workdayAccountForWorkerData>
+  <workerReference>
+    <contingentWorkerReference>
+      <integrationIDReference>
+        <ID>
+          <systemID>$0.systemID</systemID>
+          <value>$0.value</value>
+        </ID>
+        <descriptor>$0.descriptor_4</descriptor>
+      </integrationIDReference>
+    </contingentWorkerReference>
+    <employeeReference>
+      <integrationIDReference>
+        <ID>
+          <systemID>$0.systemID_1</systemID>
+          <value>$0.value_1</value>
+        </ID>
+        <descriptor>$0.descriptor_5</descriptor>
+      </integrationIDReference>
+    </employeeReference>
+  </workerReference>
+</object>]]></attr>
+<attr name="_data_format"><![CDATA[JAVA]]></attr>
+<attr name="schema"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><schema-object>
+  <typed-object-ref type-ref="com.workday.hr.WorkdayAccountForWorkerUpdateType"/>
+  <typed-object type="com.workday.hr.IDType">
+    <typed-object-ref name="systemID" type-ref="java.lang.String"/>
+    <typed-object-ref name="value" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.WorkdayAccountForWorkerUpdateType">
+    <typed-object-ref name="version" type-ref="java.lang.String"/>
+    <typed-object-ref name="workdayAccountForWorkerData" type-ref="com.workday.hr.WorkdayAccountForWorkerDataType"/>
+    <typed-object-ref name="workerReference" type-ref="com.workday.hr.WorkerReferenceType"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.ExternalIntegrationIDReferenceDataType">
+    <typed-object-ref name="ID" type-ref="com.workday.hr.IDType"/>
+    <typed-object-ref name="descriptor" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.IntegrationSystemAuditedObjectIDType">
+    <typed-object-ref name="type" type-ref="java.lang.String"/>
+    <typed-object-ref name="value" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.ContingentWorkerReferenceDataType">
+    <typed-object-ref name="integrationIDReference" type-ref="com.workday.hr.ExternalIntegrationIDReferenceDataType"/>
+  </typed-object>
+  <typed-object type="java.lang.Boolean"/>
+  <typed-object type="javax.xml.datatype.XMLGregorianCalendar"/>
+  <typed-object type="com.workday.hr.WorkdayAccountForWorkerDataType">
+    <typed-object-ref name="accountDisabled" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="accountExpirationDate" type-ref="javax.xml.datatype.XMLGregorianCalendar"/>
+    <typed-object-ref name="allowMixedLanguageTransactions" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="delegatedAuthenticationIntegrationSystemReference" type-ref="com.workday.hr.IntegrationSystemAuditedObjectType"/>
+    <typed-object-ref name="displayXMLIconOnReports" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="enableWorkbox" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="exemptFromDelegatedAuthentication" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="generateRandomPassword" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="localeReference" type-ref="com.workday.hr.LocaleObjectType"/>
+    <typed-object-ref name="oneTimePasscodeExempt" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="oneTimePasscodeGracePeriodEnabled" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="oneTimePasscodeGracePeriodLoginRemainingCount" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="openIDIdentifier" type-ref="java.lang.String"/>
+    <typed-object-ref name="openIDInternalIdentifier" type-ref="java.lang.String"/>
+    <typed-object-ref name="password" type-ref="java.lang.String"/>
+    <typed-object-ref name="preferredSearchScopeReference" type-ref="com.workday.hr.UniqueIdentifierObjectType"/>
+    <typed-object-ref name="receiveEmailNotifications" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="requireNewPasswordAtNextSignIn" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="sessionTimeoutMinutes" type-ref="java.math.BigDecimal"/>
+    <typed-object-ref name="showUserNameInBrowserWindow" type-ref="java.lang.Boolean"/>
+    <typed-object-ref name="userLanguageReference" type-ref="com.workday.hr.UserLanguageObjectType"/>
+    <typed-object-ref name="userName" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.EmployeeReferenceType">
+    <typed-object-ref name="integrationIDReference" type-ref="com.workday.hr.ExternalIntegrationIDReferenceDataType"/>
+  </typed-object>
+  <typed-object type="java.lang.String"/>
+  <typed-object type="com.workday.hr.LocaleObjectIDType">
+    <typed-object-ref name="type" type-ref="java.lang.String"/>
+    <typed-object-ref name="value" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.UniqueIdentifierObjectIDType">
+    <typed-object-ref name="type" type-ref="java.lang.String"/>
+    <typed-object-ref name="value" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.WorkerReferenceType">
+    <typed-object-ref name="contingentWorkerReference" type-ref="com.workday.hr.ContingentWorkerReferenceDataType"/>
+    <typed-object-ref name="employeeReference" type-ref="com.workday.hr.EmployeeReferenceType"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.LocaleObjectType">
+    <schema-collection name="ID" type="java.util.List">
+      <typed-object-ref type-ref="com.workday.hr.LocaleObjectIDType"/>
+    </schema-collection>
+    <typed-object-ref name="descriptor" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.IntegrationSystemAuditedObjectType">
+    <schema-collection name="ID" type="java.util.List">
+      <typed-object-ref type-ref="com.workday.hr.IntegrationSystemAuditedObjectIDType"/>
+    </schema-collection>
+    <typed-object-ref name="descriptor" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.UserLanguageObjectIDType">
+    <typed-object-ref name="type" type-ref="java.lang.String"/>
+    <typed-object-ref name="value" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="com.workday.hr.UserLanguageObjectType">
+    <schema-collection name="ID" type="java.util.List">
+      <typed-object-ref type-ref="com.workday.hr.UserLanguageObjectIDType"/>
+    </schema-collection>
+    <typed-object-ref name="descriptor" type-ref="java.lang.String"/>
+  </typed-object>
+  <typed-object type="java.math.BigDecimal"/>
+  <typed-object type="com.workday.hr.UniqueIdentifierObjectType">
+    <schema-collection name="ID" type="java.util.List">
+      <typed-object-ref type-ref="com.workday.hr.UniqueIdentifierObjectIDType"/>
+    </schema-collection>
+    <typed-object-ref name="descriptor" type-ref="java.lang.String"/>
+  </typed-object>
+</schema-object>
+]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'user' -&gt; 'object'" guiX="460" guiY="20" id="FOREACH_USER_OBJECT" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.userName = input.username;
+output.value_1 = input.id;
+output.systemID_1 = "Employee_ID";]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="0b0275d2-355b-47f4-8d65-96a319ef70c3" outPort="Port 0 (out)" toNode="FOREACH_USER_OBJECT:0"/>
+<Edge debugMode="true" fromNode="FOREACH_USER_OBJECT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="7a17658d-725d-41bc-a1da-0820ad5b45b1" outPort="Port 0 (out)" toNode="BEAN_WRITER0:0"/>
+</Phase>
+</Graph>

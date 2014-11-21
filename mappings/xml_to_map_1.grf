@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="Marek" created="Tue Nov 18 09:33:06 CET 2014" description="XML To Map" guiVersion="3.4.4.P" id="1416403650309" licenseCode="Unlicensed" licenseType="Unknown" modified="Tue Nov 18 09:33:06 CET 2014" modifiedBy="Marek" name="XML_To_Map" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/Employee" _dataStructure="OBJECT" _id="__id" _type="Output" id="a2ab3ed6-5d43-40bd-a172-cc7a07c18854">
+<Record fieldDelimiter="," name="Employee" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/Employee/EmployeeNumber" containerType="SINGLE" label="EmployeeNumber" name="EmployeeNumber" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="9" __referenceCounter="0" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="765059da-79df-474d-ae13-b1b4bc72a13e" _parent_id="__parent_id" _type="Input" id="618a75fc-42cc-4985-9f13-32678cad0881">
+<Record fieldDelimiter="," name="exception" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="9" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception/@key" containerType="SINGLE" label="key" name="key" type="string"/>
+<Field __index="10" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception/@messageClass" containerType="SINGLE" label="messageClass" name="messageClass" type="string"/>
+<Field __index="11" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception/@messageNumber" containerType="SINGLE" label="messageNumber" name="messageNumber" type="string"/>
+<Field __index="12" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception/@messageType" containerType="SINGLE" label="messageType" name="messageType" type="string"/>
+<Field __index="13" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/exceptions/exception/@text()" containerType="SINGLE" label="text()" name="text" type="string"/>
+</Record>
+</Metadata>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT" _dataStructure="OBJECT" _id="__id" _type="Input" id="765059da-79df-474d-ae13-b1b4bc72a13e">
+<Record fieldDelimiter="," name="ZMULE_NUMBER_GET_NEXT" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/IGNORE_BUFFER" containerType="SINGLE" label="IGNORE_BUFFER" name="IGNORE_BUFFER" type="string"/>
+<Field __index="1" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/NR_RANGE_NR" containerType="SINGLE" label="NR_RANGE_NR" name="NR_RANGE_NR" type="string"/>
+<Field __index="2" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/OBJECT" containerType="SINGLE" label="OBJECT" name="OBJECT" type="string"/>
+<Field __index="3" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/QUANTITY" containerType="SINGLE" label="QUANTITY" name="QUANTITY" type="string"/>
+<Field __index="4" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/SUBOBJECT" containerType="SINGLE" label="SUBOBJECT" name="SUBOBJECT" type="string"/>
+<Field __index="5" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/import/TOYEAR" containerType="SINGLE" label="TOYEAR" name="TOYEAR" type="string"/>
+<Field __index="6" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/export/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER" type="string"/>
+<Field __index="7" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/export/QUANTITY" containerType="SINGLE" label="QUANTITY" name="QUANTITY_1" type="string"/>
+<Field __index="8" __sourcePath="{}/ZMULE_NUMBER_GET_NEXT/export/RETURNCODE" containerType="SINGLE" label="RETURNCODE" name="RETURNCODE" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" guiName="Foreach 'ZMULE_NUMBER_GET_NEXT' -&gt; 'Employee'" guiX="460" guiY="20" id="FOREACH_ZMULE_NUMBER_GET_NEXT_EMPLOYEE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.EmployeeNumber = input.NUMBER;]]></attr>
+</Node>
+<Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<Employee xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <EmployeeNumber>$0.EmployeeNumber</EmployeeNumber>
+</Employee>]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node charset="UTF-8" enabled="enabled" fileURL="dict:inputPayload" guiName="XML READER" guiX="20" guiY="20" id="XML_READER0" type="XML_READER">
+<attr name="xmlSchemaURL"><![CDATA[./src/main/resources/ZMULE_NUMBER_GET_NEXT.xsd]]></attr>
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath="/ZMULE_NUMBER_GET_NEXT">
+  <Mapping cloverField="IGNORE_BUFFER" trim="true" xpath="import/IGNORE_BUFFER"/>
+  <Mapping cloverField="NR_RANGE_NR" trim="true" xpath="import/NR_RANGE_NR"/>
+  <Mapping cloverField="OBJECT" trim="true" xpath="import/OBJECT"/>
+  <Mapping cloverField="QUANTITY" trim="true" xpath="import/QUANTITY"/>
+  <Mapping cloverField="SUBOBJECT" trim="true" xpath="import/SUBOBJECT"/>
+  <Mapping cloverField="TOYEAR" trim="true" xpath="import/TOYEAR"/>
+  <Mapping cloverField="NUMBER" trim="true" xpath="export/NUMBER"/>
+  <Mapping cloverField="QUANTITY_1" trim="true" xpath="export/QUANTITY"/>
+  <Mapping cloverField="RETURNCODE" trim="true" xpath="export/RETURNCODE"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__rootGlobalElementName"><![CDATA[ZMULE_NUMBER_GET_NEXT]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="FOREACH_ZMULE_NUMBER_GET_NEXT_EMPLOYEE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="a2ab3ed6-5d43-40bd-a172-cc7a07c18854" outPort="Port 0 (out)" toNode="MAP_WRITER0:0"/>
+<Edge debugMode="true" fromNode="XML_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="765059da-79df-474d-ae13-b1b4bc72a13e" outPort="Port 0 (out)" toNode="FOREACH_ZMULE_NUMBER_GET_NEXT_EMPLOYEE:0"/>
+</Phase>
+</Graph>

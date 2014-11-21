@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:wd-staffing="http://www.mulesoft.org/schema/mule/wd-staffing" xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
+http://www.mulesoft.org/schema/mule/wd-staffing http://www.mulesoft.org/schema/mule/wd-staffing/current/mule-wd-staffing.xsd
+http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
+http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
+http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+
+    
+    <data-mapper:config name="User_To_Contact" transformationGraphPath="user_to_maintaincontactinformationforpersoneventrequesttype.grf" doc:name="DataMapper"/>
+    <data-mapper:config name="Map_To_WorkdayAccountForWorkerUpdateType" transformationGraphPath="map_to_workdayaccountforworkerupdatetype.grf" doc:name="Map_To_WorkdayAccountForWorkerUpdateType"/>
+    <data-mapper:config name="Pojo_To_ChangeLegalNameRequestType" transformationGraphPath="pojo_to_changelegalnamerequesttype.grf" doc:name="Pojo_To_ChangeLegalNameRequestType"/>
+    <sub-flow name="getSAPEmployee" doc:name="getSAPEmployee">
+    	<processor-chain doc:name="Processor Chain">
+            <logger message="bbbb: #[payload]" level="INFO" doc:name="Logger"/>
+           <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP">
+                <sap:definition><![CDATA[
+					<jco>
+					  	<import>	
+							<field name="FSTNAME_M">#[payload['firstName'].toUpperCase()]</field>   
+							<field name="LASTNAME_M">#[payload['lastName'].toUpperCase()]</field>
+						</import>
+					</jco>]]></sap:definition>
+
+           </sap:outbound-endpoint>
+            <logger message="aaaaa: #[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+
+           <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+            <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
+
+       </processor-chain>
+    </sub-flow>
+
+	
+    
+    <sub-flow name="updateWorkdayEmployee1" doc:name="updateWorkdayEmployee1">
+        <data-mapper:transform doc:name="DataMapper" config-ref="User_To_Contact"/>
+        <wd-hr:maintain-contact-information config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+
+    </sub-flow>
+    <sub-flow name="updateWorkdayEmployee2" doc:name="updateWorkdayEmployee2">
+        <data-mapper:transform config-ref="Map_To_WorkdayAccountForWorkerUpdateType" doc:name="Map To WorkdayAccountForWorkerUpdateType"/>
+        <wd-hr:update-workday-account config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+    </sub-flow>
+    <sub-flow name="updateWorkdayEmployee" doc:name="updateWorkdayEmployee">
+        <data-mapper:transform config-ref="Pojo_To_ChangeLegalNameRequestType" doc:name="Pojo To ChangeLegalNameRequestType"/>
+        <wd-hr:change-legal-name config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+    </sub-flow>
+    
+</mule>

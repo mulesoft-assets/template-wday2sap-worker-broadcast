@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<BAPI_EMPLOYEE_GETDATA timestamp="1415261957497" version="1.0">
+<import>
+<AUTHORITY_CHECK type="field" sapDescription="Authorization check" sapType="CHAR" sapLength="1"/>
+<BLDING_NO type="field" sapDescription="Search String for Building Number" sapType="CHAR" sapLength="6"/>
+<COSTCENTER type="field" sapDescription="Search String for Cost Center" sapType="CHAR" sapLength="10"/>
+<DATE type="field" sapDescription="Search Date" sapType="DATE" sapLength="8"/>
+<EMPLOYEE_ID type="field" sapDescription="" sapType="NUM" sapLength="8"/>
+<EXTENSION type="field" sapDescription="Telephone extension" sapType="CHAR" sapLength="10"/>
+<FSTNAME_M type="field" sapDescription="Search String for First Name" sapType="CHAR" sapLength="25"/>
+<FST_NAME_K type="field" sapDescription="Search String for First Name (Katakana)" sapType="CHAR" sapLength="24"/>
+<FST_NAME_R type="field" sapDescription="Search String for First Name (Romaji)" sapType="CHAR" sapLength="24"/>
+<JOBTXT type="field" sapDescription="Search String for Job" sapType="CHAR" sapLength="12"/>
+<JOBTXT_LG type="field" sapDescription="Search String for Job (long)" sapType="CHAR" sapLength="25"/>
+<LASTNAME_M type="field" sapDescription="Search String for Last Name" sapType="CHAR" sapLength="25"/>
+<LIPLATE_NO type="field" sapDescription="Search String for License Plate Number" sapType="CHAR" sapLength="20"/>
+<LST_NAME_K type="field" sapDescription="Search String for Last Name (Katakana)" sapType="CHAR" sapLength="24"/>
+<LST_NAME_R type="field" sapDescription="Search String for Last Name (Romaji)" sapType="CHAR" sapLength="24"/>
+<ORGTXT type="field" sapDescription="Search String for Organizational Unit" sapType="CHAR" sapLength="12"/>
+<ORGTXT_LG type="field" sapDescription="Search String for Organizational Unit (long)" sapType="CHAR" sapLength="25"/>
+<PHONE_NO type="field" sapDescription="Search String for Telephone Number" sapType="CHAR" sapLength="5"/>
+<POSTXT type="field" sapDescription="Search String for Position" sapType="CHAR" sapLength="12"/>
+<POSTXT_LG type="field" sapDescription="Search String for Position (long)" sapType="CHAR" sapLength="25"/>
+<READDB type="field" sapDescription="Re-Read Database" sapType="CHAR" sapLength="1"/>
+<ROOM_NO type="field" sapDescription="Search String for Room Number" sapType="CHAR" sapLength="6"/>
+<USERID type="field" sapDescription="Search String for Communications ID" sapType="CHAR" sapLength="30"/>
+</import>
+<export>
+<RETURN type="structure">
+<TYPE type="field" sapDescription="Message type: S Success, E Error, W Warning, I Info, A Abort" sapType="CHAR" sapLength="1"/>
+<CODE type="field" sapDescription="Message code" sapType="CHAR" sapLength="5"/>
+<MESSAGE type="field" sapDescription="Message Text" sapType="CHAR" sapLength="220"/>
+<LOG_NO type="field" sapDescription="Application log: log number" sapType="CHAR" sapLength="20"/>
+<LOG_MSG_NO type="field" sapDescription="Application log: Internal message serial number" sapType="NUM" sapLength="6"/>
+<MESSAGE_V1 type="field" sapDescription="Message Variable" sapType="CHAR" sapLength="50"/>
+<MESSAGE_V2 type="field" sapDescription="Message Variable" sapType="CHAR" sapLength="50"/>
+<MESSAGE_V3 type="field" sapDescription="Message Variable" sapType="CHAR" sapLength="50"/>
+<MESSAGE_V4 type="field" sapDescription="Message Variable" sapType="CHAR" sapLength="50"/>
+</RETURN>
+</export>
+<tables>
+<ARCHIVELINK type="table">
+<row id="0">
+<SAP_OBJECT type="field" sapDescription="SAP ArchiveLink: Object type of business object" sapType="CHAR" sapLength="10"/>
+<OBJECT_ID type="field" sapDescription="SAP ArchiveLink: Object ID (object identifier)" sapType="CHAR" sapLength="50"/>
+<ARCHIV_ID type="field" sapDescription="Content Repository Identification" sapType="CHAR" sapLength="2"/>
+<ARC_DOC_ID type="field" sapDescription="SAP ArchiveLink: Document ID" sapType="CHAR" sapLength="40"/>
+<AR_OBJECT type="field" sapDescription="Document type" sapType="CHAR" sapLength="10"/>
+<AR_DATE type="field" sapDescription="SAP ArchiveLink: Storage date" sapType="DATE" sapLength="8"/>
+<DEL_DATE type="field" sapDescription="Expiry Date" sapType="DATE" sapLength="8"/>
+<RESERVE type="field" sapDescription="SAP ArchiveLink: Reserved for future application" sapType="CHAR" sapLength="27"/></row></ARCHIVELINK>
+<COMMUNICATION type="table">
+<row id="0">
+<PERNO type="field" sapDescription="Personnel Number" sapType="NUM" sapLength="8"/>
+<INFOTYPE type="field" sapDescription="Infotype" sapType="CHAR" sapLength="4"/>
+<SUBTYPE type="field" sapDescription="Subtype" sapType="CHAR" sapLength="4"/>
+<OBJECT_ID type="field" sapDescription="Object Identification" sapType="CHAR" sapLength="2"/>
+<LOCK_IND type="field" sapDescription="Lock Indicator for HR Master Data Record" sapType="CHAR" sapLength="1"/>
+<TO_DATE type="field" sapDescription="End Date" sapType="DATE" sapLength="8"/>
+<FROM_DATE type="field" sapDescription="Start Date" sapType="DATE" sapLength="8"/>
+<SEQNO type="field" sapDescription="Number of Infotype Record with Same Key" sapType="NUM" sapLength="3"/>
+<CH_ON type="field" sapDescription="Changed On" sapType="DATE" sapLength="8"/>
+<CHANGED_BY type="field" sapDescription="Name of Person Who Changed Object" sapType="CHAR" sapLength="12"/>
+<HIST_FLAG type="field" sapDescription="Historical Record Flag" sapType="CHAR" sapLength="1"/>
+<TEXTFLAG type="field" sapDescription="Text Exists for Infotype" sapType="CHAR" sapLength="1"/>
+<REF_FLAG type="field" sapDescription="Reference Fields Exist (Primary/Secondary Costs)" sapType="CHAR" sapLength="1"/>
+<CNFRM_FLAG type="field" sapDescription="Confirmation Fields Exist" sapType="CHAR" sapLength="1"/>
+<SCREENCTRL type="field" sapDescription="Infotype Screen Control" sapType="CHAR" sapLength="2"/>
+<REASON type="field" sapDescription="Reason for Changing Master Data" sapType="CHAR" sapLength="2"/>
+<FLAG1 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG2 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG3 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG4 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<RESERVED1 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<RESERVED2 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<USERTYPE type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<USERID type="field" sapDescription="Communication Identification/Number" sapType="CHAR" sapLength="30"/>
+<USRID_LONG type="field" sapDescription="E-Mail Address" sapType="CHAR" sapLength="241"/></row></COMMUNICATION>
+<INTERNAL_CONTROL type="table">
+<row id="0">
+<PERNO type="field" sapDescription="Personnel Number" sapType="NUM" sapLength="8"/>
+<INFOTYPE type="field" sapDescription="Infotype" sapType="CHAR" sapLength="4"/>
+<SUBTYPE type="field" sapDescription="Subtype" sapType="CHAR" sapLength="4"/>
+<OBJECT_ID type="field" sapDescription="Object Identification" sapType="CHAR" sapLength="2"/>
+<LOCK_IND type="field" sapDescription="Lock Indicator for HR Master Data Record" sapType="CHAR" sapLength="1"/>
+<TO_DATE type="field" sapDescription="End Date" sapType="DATE" sapLength="8"/>
+<FROM_DATE type="field" sapDescription="Start Date" sapType="DATE" sapLength="8"/>
+<SEQNO type="field" sapDescription="Number of Infotype Record with Same Key" sapType="NUM" sapLength="3"/>
+<CH_ON type="field" sapDescription="Changed On" sapType="DATE" sapLength="8"/>
+<CHANGED_BY type="field" sapDescription="Name of Person Who Changed Object" sapType="CHAR" sapLength="12"/>
+<HIST_FLAG type="field" sapDescription="Historical Record Flag" sapType="CHAR" sapLength="1"/>
+<TEXTFLAG type="field" sapDescription="Text Exists for Infotype" sapType="CHAR" sapLength="1"/>
+<REF_FLAG type="field" sapDescription="Reference Fields Exist (Primary/Secondary Costs)" sapType="CHAR" sapLength="1"/>
+<CNFRM_FLAG type="field" sapDescription="Confirmation Fields Exist" sapType="CHAR" sapLength="1"/>
+<SCREENCTRL type="field" sapDescription="Infotype Screen Control" sapType="CHAR" sapLength="2"/>
+<REASON type="field" sapDescription="Reason for Changing Master Data" sapType="CHAR" sapLength="2"/>
+<FLAG1 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG2 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG3 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG4 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<RESERVED1 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<RESERVED2 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<PREV_PERNO type="field" sapDescription="Previous Personnel Number" sapType="CHAR" sapLength="12"/>
+<COMPIDCARD type="field" sapDescription="Company ID" sapType="CHAR" sapLength="12"/>
+<TAX_REG type="field" sapDescription="Regulation for Taxation of Company Car" sapType="CHAR" sapLength="1"/>
+<CARVALUE type="field" sapDescription="Car Value" sapType="BCD" sapLength="5"/>
+<LIPLATE_NO type="field" sapDescription="License Plate Number" sapType="CHAR" sapLength="20"/>
+<CURRENCY type="field" sapDescription="Currency Key" sapType="CHAR" sapLength="5"/>
+<ASSETNO type="field" sapDescription="Car Asset Number" sapType="CHAR" sapLength="20"/>
+<BLDING_NO type="field" sapDescription="Building Number" sapType="CHAR" sapLength="6"/>
+<ROOM_NO type="field" sapDescription="Room Number" sapType="CHAR" sapLength="6"/>
+<PHONENO1 type="field" sapDescription="In-House Telephone Number" sapType="CHAR" sapLength="5"/>
+<PHONENO2 type="field" sapDescription="In-House Telephone Number" sapType="CHAR" sapLength="5"/>
+<COMTYPE1 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO1 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/>
+<COMTYPE2 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO2 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/>
+<COMTYPE3 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO3 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/>
+<COMTYPE4 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO4 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/>
+<COMTYPE5 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO5 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/>
+<COMTYPE6 type="field" sapDescription="Communication Type" sapType="CHAR" sapLength="4"/>
+<COMNO6 type="field" sapDescription="Communication Number" sapType="CHAR" sapLength="20"/></row></INTERNAL_CONTROL>
+<ORG_ASSIGNMENT type="table">
+<row id="0">
+<PERNO type="field" sapDescription="Personnel Number" sapType="NUM" sapLength="8"/>
+<INFOTYPE type="field" sapDescription="Infotype" sapType="CHAR" sapLength="4"/>
+<SUBTYPE type="field" sapDescription="Subtype" sapType="CHAR" sapLength="4"/>
+<OBJECT_ID type="field" sapDescription="Object Identification" sapType="CHAR" sapLength="2"/>
+<LOCK_IND type="field" sapDescription="Lock Indicator for HR Master Data Record" sapType="CHAR" sapLength="1"/>
+<TO_DATE type="field" sapDescription="End Date" sapType="DATE" sapLength="8"/>
+<FROM_DATE type="field" sapDescription="Start Date" sapType="DATE" sapLength="8"/>
+<SEQNO type="field" sapDescription="Number of Infotype Record with Same Key" sapType="NUM" sapLength="3"/>
+<CH_ON type="field" sapDescription="Changed On" sapType="DATE" sapLength="8"/>
+<CHANGED_BY type="field" sapDescription="Name of Person Who Changed Object" sapType="CHAR" sapLength="12"/>
+<HIST_FLAG type="field" sapDescription="Historical Record Flag" sapType="CHAR" sapLength="1"/>
+<TEXTFLAG type="field" sapDescription="Text Exists for Infotype" sapType="CHAR" sapLength="1"/>
+<REF_FLAG type="field" sapDescription="Reference Fields Exist (Primary/Secondary Costs)" sapType="CHAR" sapLength="1"/>
+<CNFRM_FLAG type="field" sapDescription="Confirmation Fields Exist" sapType="CHAR" sapLength="1"/>
+<SCREENCTRL type="field" sapDescription="Infotype Screen Control" sapType="CHAR" sapLength="2"/>
+<REASON type="field" sapDescription="Reason for Changing Master Data" sapType="CHAR" sapLength="2"/>
+<FLAG1 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG2 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG3 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG4 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<RESERVED1 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<RESERVED2 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<COMP_CODE type="field" sapDescription="Company Code" sapType="CHAR" sapLength="4"/>
+<PERS_AREA type="field" sapDescription="Personnel Area" sapType="CHAR" sapLength="4"/>
+<EGROUP type="field" sapDescription="Employee Group" sapType="CHAR" sapLength="1"/>
+<ESUBGROUP type="field" sapDescription="Employee Subgroup" sapType="CHAR" sapLength="2"/>
+<ORG_KEY type="field" sapDescription="Organizational Key" sapType="CHAR" sapLength="14"/>
+<BUS_AREA type="field" sapDescription="Business Area" sapType="CHAR" sapLength="4"/>
+<P_SUBAREA type="field" sapDescription="Personnel Subarea" sapType="CHAR" sapLength="4"/>
+<LEG_PERSON type="field" sapDescription="Legal Person" sapType="CHAR" sapLength="4"/>
+<PAYAREA type="field" sapDescription="Payroll Area" sapType="CHAR" sapLength="2"/>
+<CONTRACT type="field" sapDescription="Work Contract" sapType="CHAR" sapLength="2"/>
+<COSTCENTER type="field" sapDescription="Cost Center" sapType="CHAR" sapLength="10"/>
+<ORG_UNIT type="field" sapDescription="Organizational Unit" sapType="NUM" sapLength="8"/>
+<POSITION type="field" sapDescription="Position" sapType="NUM" sapLength="8"/>
+<JOB type="field" sapDescription="Job" sapType="NUM" sapLength="8"/>
+<SUPERVISOR type="field" sapDescription="Supervisor Area" sapType="CHAR" sapLength="8"/>
+<PAYR_ADMIN type="field" sapDescription="Payroll Administrator" sapType="CHAR" sapLength="3"/>
+<PERS_ADMIN type="field" sapDescription="Administrator for HR Master Data" sapType="CHAR" sapLength="3"/>
+<TIME_ADMIN type="field" sapDescription="Administrator for Time Recording" sapType="CHAR" sapLength="3"/>
+<SORT_NAME type="field" sapDescription="Employee's Name (Sortable by LAST NAME FIRST NAME)" sapType="CHAR" sapLength="30"/>
+<NAME type="field" sapDescription="Formatted Name of Employee or Applicant" sapType="CHAR" sapLength="40"/>
+<OBJECTTYPE type="field" sapDescription="Object Type" sapType="CHAR" sapLength="2"/>
+<ADMINGROUP type="field" sapDescription="Administrator Group" sapType="CHAR" sapLength="4"/>
+<CO_AREA type="field" sapDescription="Controlling Area" sapType="CHAR" sapLength="4"/>
+<FUNDS_CTR type="field" sapDescription="Funds Center" sapType="CHAR" sapLength="16"/>
+<FUND type="field" sapDescription="Fund" sapType="CHAR" sapLength="10"/>
+<ORGTXT type="field" sapDescription="Short Text of Organizational Unit" sapType="CHAR" sapLength="25"/>
+<JOBTXT type="field" sapDescription="Job Title" sapType="CHAR" sapLength="25"/>
+<POSTXT type="field" sapDescription="Position (Short Text)" sapType="CHAR" sapLength="25"/>
+<FKBER type="field" sapDescription="Functional Area" sapType="CHAR" sapLength="16"/>
+<GRANT_NBR type="field" sapDescription="Grant" sapType="CHAR" sapLength="20"/></row></ORG_ASSIGNMENT>
+<PERSONAL_DATA type="table">
+<row id="0">
+<PERNO type="field" sapDescription="Personnel Number" sapType="NUM" sapLength="8"/>
+<INFOTYPE type="field" sapDescription="Infotype" sapType="CHAR" sapLength="4"/>
+<SUBTYPE type="field" sapDescription="Subtype" sapType="CHAR" sapLength="4"/>
+<OBJECT_ID type="field" sapDescription="Object Identification" sapType="CHAR" sapLength="2"/>
+<LOCK_IND type="field" sapDescription="Lock Indicator for HR Master Data Record" sapType="CHAR" sapLength="1"/>
+<TO_DATE type="field" sapDescription="End Date" sapType="DATE" sapLength="8"/>
+<FROM_DATE type="field" sapDescription="Start Date" sapType="DATE" sapLength="8"/>
+<SEQNO type="field" sapDescription="Number of Infotype Record with Same Key" sapType="NUM" sapLength="3"/>
+<CH_ON type="field" sapDescription="Changed On" sapType="DATE" sapLength="8"/>
+<CHANGED_BY type="field" sapDescription="Name of Person Who Changed Object" sapType="CHAR" sapLength="12"/>
+<HIST_FLAG type="field" sapDescription="Historical Record Flag" sapType="CHAR" sapLength="1"/>
+<TEXTFLAG type="field" sapDescription="Text Exists for Infotype" sapType="CHAR" sapLength="1"/>
+<REF_FLAG type="field" sapDescription="Reference Fields Exist (Primary/Secondary Costs)" sapType="CHAR" sapLength="1"/>
+<CNFRM_FLAG type="field" sapDescription="Confirmation Fields Exist" sapType="CHAR" sapLength="1"/>
+<SCREENCTRL type="field" sapDescription="Infotype Screen Control" sapType="CHAR" sapLength="2"/>
+<REASON type="field" sapDescription="Reason for Changing Master Data" sapType="CHAR" sapLength="2"/>
+<FLAG1 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG2 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG3 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<FLAG4 type="field" sapDescription="Reserved Field/Unused Field" sapType="CHAR" sapLength="1"/>
+<RESERVED1 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<RESERVED2 type="field" sapDescription="Reserved Field/Unused Field of Length 2" sapType="CHAR" sapLength="2"/>
+<INITIALS type="field" sapDescription="Initials" sapType="CHAR" sapLength="10"/>
+<LAST_NAME type="field" sapDescription="Last Name" sapType="CHAR" sapLength="25"/>
+<LAST_NAME2 type="field" sapDescription="Second Name / Name at Birth" sapType="CHAR" sapLength="25"/>
+<FIRSTNAME type="field" sapDescription="First Name" sapType="CHAR" sapLength="25"/>
+<TITLE type="field" sapDescription="Title" sapType="CHAR" sapLength="15"/>
+<TITLE_2 type="field" sapDescription="Second Title" sapType="CHAR" sapLength="15"/>
+<ARI_TITLE type="field" sapDescription="Other Title" sapType="CHAR" sapLength="15"/>
+<NAMEAFFIX type="field" sapDescription="Name Prefix" sapType="CHAR" sapLength="15"/>
+<NAMEPREFIX type="field" sapDescription="Second Name Prefix" sapType="CHAR" sapLength="15"/>
+<KNOWN_AS type="field" sapDescription="Nickname" sapType="CHAR" sapLength="25"/>
+<NAME_FORM type="field" sapDescription="Name Format Indicator for Employee in a List" sapType="NUM" sapLength="2"/>
+<FORMOFADR type="field" sapDescription="Form-of-Address Key" sapType="CHAR" sapLength="1"/>
+<GENDER type="field" sapDescription="Gender Key" sapType="CHAR" sapLength="1"/>
+<BIRTHDATE type="field" sapDescription="Date of Birth" sapType="DATE" sapLength="8"/>
+<BIRTHCTRY type="field" sapDescription="Country of Birth" sapType="CHAR" sapLength="3"/>
+<BIRTHSTATE type="field" sapDescription="State" sapType="CHAR" sapLength="3"/>
+<BIRTHPLACE type="field" sapDescription="Birthplace" sapType="CHAR" sapLength="25"/>
+<NATIONAL type="field" sapDescription="Nationality" sapType="CHAR" sapLength="3"/>
+<NATIONAL_2 type="field" sapDescription="Second Nationality" sapType="CHAR" sapLength="3"/>
+<NATIONAL_3 type="field" sapDescription="Third Nationality" sapType="CHAR" sapLength="3"/>
+<LANGU type="field" sapDescription="Language Key" sapType="CHAR" sapLength="1"/>
+<RELIGION type="field" sapDescription="Religious Denomination Key" sapType="CHAR" sapLength="2"/>
+<MAR_STATUS type="field" sapDescription="Marital Status Key" sapType="CHAR" sapLength="1"/>
+<MAR_DATE type="field" sapDescription="Valid From Date of Current Marital Status" sapType="DATE" sapLength="8"/>
+<NO_O_CHLDR type="field" sapDescription="Number of Children" sapType="BCD" sapLength="2"/>
+<NAME_CON type="field" sapDescription="Name Connection" sapType="CHAR" sapLength="1"/>
+<PERMO type="field" sapDescription="Modifier for Personnel Identifier" sapType="CHAR" sapLength="2"/>
+<PERID type="field" sapDescription="Personnel ID Number" sapType="CHAR" sapLength="20"/>
+<BIRTHDTPP type="field" sapDescription="Date of Birth According to Passport" sapType="DATE" sapLength="8"/>
+<FST_NAME_K type="field" sapDescription="First name (Katakana)" sapType="CHAR" sapLength="24"/>
+<LST_NAME_K type="field" sapDescription="Last Name (Katakana)" sapType="CHAR" sapLength="24"/>
+<FST_NAME_R type="field" sapDescription="First name (Romaji)" sapType="CHAR" sapLength="24"/>
+<LST_NAME_R type="field" sapDescription="Last name (Romaji)" sapType="CHAR" sapLength="24"/>
+<BIRTHNME_K type="field" sapDescription="Name of Birth (Katakana)" sapType="CHAR" sapLength="24"/>
+<BIRTHNME_R type="field" sapDescription="Name of Birth (Romaji)" sapType="CHAR" sapLength="24"/>
+<NICKNAME_K type="field" sapDescription="Nickname (Katakana)" sapType="CHAR" sapLength="24"/>
+<NICKNAME_R type="field" sapDescription="Nickname (Romaji)" sapType="CHAR" sapLength="24"/>
+<BIRTHYEAR type="field" sapDescription="Year of Birth" sapType="NUM" sapLength="4"/>
+<BIRTHMONTH type="field" sapDescription="Month of Birth" sapType="NUM" sapLength="2"/>
+<BIRTHDAY type="field" sapDescription="Birth Date (to Month/Year)" sapType="NUM" sapLength="2"/>
+<LASTNAME_M type="field" sapDescription="Last Name (Field for Search Help)" sapType="CHAR" sapLength="25"/>
+<FSTNAME_M type="field" sapDescription="First Name (Field for Search Help)" sapType="CHAR" sapLength="25"/></row></PERSONAL_DATA>
+</tables>
+</BAPI_EMPLOYEE_GETDATA>

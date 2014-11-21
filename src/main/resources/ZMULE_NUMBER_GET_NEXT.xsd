@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+<xsd:element name="ZMULE_NUMBER_GET_NEXT">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="import" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="IGNORE_BUFFER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Ignore object buffering</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="NR_RANGE_NR" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number range number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="OBJECT" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Name of number range object</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="QUANTITY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number of numbers</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="SUBOBJECT" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Value of sub-object</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="TOYEAR" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Value of To-fiscal year</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element>
+<xsd:element name="export" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="NUMBER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>free number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="QUANTITY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number of numbers</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="RETURNCODE" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Return code</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element>
+
+<xsd:element name="exceptions" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:sequence>
+
+<xsd:element name="exception" minOccurs="0" maxOccurs="unbounded">
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string">
+<xsd:attribute name="key" type="xsd:string"/>
+<xsd:attribute name="messageClass" type="xsd:string"/>
+<xsd:attribute name="messageNumber" type="xsd:string"/>
+<xsd:attribute name="messageType" type="xsd:string"/></xsd:extension></xsd:simpleContent></xsd:complexType></xsd:element>
+</xsd:sequence></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element>
+</xsd:schema>

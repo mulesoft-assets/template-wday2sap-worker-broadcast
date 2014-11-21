@@ -15,7 +15,7 @@
 	<name>template-wday2sap-worker-broadcast Anypoint Template Project</name>
 
 	<properties>
-		<wday.version>4.0.0</wday.version>
+		<wday.version>3.0.0</wday.version>
 		<sap.transport.version>2.2.2</sap.transport.version>
 		<sap.jco.version>3.0.9</sap.jco.version>
 		<sap.idoc.version>3.0.6</sap.idoc.version>

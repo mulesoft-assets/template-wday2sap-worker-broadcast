@@ -20,39 +20,67 @@ http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
     <data-mapper:config name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_" transformationGraphPath="getworkersresponsetype_to_xml_bapi_employee_getlist_.grf" doc:name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_"/>
+	<data-mapper:config name="Map_To_XML" transformationGraphPath="map_to_xml.grf" doc:name="Map_To_XML"/>
+    <data-mapper:config name="XML_To_Map_1" transformationGraphPath="xml_to_map_1.grf" doc:name="XML_To_Map"/>
+    <data-mapper:config name="Pojo_To_Map" transformationGraphPath="pojo_to_map.grf" doc:name="Pojo_To_Map"/>
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
-
+    <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>
+    
     <batch:job name="broadcastUsers">
         <batch:threading-profile poolExhaustedAction="WAIT"/>
         <batch:process-records>
             <batch:step name="GetServiceNowUserIfExists">
-                <enricher source="#[payload]" target="#[recordVars['usersInSAP']]" doc:name="store in recordVars['usersInSAP']">
+                <enricher source="#[payload]" target="#[recordVars['userInSAP']]" doc:name="store in recordVars['userInSAP']">
                     <processor-chain doc:name="Processor Chain">
-                        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETLIST" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP">
-                            <sap:definition><![CDATA[<jco>
-   <import> 
-   	<field name="SUR_NAME_SEARK">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName())]</field>
-    <field name="LST_NAME_SEARK">#[#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName())]</field>
- </import>
+                        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
+                            <sap:definition><![CDATA[
+<jco>
+  	<import>	
+		<field name="FSTNAME_M">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName().toUpperCase())]</field>   
+		<field name="LASTNAME_M">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName().toUpperCase())]</field>
+	</import>
 </jco>]]></sap:definition>
                         </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
-                        <logger message="sap: #[payload]" level="INFO" doc:name="Logger"/>
+                        <logger message="sap search: #[payload]" level="INFO" doc:name="Log the result map"/>
                     </processor-chain>
-
-
                 </enricher>
 
+            </batch:step>
+            <batch:step name="MapWorkdayUser">
+                <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map"/>
+                <logger message="sap employee: #[payload]" level="INFO" doc:name="Log the employee map"/>
             </batch:step>
             <batch:step name="UpsertUser" >
 
                 <choice doc:name="Choice">
-                    <when expression="#[payload['id'] == '00000000']">
-                        <logger level="INFO" doc:name="Logger" message="bbbb"/>
+                    <when expression="#[recordVars['userInSAP']['id'] == '00000000']">
+                        <logger level="INFO" doc:name="Logger" message="inserting SAP employee..."/>
+                        <enricher source="#[payload['EmployeeNumber']]" target="#[flowVars['EmployeeNumber']]" doc:name="store in '#[flowVars['EmployeeNumber']]'">
+                            <processor-chain doc:name="Processor Chain">
+                                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
+                                    <sap:definition><![CDATA[<jco>
+  	<import>	
+		<field name="NR_RANGE_NR">03</field>
+		<field name="OBJECT">RP_PREL</field>      
+	</import>
+</jco>]]></sap:definition>
+                
+                
+                                </sap:outbound-endpoint>
+                                <data-mapper:transform config-ref="XML_To_Map_1" doc:name="XML To Map"/>
+                                <logger message="new employee number: #[payload]" level="INFO" doc:name="Log new employee number"/>
+                            </processor-chain>
+                        </enricher>
+                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("EmployeeNumber", flowVars['EmployeeNumber']);]]></expression-component>
+                        <flow-ref name="createSapEmployeeSubflow" doc:name="call createSapEmployeeSubflow"/>
                     </when>
 
                     <otherwise>
-                        <expression-component doc:name="add the servicenow Id to the object to be updated"><![CDATA[payload.put('sysId', recordVars['listOfUsersInServiceNow'].getGetRecordsResult().get(0).getSysId());]]></expression-component>
+                        <logger message="updating SAP employee..." level="INFO" doc:name="Logger"/>
+                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("id", recordVars['userInSAP']['id']);]]></expression-component>
+                        <flow-ref name="updateSapEmployeeSubflow" doc:name="call updateSapEmployeeSubflow"/>
+
 
                     </otherwise>
                 </choice>
@@ -63,4 +91,22 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
             <logger level="INFO" doc:name="Logger" message="Batch completed: #[payload]"/>
         </batch:on-complete>
     </batch:job>
+    
+    <sub-flow name="createSapEmployeeSubflow" doc:name="createSapEmployeeSubflow">
+
+        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML"/>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+
+        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" bapiTransaction="true" evaluateFunctionResponse="true"/>
+
+    
+    </sub-flow>
+    <sub-flow name="updateSapEmployeeSubflow" doc:name="updateSapEmployeeSubflow">
+        <logger message="1111: #[payload]" level="INFO" doc:name="Logger"/>
+        <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML"/>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+        <logger message="2222: #[payload]" level="INFO" doc:name="Logger"/>
+        <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP" exchange-pattern="request-response"/>
+        <logger message="uuuuu: #[payload]" level="INFO" doc:name="Logger"/>
+    </sub-flow>
 </mule>

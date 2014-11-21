@@ -1,21 +1,81 @@
 <?xml version="1.0"?>
 <configuration>
 	<placeholders>
-		<placeholder id="template_name">
-		</placeholder>
+		<placeholder id="template_name">Workday to Salesforce Worker Broadcast</placeholder>
 	</placeholders>
 	<sections>
 		<section id="use_case">
-			<![CDATA[  ]]>
+			<![CDATA[
+I want to synchronize Workers between Workday and SAP.
+
+As implemented, this Anypoint Template leverage the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
+The batch job is divided in Input, Process and On Complete stages.
+1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
+2. In the batch the employee is fetched from SAP by the first and last name and mapped to SAP input data structure.
+3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
+		
+]]>
 		</section>
 		<section id="considerations">
-			<![CDATA[  ]]>
+			<![CDATA[
+To make this Anypoint Template run, there are certain preconditions that must be considered. All of them deal with the preparations in both source and destination systems, that must be made in order for all to run smoothly. **Failling to do so could lead to unexpected behavior of the template.**
+
+## Disclaimer
+
+This Anypoint template uses a few private Maven dependencies in oder to work. If you intend to run this template with Maven support, please continue reading.
+
+You will find that there are three dependencies in the pom.xml file that begin with the following group id: 
+	**com.sap.conn.jco** 
+These dependencies are private for Mulesoft and will cause you application not to build from a Maven command line. You need to replace them with "provided" scope and copy the libraries into the build path.
+]]>
 		</section>
 		<section id="application_configuration">
-			<![CDATA[  ]]>
+<![CDATA[
+### Common configuration
+
++ polling.frequency `10000`
++ polling.start.delay `5000`
++ watermark.default.expression `2014-06-26T12:30:00.000Z`
+
+#### Workday Connector configuration
++ wday.user `admin@workday`
++ wday.password `secret`
++ wday.endpoint `https://impl-cc.workday.com/ccx/service/workday/Human_Resources/v21.1`
+
+### SAP Connector configuration
+
++ sap.jco.ashost `your.sap.address.com`
++ sap.jco.user `SAP_USER`
++ sap.jco.passwd `SAP_PASS`
++ sap.jco.sysnr `14`
++ sap.jco.client `800`
++ sap.jco.lang `EN`
+
+]]>
 		</section>
 		<section id="api_calls">
-			<![CDATA[  ]]>
+<![CDATA[
+Salesforce imposes limits on the number of API Calls that can be made. Therefore calculating this amount may be an important factor to consider. The Anypoint Template calls to the API can be calculated using the formula:
+
+***1 + X + X / 200***
+
+Being ***X*** the number of Products/Materials to be synchronized on each run.
+
+The division by ***200*** is because, by default, Products/Materials are gathered in groups of 200 for each Upsert API Call in the commit step. Also consider that this calls are executed repeatedly every polling cycle.
+
+For instance if 10 records are fetched from origin instance, then 12 API calls will be made (1 + 10 + 1).
+]]>
 		</section>
+		<section id="default_endpoints_xml">
+		<![CDATA[
+This file should contain every inbound endpoint of your integration app. It is intended to contain the application API.
+In this particular template, this file contains a poll inbound endpoints that query Workday for updates using watermark.
+]]>
+		</section>
+		<section id="default_business_logic_xml">
+		<![CDATA[
+This file holds the functional aspect of the template (points 2. to 3. described in the template overview. Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
+]]>
+	</section>
 	</sections>
 </configuration>

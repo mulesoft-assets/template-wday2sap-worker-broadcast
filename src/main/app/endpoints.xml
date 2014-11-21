@@ -5,7 +5,7 @@
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -36,7 +36,7 @@ Here you should not:
 			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}"
 				update-expression="#[ new java.util.Date() ]" />
 			<processor-chain doc:name="query Workers and set collection">
-                <logger message="Fetching Workday updates...#[new java.util.Date()]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
+                <logger message="Fetching Workday updates...#[flowVars['lastQueryDate']] ... #[new java.util.Date()]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"
 					doc:name="get Workers from Workday Human Resource"
 					workersRequest-ref="#[org.mule.templates.WorkersRequest.create(lastQueryDate)]"></wd-hr:get-workers>
@@ -46,9 +46,8 @@ Here you should not:
 			</processor-chain>
 		</poll>
 
-        <set-variable variableName="wdWorker" value="#[payload.get(0)]" doc:name="store worker in variable"/>
 
-        <logger level="INFO" doc:name="log worker's name" message="#[groovy: payload.collect { it.getWorkerData().getPersonalData().getNameData().getPreferredNameData().getNameDetailData().getFirstName() +  ' '+ it.getWorkerData().getPersonalData().getNameData().getPreferredNameData().getNameDetailData().getLastName() } ]"/>
+        <logger level="INFO" doc:name="log worker's name" message="#[groovy: payload.collect { it.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName() +  ' '+ it.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName() } ]"/>
         <batch:execute name="broadcastUsers" doc:name="Batch Execute"/>
 		
 	</flow>

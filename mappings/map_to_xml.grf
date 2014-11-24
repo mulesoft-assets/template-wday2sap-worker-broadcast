@@ -3180,6 +3180,137 @@
 <Dictionary>
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry10" input="true" name="sap_hire_personnel_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry100" input="true" name="sap.hire.org.POSITION" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry101" input="true" name="sap.hire.hr_infotype2.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry102" input="true" name="sap_hire_org_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry103" input="true" name="sap_hire_org_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry104" input="true" name="sap_hire_org_COMP_CODE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry105" input="true" name="sap_hire_org_PERS_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry106" input="true" name="sap_hire_org_EMPLOYEE_GROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry107" input="true" name="sap_hire_org_EMPLOYEE_SUBGROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry108" input="true" name="sap_hire_org_PERSONNEL_SUBAREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry109" input="true" name="sap_hire_org_LEGAL_PERSON" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry11" input="true" name="sap_hire_personnel_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry110" input="true" name="sap_hire_org_PAYROLL_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry111" input="true" name="sap.hire.personnel.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry112" input="true" name="sap_hire_org_COSTCENTER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry113" input="true" name="sap_hire_org_ORG_UNIT" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry114" input="true" name="sap_hire_org_POSITION" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry115" input="true" name="sap_hire_org_JOB" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry116" input="true" name="sap_hire_org_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry117" input="true" name="sap_hire_payroll_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry118" input="true" name="sap_hire_payroll_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry119" input="true" name="sap_hire_payroll_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry12" input="true" name="sap_hire_personnel_ACTION_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry120" input="true" name="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry121" input="true" name="sap_hire_payroll_INITIAL_ENTRY_TIME" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry122" input="true" name="sap.hire.hr_infotype3.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry123" input="true" name="sap_hire_payroll_PERS_NO_INPUT_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry124" input="true" name="sap_hire_payroll_PDC_RECALCULATION_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry125" input="true" name="sap_hire_payroll_INFOTYPE_VIEW_IND" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry126" input="true" name="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry127" input="true" name="sap_hire_personal_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry128" input="true" name="sap_hire_personal_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry129" input="true" name="sap_hire_personal_NAME_FORMAT_INDICATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry13" input="true" name="sap.hire.hr_infotype3.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry130" input="true" name="sap_hire_personal_FORM_OF_ADDRESS_KEY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry131" input="true" name="sap_hire_personal_COUNTRY_OF_BIRTH" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry132" input="true" name="sap_hire_personal_STATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry14" input="true" name="sap_hire_personnel_EMPLOYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry15" input="true" name="sap_hire_personnel_SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry16" input="true" name="sap_hire_hr_infotype1_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry17" input="true" name="sap_hire_hr_infotype1_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry18" input="true" name="sap_hire_hr_infotype1_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry19" input="true" name="sap_hire_hr_infotype1_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="sap.hire.hr_infotype3.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry20" input="true" name="sap_hire_hr_infotype1_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry21" input="true" name="sap_hire_hr_infotype2_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry22" input="true" name="sap_hire_hr_infotype2_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry23" input="true" name="sap_hire_hr_infotype2_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry24" input="true" name="sap.hire.hr_infotype1.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry25" input="true" name="sap_hire_hr_infotype2_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry26" input="true" name="sap_hire_hr_infotype2_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry27" input="true" name="sap_hire_hr_infotype3_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry28" input="true" name="sap_hire_hr_infotype3_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry29" input="true" name="sap_hire_hr_infotype3_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="sap_hire_personal_BIRTHPLACE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry30" input="true" name="sap_hire_hr_infotype3_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry31" input="true" name="sap_hire_hr_infotype3_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry32" input="true" name="sap_hire_hr_infotype4_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry33" input="true" name="sap_hire_hr_infotype4_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry34" input="true" name="sap_hire_hr_infotype4_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry35" input="true" name="sap.hire.hr_infotype3.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry36" input="true" name="sap_hire_hr_infotype4_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry37" input="true" name="sap_hire_hr_object_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry38" input="true" name="sap_hire_hr_object_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry39" input="true" name="sap.hire.payroll.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="sap_hire_personal_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry40" input="true" name="sap.hire.payroll.INITIAL_ENTRY_TIME" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry41" input="true" name="sap.hire.hr_infotype1.PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry42" input="true" name="sap.hire.hr_infotype4.PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry43" input="true" name="sap.hire.hr_infotype4.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry44" input="true" name="sap.hire.org.EMPLOYEE_GROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry45" input="true" name="sap.hire.hr_infotype2.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry46" input="true" name="sap.hire.hr_infotype4.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry47" input="true" name="sap.hire.personal.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry48" input="true" name="sap.hire.personal.NAME_FORMAT_INDICATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry49" input="true" name="sap.hire.hr_infotype2.PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="sap_hire_personal_THIRD_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry50" input="true" name="sap.hire.hr_infotype4.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry51" input="true" name="sap.hire.hr_object.PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry52" input="true" name="sap.hire.org.JOB" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry53" input="true" name="sap.hire.hr_object.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry54" input="true" name="sap.hire.personal.BIRTHPLACE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry55" input="true" name="sap.hire.personal.THIRD_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry56" input="true" name="sap.hire.hr_infotype2.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry57" input="true" name="sap.hire.hr_object.OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry58" input="true" name="sap.hire.org.EMPLOYEE_SUBGROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry59" input="true" name="sap.hire.payroll.PERS_NO_INPUT_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="sap_hire_personal_LANGU" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry60" input="true" name="sap.hire.org.PERSONNEL_SUBAREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry61" input="true" name="sap.hire.personnel.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry62" input="true" name="sap.hire.personnel.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry63" input="true" name="sap.hire.org.LEGAL_PERSON" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry64" input="true" name="a.b.c." output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry65" input="true" name="sap.hire.personal.FORM_OF_ADDRESS_KEY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry66" input="true" name="sap.hire.org.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry67" input="true" name="sap.hire.personnel.SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry68" input="true" name="sap.hire.hr_infotype1.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry69" input="true" name="sap.hire.payroll.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry7" input="true" name="sap_hire_personal_NUMBER_OF_CHILDREN" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry70" input="true" name="sap.hire.payroll.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry71" input="true" name="sap.hire.personal.LANGU" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry72" input="true" name="OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry73" input="true" name="sap.hire.hr_infotype2.OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry74" input="true" name="sap.hire.payroll.PDC_RECALCULATION_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry75" input="true" name="sap.hire.payroll.INFOTYPE_VIEW_IND" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry76" input="true" name="sap.hire.org.COMP_CODE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry77" input="true" name="sap.hire.payroll.EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry78" input="true" name="sap.hire.hr_infotype3.PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry79" input="true" name="sap.hire.personal.COUNTRY_OF_BIRTH" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry8" input="true" name="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry80" input="true" name="sap.hire.org.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry81" input="true" name="sap.hire.org.ORG_UNIT" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry82" input="true" name="sap.hire.personal.STATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry83" input="true" name="sap.hire.hrobject.OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry84" input="true" name="sap.hire.personal.NUMBER_OF_CHILDREN" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry85" input="true" name="sap.hire.org.TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry86" input="true" name="sap.hire.org.COSTCENTER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry87" input="true" name="sap.hire.personal.MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry88" input="true" name="saphirehrobjectOPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry89" input="true" name="sap.hire.org.PAYROLL_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry9" input="true" name="sap_hire_personnel_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry90" input="true" name="sap.hire.personnel.ACTION_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry91" input="true" name="sap.hire.payroll.EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry92" input="true" name="sap.hire.personnel.EMPLOYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry93" input="true" name="sap-hire-hrobject-OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry94" input="true" name="sap.hire.hr_infotype1.INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry95" input="true" name="sap.hire.personal.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry96" input="true" name="sap.hire.hr_infotype1.FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry97" input="true" name="sap.hire.org.PERS_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry98" input="true" name="sap_hire_hrobject_OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry99" input="true" name="sap.hire.personal.NATIONALITY" output="false" type="string"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -3471,10 +3602,10 @@ output.__id = input.__id;
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
+output.OBJ_ID = input.EmployeeNumber;
 output.PLAN_VER = "01";
 output.OBJ_TYPE = "P";
-output.OBJ_ID = input.EmployeeNumber;
-output.OPERATOR = "I";]]></attr>
+output.OPERATOR = inputArguments.sap_hire_hrobject_OPERATOR;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 1" guiX="460" guiY="220" id="FOREACH_EMPLOYEE_ROW1" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3482,12 +3613,12 @@ output.OPERATOR = "I";]]></attr>
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.PLAN_VER = "01";
-output.OBJ_TYPE = "P";
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0000";
-output.FROM_DATE = "20141118";
-output.TO_DATE = "99991231";]]></attr>
+output.PLAN_VER = inputArguments.sap_hire_hr_infotype1_PLAN_VER;
+output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype1_OBJ_TYPE;
+output.INFOTYPE = inputArguments.sap_hire_hr_infotype1_INFOTYPE;
+output.FROM_DATE = inputArguments.sap_hire_hr_infotype1_FROM_DATE;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype1_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_org_assignment Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="320" id="FOREACH_EMPLOYEE_ROW2" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3497,20 +3628,20 @@ output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
 output.INFOTYPE = "0001";
-output.TO_DATE = "99991231";
-output.FROM_DATE = "20141118";
-output.COMP_CODE = "3000";
-output.PERS_AREA = "300";
-output.EMPLOYEE_GROUP = "1";
-output.EMPLOYEE_SUBGROUP = "U5";
-output.PERSONNEL_SUBAREA = "0001";
-output.LEGAL_PERSON = "0001";
-output.PAYROLL_AREA = "PR";
-output.COSTCENTER = "4130";
-output.ORG_UNIT = "50000590";
-output.POSITION = "50000046";
-output.JOB = "50052752";
-output.OBJ_TYPE = "S";]]></attr>
+output.TO_DATE = inputArguments.sap_hire_org_TO_DATE;
+output.FROM_DATE = inputArguments.sap_hire_org_FROM_DATE;
+output.COMP_CODE = inputArguments.sap_hire_org_COMP_CODE;
+output.PERS_AREA = inputArguments.sap_hire_org_PERS_AREA;
+output.EMPLOYEE_GROUP = inputArguments.sap_hire_org_EMPLOYEE_GROUP;
+output.EMPLOYEE_SUBGROUP = inputArguments.sap_hire_org_EMPLOYEE_SUBGROUP;
+output.PERSONNEL_SUBAREA = inputArguments.sap_hire_org_PERSONNEL_SUBAREA;
+output.LEGAL_PERSON = inputArguments.sap_hire_org_LEGAL_PERSON;
+output.PAYROLL_AREA = inputArguments.sap_hire_org_PAYROLL_AREA;
+output.COSTCENTER = inputArguments.sap_hire_org_COSTCENTER;
+output.ORG_UNIT = inputArguments.sap_hire_org_ORG_UNIT;
+output.POSITION = inputArguments.sap_hire_org_POSITION;
+output.JOB = inputArguments.sap_hire_org_JOB;
+output.OBJ_TYPE = inputArguments.sap_hire_org_OBJ_TYPE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_payroll_status Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="420" id="FOREACH_EMPLOYEE_ROW3" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3519,15 +3650,15 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0003";
-output.TO_DATE = "99991231";
-output.FROM_DATE = "18000101";
-output.EARLIEST_MD_CHANGE_SINCE_PAYR = "20141118";
-output.INITIAL_ENTRY_TIME = "175730";
-output.PERS_NO_INPUT_DATE = "20141118";
-output.PDC_RECALCULATION_DATE = "20141118";
-output.INFOTYPE_VIEW_IND = "10";
-output.EARLIEST_PAYROLL_MD_CHANGE = "20141118";]]></attr>
+output.INFOTYPE = inputArguments.sap_hire_payroll_INFOTYPE;
+output.TO_DATE = inputArguments.sap_hire_payroll_TO_DATE;
+output.FROM_DATE = inputArguments.sap_hire_payroll_FROM_DATE;
+output.EARLIEST_MD_CHANGE_SINCE_PAYR = inputArguments.sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR;
+output.INITIAL_ENTRY_TIME = inputArguments.sap_hire_payroll_INITIAL_ENTRY_TIME;
+output.PERS_NO_INPUT_DATE = inputArguments.sap_hire_payroll_PERS_NO_INPUT_DATE;
+output.PDC_RECALCULATION_DATE = inputArguments.sap_hire_payroll_PDC_RECALCULATION_DATE;
+output.INFOTYPE_VIEW_IND = inputArguments.sap_hire_payroll_INFOTYP_VIEW_IND;
+output.EARLIEST_PAYROLL_MD_CHANGE = inputArguments.sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_personnel_action 'Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="520" id="FOREACH_EMPLOYEE_ROW4" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3536,12 +3667,12 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0000";
-output.TO_DATE = "99991231";
-output.FROM_DATE = "20141118";
-output.ACTION_TYPE = "01";
-output.EMPLOYMENT_STATUS = "3";
-output.SPECIAL_PAYMENT_STATUS = "1";]]></attr>
+output.INFOTYPE = inputArguments.sap_hire_personnel_INFOTYPE;
+output.TO_DATE = inputArguments.sap_hire_personnel_TO_DATE;
+output.FROM_DATE = inputArguments.sap_hire_personnel_FROM_DATE;
+output.ACTION_TYPE = inputArguments.sap_hire_personnel_ACTION_TYPE;
+output.EMPLOYMENT_STATUS = inputArguments.sap_hire_personnel_EMPLOYMENT_STATUS;
+output.SPECIAL_PAYMENT_STATUS = inputArguments.sap_hire_personnel_SPECIAL_PAYMENT_STATUS;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_personal_data Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="620" id="FOREACH_EMPLOYEE_ROW5" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3550,36 +3681,36 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.INFOTYPE = "0002";
-output.OBJ_ID = input.EmployeeNumber;
-output.TO_DATE = "99991231";
-output.FROM_DATE = "20141118";
-output.LAST_NAME = input.LastName;
-output.SECOND_NAME = "Mc";
-output.FIRST_NAME = input.FirstName;
-output.FULL_EMPLOYEE_NAME = input.FirstName + " " + input.LastName;;
-output.KNOWN_AS = input.FirstName;
-output.MIDDLE_NAME = "Mc";
-output.NAME_FORMAT_INDICATOR = "0";
-output.FORM_OF_ADDRESS_KEY = "1";
-output.GENDER_KEY = "1";
-output.DATE_BIRTH = "19800101";
-output.COUNTRY_OF_BIRTH = "US";
-output.STATE = "NJ";
-output.BIRTHPLACE = "Parsippany";
-output.NATIONALITY = "US";
-output.THIRD_NATIONALITY = "US";
-output.LANGU = "EN";
-output.NUMBER_OF_CHILDREN = "1";
-output.MODIFIER_FOR_PERSONNEL_ID = "10";
 output.PERSIDNO = "547547574";
 output.YEAR_OF_BIRTH = "1980";
 output.MONTH_OF_BIRTH = "01";
 output.DAY_OF_BIRTH = "01";
+output.SUBTYPE = "";
+output.OBJECT_IDENTIFICATION = "";
+output.LOCKINDIC = "";
+output.SECOND_NAME = "Mc";
+output.MIDDLE_NAME = "Mc";
+output.GENDER_KEY = "1";
+output.DATE_BIRTH = "19800101";
+output.OBJ_ID = input.EmployeeNumber;
+output.LAST_NAME = input.LastName;
+output.FIRST_NAME = input.FirstName;
+output.FULL_EMPLOYEE_NAME = input.FirstName + " " + input.LastName;;
+output.KNOWN_AS = input.FirstName;
 output.LAST_NAME_MATCHCODE = input.LastName.toUpperCase();
 output.FIRST_NAME_MATCHCODE = input.FirstName.toUpperCase();
-output.SUBTYPE = "";;
-output.OBJECT_IDENTIFICATION = "";;
-output.LOCKINDIC = "";]]></attr>
+output.TO_DATE = inputArguments.sap_hire_personal_TO_DATE;
+output.FROM_DATE = inputArguments.sap_hire_personal_FROM_DATE;
+output.NAME_FORMAT_INDICATOR = inputArguments.sap_hire_personal_NAME_FORMAT_INDICATOR;
+output.FORM_OF_ADDRESS_KEY = inputArguments.sap_hire_personal_FORM_OF_ADDRESS_KEY;
+output.COUNTRY_OF_BIRTH = inputArguments.sap_hire_personal_COUNTRY_OF_BIRTH;
+output.STATE = inputArguments.sap_hire_personal_STATE;
+output.BIRTHPLACE = inputArguments.sap_hire_personal_BIRTHPLACE;
+output.NATIONALITY = inputArguments.sap_hire_personal_NATIONALITY;
+output.THIRD_NATIONALITY = inputArguments.sap_hire_personal_THIRD_NATIONALITY;
+output.LANGU = inputArguments.sap_hire_personal_LANGU;
+output.NUMBER_OF_CHILDREN = inputArguments.sap_hire_personal_NUMBER_OF_CHILDREN;
+output.MODIFIER_FOR_PERSONNEL_ID = inputArguments.sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 2" guiX="460" guiY="720" id="FOREACH_EMPLOYEE_ROW6" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3587,12 +3718,12 @@ output.LOCKINDIC = "";]]></attr>
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.PLAN_VER = "01";
-output.OBJ_TYPE = "P";
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0001";
-output.FROM_DATE = "20141118";
-output.TO_DATE = "99991231";]]></attr>
+output.PLAN_VER = inputArguments.sap_hire_hr_infotype2_PLAN_VER;
+output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype2_OBJ_TYPE;
+output.INFOTYPE = inputArguments.sap_hire_hr_infotype2_INFOTYPE;
+output.FROM_DATE = inputArguments.sap_hire_hr_infotype2_FROM_DATE;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype2_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 3" guiX="460" guiY="820" id="FOREACH_EMPLOYEE_ROW7" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3600,12 +3731,12 @@ output.TO_DATE = "99991231";]]></attr>
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.PLAN_VER = "01";
-output.OBJ_TYPE = "P";
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0002";
-output.FROM_DATE = "20141118";
-output.TO_DATE = "99991231";]]></attr>
+output.PLAN_VER = inputArguments.sap_hire_hr_infotype3_PLAN_VER;
+output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype3_OBJ_TYPE;
+output.INFOTYPE = inputArguments.sap_hire_hr_infotype3_INFOTYPE;
+output.FROM_DATE = inputArguments.sap_hire_hr_infotype3_FROM_DATE;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype3_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 4" guiX="460" guiY="920" id="FOREACH_EMPLOYEE_ROW8" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3613,12 +3744,12 @@ output.TO_DATE = "99991231";]]></attr>
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.PLAN_VER = "01";
-output.OBJ_TYPE = "P";
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = "0003";
-output.FROM_DATE = "20141118";
-output.TO_DATE = "99991231";]]></attr>
+output.PLAN_VER = inputArguments.sap_hire_hr_infotype4_PLAN_VER;
+output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype4_OBJ_TYPE;
+output.INFOTYPE = inputArguments.sap_hire_hr_infotype4_INFOTYPE;
+output.FROM_DATE = inputArguments.sap_hire_hr_infotype4_FROM_DATE;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype4_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Duplicate Employee" guiX="240" guiY="20" id="SIMPLE_COPY0" type="SIMPLE_COPY"/>
 <Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 0 (out)" toNode="SIMPLE_COPY0:0"/>

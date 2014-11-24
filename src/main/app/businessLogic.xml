@@ -94,7 +94,75 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     
     <sub-flow name="createSapEmployeeSubflow" doc:name="createSapEmployeeSubflow">
 
-        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML"/>
+        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML">
+            <data-mapper:input-arguments>
+                <data-mapper:input-argument key="sap_hire_org_TO_DATE">${sap.hire.org.TO_DATE}</data-mapper:input-argument>
+                <data-mapper:input-argument key="sap_hire_org_FROM_DATE">${sap.hire.org.FROM_DATE}</data-mapper:input-argument>
+                <data-mapper:input-argument key="sap_hire_org_COMP_CODE">${sap.hire.org.COMP_CODE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_PERS_AREA">${sap.hire.org.PERS_AREA}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_EMPLOYEE_GROUP">${sap.hire.org.EMPLOYEE_GROUP}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_EMPLOYEE_SUBGROUP">${sap.hire.org.EMPLOYEE_SUBGROUP}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_PERSONNEL_SUBAREA">${sap.hire.org.PERSONNEL_SUBAREA}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_LEGAL_PERSON">${sap.hire.org.LEGAL_PERSON}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_PAYROLL_AREA">${sap.hire.org.PAYROLL_AREA}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_COSTCENTER">${sap.hire.org.COSTCENTER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_ORG_UNIT">${sap.hire.org.ORG_UNIT}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_POSITION">${sap.hire.org.POSITION}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_OBJ_TYPE">${sap.hire.org.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_INFOTYPE">${sap.hire.payroll.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_TO_DATE">${sap.hire.payroll.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_FROM_DATE">${sap.hire.payroll.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR">${sap.hire.payroll.EARLIEST_MD_CHANGE_SINCE_PAYR}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_INITIAL_ENTRY_TIME">${sap.hire.payroll.INITIAL_ENTRY_TIME}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_PERS_NO_INPUT_DATE">${sap.hire.payroll.PERS_NO_INPUT_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_PDC_RECALCULATION_DATE">${sap.hire.payroll.PDC_RECALCULATION_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_INFOTYPE_VIEW_IND">${sap.hire.payroll.INFOTYPE_VIEW_IND}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE">${sap.hire.payroll.EARLIEST_PAYROLL_MD_CHANGE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_TO_DATE">${sap.hire.personal.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_FROM_DATE">${sap.hire.personal.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_NAME_FORMAT_INDICATOR">${sap.hire.personal.NAME_FORMAT_INDICATOR}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_FORM_OF_ADDRESS_KEY">${sap.hire.personal.FORM_OF_ADDRESS_KEY}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_COUNTRY_OF_BIRTH">${sap.hire.personal.COUNTRY_OF_BIRTH}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_STATE">${sap.hire.personal.STATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_BIRTHPLACE">${sap.hire.personal.BIRTHPLACE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_NATIONALITY">${sap.hire.personal.NATIONALITY}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_THIRD_NATIONALITY">${sap.hire.personal.THIRD_NATIONALITY}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_LANGU">${sap.hire.personal.LANGU}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_NUMBER_OF_CHILDREN">${sap.hire.personal.NUMBER_OF_CHILDREN}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID">${sap.hire.personal.MODIFIER_FOR_PERSONNEL_ID}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_INFOTYPE">${sap.hire.personnel.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_TO_DATE">${sap.hire.personnel.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_FROM_DATE">${sap.hire.personnel.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_ACTION_TYPE">${sap.hire.personnel.ACTION_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_EMPLOYMENT_STATUS">${sap.hire.personnel.EMPLOYMENT_STATUS}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_personnel_SPECIAL_PAYMENT_STATUS">${sap.hire.personnel.SPECIAL_PAYMENT_STATUS}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype1_PLAN_VER">${sap.hire.hr_infotype1.PLAN_VER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype1_OBJ_TYPE">${sap.hire.hr_infotype1.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype1_INFOTYPE">${sap.hire.hr_infotype1.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype1_FROM_DATE">${sap.hire.hr_infotype1.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype1_TO_DATE">${sap.hire.hr_infotype1.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype2_PLAN_VER">${sap.hire.hr_infotype2.PLAN_VER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype2_OBJ_TYPE">${sap.hire.hr_infotype2.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype2_INFOTYPE">${sap.hire.hr_infotype2.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype2_FROM_DATE">${sap.hire.hr_infotype2.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype2_TO_DATE">${sap.hire.hr_infotype2.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype3_PLAN_VER">${sap.hire.hr_infotype3.PLAN_VER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype3_OBJ_TYPE">${sap.hire.hr_infotype3.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype3_INFOTYPE">${sap.hire.hr_infotype3.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype3_FROM_DATE">${sap.hire.hr_infotype3.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype3_TO_DATE">${sap.hire.hr_infotype3.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype4_PLAN_VER">${sap.hire.hr_infotype4.PLAN_VER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype4_OBJ_TYPE">${sap.hire.hr_infotype4.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype4_INFOTYPE">${sap.hire.hr_infotype4.INFOTYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype4_FROM_DATE">${sap.hire.hr_infotype4.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype4_FROM_DATE">${sap.hire.hr_infotype4.FROM_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_object_PLAN_VER">${sap.hire.hr_object.PLAN_VER}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_object_OBJ_TYPE">${sap.hire.hr_object.OBJ_TYPE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hrobject_OPERATOR">${sap.hire.hr_object.OPERATOR}</data-mapper:input-argument>
+                
+            </data-mapper:input-arguments>
+        </data-mapper:transform>
         <byte-array-to-string-transformer doc:name="Byte Array to String"/>
 
         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" bapiTransaction="true" evaluateFunctionResponse="true"/>

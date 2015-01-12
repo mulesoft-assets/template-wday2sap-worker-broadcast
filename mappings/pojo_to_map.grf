@@ -697,8 +697,15 @@
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
 <Field __index="0" __sourcePath="{}/employee/FirstName" containerType="SINGLE" label="FirstName" name="FirstName" type="string"/>
 <Field __sourcePath="{}/employee/LastName" containerType="SINGLE" label="LastName" name="LastName" type="string"/>
-<Field __sourcePath="{}/employee/birthDate" containerType="SINGLE" label="birthDate" name="birthDate" type="string"/>
 <Field __sourcePath="{}/employee/MiddleName" containerType="SINGLE" label="MiddleName" name="middleName" type="string"/>
+<Field __sourcePath="{}/employee/gender" containerType="SINGLE" label="gender" name="gender" type="string"/>
+<Field __sourcePath="{}/employee/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
+<Field __sourcePath="{}/employee/Email" containerType="SINGLE" label="Email" name="Email" type="string"/>
+<Field __sourcePath="{}/employee/CountryOfBirth" containerType="SINGLE" label="CountryOfBirth" name="CountryOfBirth" type="string"/>
+<Field __sourcePath="{}/employee/BirthPlace" containerType="SINGLE" label="BirthPlace" name="BirthPlace" type="string"/>
+<Field __sourcePath="{}/employee/Nationality" containerType="SINGLE" label="Nationality" name="Nationality" type="string"/>
+<Field __sourcePath="{}/employee/Children" containerType="SINGLE" label="Children" length="12" name="Children" scale="2" type="decimal"/>
+<Field __sourcePath="{}/employee/State" containerType="SINGLE" label="State" name="State" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="782" __referenceCounter="0" __sourcePath="{}/object/workerData/employeeContractsData/employeeContractData/employeeContractCollectiveAgreementReference" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="99c3febc-af6f-4001-8062-fe752734f9d2" _parent_id="__parent_id" _type="Input" id="7ca4d10e-9aa7-4e8e-ba22-77f0e366d197">
@@ -7320,6 +7327,11 @@
 <Field __index="2598" __sourcePath="{}/object/workerData/userID" containerType="SINGLE" label="userID" name="userID" type="string"/>
 <Field __index="2622" __sourcePath="{}/object/workerData/workerID" containerType="SINGLE" label="workerID" name="workerID" type="string"/>
 <Field __index="2625" __sourcePath="{}/object/workerReference/descriptor" containerType="SINGLE" label="descriptor" name="descriptor_113" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/genderReference/ID[2]/value" containerType="SINGLE" label="GenderRule" name="GenderRule" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/contactData/emailAddressData[1]/emailAddress" containerType="SINGLE" label="EmailRule" name="EmailRule" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/countryOfBirthReference/ID[1]/value" containerType="SINGLE" label="CoBRule" name="CoBRule" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/nationalityReference/ID[1]/value" containerType="SINGLE" label="NationalityRule" name="NationalityRule" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/regionOfBirthReference/ID[1]/value" containerType="SINGLE" label="StateRule" name="StateRule" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="1954" __referenceCounter="0" __sourcePath="{}/object/workerData/qualificationData/workExperience" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="e12228ac-7142-4d54-a18b-eeebbff57cbe" _parent_id="__parent_id" _type="Input" id="872cd2d8-1798-4c91-b8b7-95c80228da02">
@@ -7335,6 +7347,7 @@
 <Dictionary>
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="defaultDOB" output="false" type="string"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -7615,6 +7628,11 @@
   <Mapping cloverField="userID" trim="true" xpath="workerData/userID"/>
   <Mapping cloverField="workerID" trim="true" xpath="workerData/workerID"/>
   <Mapping cloverField="descriptor_113" trim="true" xpath="workerReference/descriptor"/>
+  <Mapping cloverField="GenderRule" trim="true" xpath="workerData/personalData/genderReference/ID[2]/value"/>
+  <Mapping cloverField="EmailRule" trim="true" xpath="workerData/personalData/contactData/emailAddressData[1]/emailAddress"/>
+  <Mapping cloverField="CoBRule" trim="true" xpath="workerData/personalData/countryOfBirthReference/ID[1]/value"/>
+  <Mapping cloverField="NationalityRule" trim="true" xpath="workerData/personalData/nationalityReference/ID[1]/value"/>
+  <Mapping cloverField="StateRule" trim="true" xpath="workerData/personalData/regionOfBirthReference/ID[1]/value"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
@@ -11340,16 +11358,30 @@ output.__id = input.__id;
 //END -> DO NOT REMOVE
 output.FirstName = input.firstName;
 output.LastName = input.lastName;
-output.birthDate = calendar2str(input.birthDate,"yyyyMMdd");
-output.middleName = input.middleName_1;]]></attr>
+output.middleName = input.middleName_1;
+output.gender = isnull(input.GenderRule) ? "1" : (input.GenderRule == "Female" : "1" : "0");
+output.Dob = isnull(input.birthDate) ? str2date(inputArguments.defaultDOB, "dd.MM.yyyy") : calendar2date(input.birthDate);
+output.Email = input.EmailRule;
+output.CountryOfBirth = input.CoBRule;
+output.BirthPlace = input.cityOfBirth;
+output.Nationality = input.NationalityRule;
+output.Children = input.numberOfPayrollDependents;
+output.State = input.StateRule;]]></attr>
 </Node>
 <Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <employee xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
   <FirstName>$0.FirstName</FirstName>
   <LastName>$0.LastName</LastName>
-  <birthDate>$0.birthDate</birthDate>
   <MiddleName>$0.middleName</MiddleName>
+  <gender>$0.gender</gender>
+  <Dob>$0.Dob</Dob>
+  <Email>$0.Email</Email>
+  <CountryOfBirth>$0.CountryOfBirth</CountryOfBirth>
+  <BirthPlace>$0.BirthPlace</BirthPlace>
+  <Nationality>$0.Nationality</Nationality>
+  <Children>$0.Children</Children>
+  <State>$0.State</State>
 </employee>]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
 </Node>

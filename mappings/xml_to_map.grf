@@ -43,6 +43,12 @@
 <Field __sourcePath="{}/employee/id" containerType="SINGLE" label="id" name="id" type="string"/>
 <Field __sourcePath="{}/employee/lastName" containerType="SINGLE" label="lastName" name="lastName" type="string"/>
 <Field __sourcePath="{}/employee/firstName" containerType="SINGLE" label="firstName" name="firstName" type="string"/>
+<Field __sourcePath="{}/employee/subtype" containerType="SINGLE" label="subtype" name="subtype" type="string"/>
+<Field __sourcePath="{}/employee/objectid" containerType="SINGLE" label="objectid" name="objectid" type="string"/>
+<Field __sourcePath="{}/employee/idnumber" containerType="SINGLE" label="idnumber" name="idnumber" type="string"/>
+<Field __sourcePath="{}/employee/birthdate" containerType="SINGLE" label="birthdate" name="dateOfBirth" type="string"/>
+<Field __sourcePath="{}/employee/from" containerType="SINGLE" label="from" name="from" type="string"/>
+<Field __sourcePath="{}/employee/to" containerType="SINGLE" label="to" name="to" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="32" __referenceCounter="0" __sourcePath="{}/BAPI_EMPLOYEE_GETDATA/tables/ARCHIVELINK/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="3eb8e341-4a4a-4e9e-9de4-789ebf6792e6" _parent_id="__parent_id" _type="Input" id="b4bbdc37-a368-48e4-ba91-406fa51dca3a">
@@ -287,7 +293,13 @@ output.__id = input.__id;
 //END -> DO NOT REMOVE
 output.id = input.PERNO;
 output.lastName = input.LAST_NAME;
-output.firstName = input.FIRSTNAME;]]></attr>
+output.firstName = input.FIRSTNAME;
+output.subtype = input.SUBTYPE;
+output.objectid = input.OBJECT_ID;
+output.to = input.TO_DATE;
+output.from = input.FROM_DATE;
+output.dateOfBirth = input.BIRTHDATE;
+output.idnumber = input.PERID;]]></attr>
 </Node>
 <Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -295,6 +307,12 @@ output.firstName = input.FIRSTNAME;]]></attr>
   <id>$0.id</id>
   <lastName>$0.lastName</lastName>
   <firstName>$0.firstName</firstName>
+  <subtype>$0.subtype</subtype>
+  <objectid>$0.objectid</objectid>
+  <idnumber>$0.idnumber</idnumber>
+  <birthdate>$0.dateOfBirth</birthdate>
+  <from>$0.from</from>
+  <to>$0.to</to>
 </employee>]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
 </Node>

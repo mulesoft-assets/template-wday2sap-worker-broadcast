@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -34,14 +35,16 @@ import com.mulesoft.module.batch.BatchTestHelper;
  */
 public class BusinessLogicIT extends AbstractTemplateTestCase {
 
-	private static final long TIMEOUT_MILLIS = 180000;
+	private static final long TIMEOUT_MILLIS = 300000;
 	private static final long DELAY_MILLIS = 500;
 	protected static final String PATH_TO_TEST_PROPERTIES = "./src/test/resources/mule.test.properties";
 	protected static final int TIMEOUT_SEC = 60;
 	private static final String TEST_NAME = "wday";
 	private BatchTestHelper helper;
-	private Employee user;	
+	private Employee user;
+	private Map<String, String> emailUser;
 	private static String WORKDAY_ID;	
+    private static String EMAIL = "@broadcast.com"; 
     
     @BeforeClass
     public static void beforeTestClass() {
@@ -61,11 +64,17 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
     	helper = new BatchTestHelper(muleContext);
 		stopFlowSchedulers(POLL_FLOW_NAME);
 		registerListeners();
-		
-		createTestDataInSandBox(generateEmployee());
+				
     }
 
-    @After
+    private Map<String, String> generateEmail() {
+    	emailUser = new HashMap<String, String>();
+    	emailUser.put("Email", System.currentTimeMillis() + EMAIL);
+    	emailUser.put("Id", WORKDAY_ID);    	
+    	return emailUser;
+	}
+
+	@After
     public void tearDown() throws MuleException, Exception {
     	deleteTestDataFromSandBox();
     }
@@ -74,8 +83,19 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		muleContext.registerListener(pipelineListener);
 	}
     
-    private void createTestDataInSandBox(Employee user) throws MuleException, Exception {
-		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("updateWorkdayEmployee");
+    private void updateNameTestDataInSandBox(Employee user) throws MuleException, Exception {
+		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("updateWorkdayEmployeeName");
+		flow.initialise();
+		logger.info("updating a workday employee...");
+		try {
+			flow.process(getTestEvent(user, MessageExchangePattern.REQUEST_RESPONSE));						
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+    
+    private void updateEmailTestDataInSandBox(Map<String, String> user) throws MuleException, Exception {
+		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("updateWorkdayEmployeeEmail");
 		flow.initialise();
 		logger.info("updating a workday employee...");
 		try {
@@ -86,30 +106,33 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	}
     
     private Employee generateEmployee(){    	
-//    	user = new Employee(TEST_NAME + System.currentTimeMillis(), TEST_NAME + System.currentTimeMillis(), WORKDAY_ID);  
-    	user = new Employee(TEST_NAME, TEST_NAME, "" + System.currentTimeMillis(), WORKDAY_ID);  
+    	user = new Employee(TEST_NAME + System.currentTimeMillis(), TEST_NAME + System.currentTimeMillis(), "", WORKDAY_ID);  
 		return user;
 	}
         
 	@SuppressWarnings("unchecked")
 	@Test
-    public void testMainFlow() throws Exception {
-		// the first one is testing insert branch
+    public void testCreateFlow() throws Exception {
+		updateEmailTestDataInSandBox(generateEmail());
+		// this is testing the insert branch
 		basicTest();
 		
-		// the second one is testing update branch
+		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("getSAPEmployeeByEmail");
+		flow.initialise();
+		MuleEvent response = flow.process(getTestEvent(emailUser.get("Email"), MessageExchangePattern.REQUEST_RESPONSE));
 		
-//		basicTest();
+		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();
+		logger.info("sap employee after create: " + sapEmployee);
+		assertNotNull("SAP Employee should have been synced", sapEmployee);
+								
     }
 
-	private void basicTest() throws InterruptedException, Exception,
-			InitialisationException, MuleException {
-		Thread.sleep(10000);
-		runSchedulersOnce(POLL_FLOW_NAME);
-		waitForPollToRun();
-		helper.awaitJobTermination(TIMEOUT_MILLIS, DELAY_MILLIS);
-		helper.assertJobWasSuccessful();	
-				
+	@Test
+    public void testUpdateFlow() throws Exception {
+		updateNameTestDataInSandBox(generateEmployee());
+		// this is testing the update branch		
+		basicTest();
+		
 		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("getSAPEmployee");
 		flow.initialise();
 		Map<String, String> map = new HashMap<String, String>();
@@ -119,8 +142,15 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();
 		logger.info("sap employee: " + sapEmployee);
 		assertNotNull("SAP Employee should have been synced", sapEmployee.get("id"));
-		assertEquals("SAP Employee First Name should be synced", user.getGivenName(), sapEmployee.get("firstName"));
-		assertEquals("SAP Employee Last Name should be synced", user.getFamilyName(), sapEmployee.get("lastName"));
+		
+    }
+	private void basicTest() throws InterruptedException, Exception,
+			InitialisationException, MuleException {
+		Thread.sleep(20000);
+		runSchedulersOnce(POLL_FLOW_NAME);
+		waitForPollToRun();
+		helper.awaitJobTermination(TIMEOUT_MILLIS, DELAY_MILLIS);
+		helper.assertJobWasSuccessful();							
 	}    
     
     private void deleteTestDataFromSandBox() throws MuleException, Exception {

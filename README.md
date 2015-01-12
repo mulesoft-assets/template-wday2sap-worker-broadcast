@@ -30,9 +30,9 @@ I want to synchronize Workers between Workday and SAP.
 
 As implemented, this Anypoint Template leverage the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
 The batch job is divided in Input, Process and On Complete stages.
-The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
-In the batch the employee is fetched from SAP by the first and last name.
-Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
+1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
+2. In the batch the employee is fetched from SAP by the email and mapped to SAP input data structure.
+3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
 
 # Considerations <a name="considerations"/>
 
@@ -63,6 +63,7 @@ There are no particular considerations for this Anypoint Template regarding Sap 
 ### As source of data
 
 There are no particular considerations for this Anypoint Template regarding Workday as data origin.
+
 
 # Run it! <a name="runit"/>
 Simple steps to get Workday to Salesforce Worker Broadcast running.
@@ -119,7 +120,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 
 + polling.frequency `10000`
 + polling.start.delay `5000`
-+ watermark.default.expression `2014-06-26T12:30:00.000Z`
++ watermark.default.expression `#[groovy: new Date()]`
 
 #### Workday Connector configuration
 + wday.user `admin@workday`
@@ -135,22 +136,25 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sap.jco.client `800`
 + sap.jco.lang `EN`
 
-### SAP Material properties configuration
+### SAP HR configuration
 
-+ sap.material.type `ZHTI`
-+ sap.material.industrySector `T`
-+ sap.material.baseUnitOfMeasurement `KGS`
++ sap.hire.org.COMP_CODE `3000`
++ sap.hire.org.PERS_AREA `300`
++ sap.hire.org.EMPLOYEE_GROUP `1`
++ sap.hire.org.EMPLOYEE_SUBGROUP `U5`
++ sap.hire.org.PERSONNEL_SUBAREA `0001`
++ sap.hire.org.LEGAL_PERSON `0001`
++ sap.hire.org.PAYROLL_AREA `PR`
++ sap.hire.org.COSTCENTER `4130`
++ sap.hire.org.ORG_UNIT `50000590`
++ sap.hire.org.POSITION `50000046`
++ sap.hire.org.JOB `50052752`
++ sap.hire.personal.PERSIDNO `547547574`
++ sap.hire.hr_infotype.TO_DATE `99991231`
++ sap.hire.default.dob `01.01.1980`
 
 # API Calls <a name="apicalls"/>
-Salesforce imposes limits on the number of API Calls that can be made. Therefore calculating this amount may be an important factor to consider. The Anypoint Template calls to the API can be calculated using the formula:
-
-***1 + X + X / 200***
-
-Being ***X*** the number of Products/Materials to be synchronized on each run.
-
-The division by ***200*** is because, by default, Products/Materials are gathered in groups of 200 for each Upsert API Call in the commit step. Also consider that this calls are executed repeatedly every polling cycle.
-
-For instance if 10 records are fetched from origin instance, then 12 API calls will be made (1 + 10 + 1).
+There are no special considerations regarding API calls.
 
 
 # Customize It!<a name="customizeit"/>
@@ -173,17 +177,13 @@ In the visual editor they can be found on the *Global Element* tab.
 
 
 ## businessLogic.xml<a name="businesslogicxml"/>
-Functional aspect of the Anypoint Template is implemented on this XML, directed by a batch job that will be responsible for creations/updates. The several message processors constitute four high level actions that fully implement the logic of this Anypoint Template:
-
-1. Job execution is invoked from triggerFlow (endpoints.xml) everytime there is a new query executed asking for created/updated Contacts.
-2. During the Process stage, each SFDC User will be filtered depending on, if it has an existing matching user in the SFDC Org B.
-3. The last step of the Process stage will group the users and create/update them in SFDC Org B.
-Finally during the On Complete stage the Anypoint Template will logoutput statistics data into the console.
+This file holds the functional aspect of the template (points 2. to 3. described in the template overview. Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
 
 
 
 ## endpoints.xml<a name="endpointsxml"/>
-This is file is conformed by a Flow containing the Poll that will periodically query Sales Force for updated/created Contacts that meet the defined criteria in the query. And then executing the batch job process with the query results.
+This file should contain every inbound endpoint of your integration app. It is intended to contain the application API.
+In this particular template, this file contains a poll inbound endpoints that query Workday for updates using watermark.
 
 
 

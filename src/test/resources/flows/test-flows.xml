@@ -16,39 +16,47 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <data-mapper:config name="User_To_Contact" transformationGraphPath="user_to_maintaincontactinformationforpersoneventrequesttype.grf" doc:name="DataMapper"/>
     <data-mapper:config name="Map_To_WorkdayAccountForWorkerUpdateType" transformationGraphPath="map_to_workdayaccountforworkerupdatetype.grf" doc:name="Map_To_WorkdayAccountForWorkerUpdateType"/>
     <data-mapper:config name="Pojo_To_ChangeLegalNameRequestType" transformationGraphPath="pojo_to_changelegalnamerequesttype.grf" doc:name="Pojo_To_ChangeLegalNameRequestType"/>
+    <sub-flow name="getSAPEmployeeByEmail" doc:name="getSAPEmployeeByEmail">
+        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
+            <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
+  	<import>	
+		<USERID>#[org.apache.commons.lang3.StringEscapeUtils.escapeXml("*" + payload.toUpperCase() + "*")]</USERID> 		
+	</import>
+</BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
+
+    	</sap:outbound-endpoint>
+    	<data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+        <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
+
+    </sub-flow>
     <sub-flow name="getSAPEmployee" doc:name="getSAPEmployee">
-    	<processor-chain doc:name="Processor Chain">
-            <logger message="bbbb: #[payload]" level="INFO" doc:name="Logger"/>
-           <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP">
-                <sap:definition><![CDATA[
-					<jco>
+        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
+            <sap:definition><![CDATA[
+					<BAPI_EMPLOYEE_GETDATA>
 					  	<import>	
-							<field name="FSTNAME_M">#[payload['firstName'].toUpperCase()]</field>   
-							<field name="LASTNAME_M">#[payload['lastName'].toUpperCase()]</field>
+							<FSTNAME_M>#[payload['firstName'].toUpperCase()]</FSTNAME_M>   
+							<LASTNAME_M>#[payload['lastName'].toUpperCase()]</LASTNAME_M>
 						</import>
-					</jco>]]></sap:definition>
+					</BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
-           </sap:outbound-endpoint>
-            <logger message="aaaaa: #[payload]" level="INFO" doc:name="Copy_of_Logger"/>
+       </sap:outbound-endpoint>
+        <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+        <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
 
-           <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
-            <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
-
-       </processor-chain>
     </sub-flow>
 
 	
     
-    <sub-flow name="updateWorkdayEmployee1" doc:name="updateWorkdayEmployee1">
-        <data-mapper:transform doc:name="DataMapper" config-ref="User_To_Contact"/>
+    <sub-flow name="updateWorkdayEmployeeEmail" doc:name="updateWorkdayEmployeeEmail">
+        <data-mapper:transform doc:name="Map to Maintain Contact" config-ref="User_To_Contact">
+            <data-mapper:input-arguments>
+                <data-mapper:input-argument key="EffectiveDate">#[new java.util.Date()]</data-mapper:input-argument>
+            </data-mapper:input-arguments>
+        </data-mapper:transform>
         <wd-hr:maintain-contact-information config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
 
     </sub-flow>
-    <sub-flow name="updateWorkdayEmployee2" doc:name="updateWorkdayEmployee2">
-        <data-mapper:transform config-ref="Map_To_WorkdayAccountForWorkerUpdateType" doc:name="Map To WorkdayAccountForWorkerUpdateType"/>
-        <wd-hr:update-workday-account config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
-    </sub-flow>
-    <sub-flow name="updateWorkdayEmployee" doc:name="updateWorkdayEmployee">
+    <sub-flow name="updateWorkdayEmployeeName" doc:name="updateWorkdayEmployeeName">
         <data-mapper:transform config-ref="Pojo_To_ChangeLegalNameRequestType" doc:name="Pojo To ChangeLegalNameRequestType"/>
         <wd-hr:change-legal-name config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
     </sub-flow>

@@ -2,6 +2,6 @@
 <mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.5.2.ee" schemaVersion="3.5.0.0">
     <name>template-wday2sap-worker-broadcast</name>
     <description></description>
-    <muleExtension name="Workday Human Resource" qualifier="org.mule.tooling.ui.contribution.wd-hr"/>
     <muleExtension name="SAP" qualifier="org.mule.tooling.ui.contribution.sap.3.5.0"/>
+    <muleExtension name="Workday Human Resource" qualifier="org.mule.tooling.ui.contribution.wd-hr"/>
 </mule-project>

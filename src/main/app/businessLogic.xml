@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:core="http://www.mulesoft.org/schema/mule/core"
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:core="http://www.mulesoft.org/schema/mule/core"
 	xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
 	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
 	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
@@ -18,13 +18,15 @@ http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schem
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
-http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
-    <data-mapper:config name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_" transformationGraphPath="getworkersresponsetype_to_xml_bapi_employee_getlist_.grf" doc:name="GetWorkersResponseType_To_Xml_BAPI_EMPLOYEE_GETLIST_"/>
-	<data-mapper:config name="Map_To_XML" transformationGraphPath="map_to_xml.grf" doc:name="Map_To_XML"/>
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<data-mapper:config name="Map_To_XML1" transformationGraphPath="map_to_xml1.grf" doc:name="Map_To_XML"/>
     <data-mapper:config name="XML_To_Map_1" transformationGraphPath="xml_to_map_1.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Pojo_To_Map" transformationGraphPath="pojo_to_map.grf" doc:name="Pojo_To_Map"/>
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>
+    <data-mapper:config name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_" transformationGraphPath="map_to_xml_bapi_employee_enqueue_.grf" doc:name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_"/>
+    
     
     <batch:job name="broadcastUsers">
         <batch:threading-profile poolExhaustedAction="WAIT"/>
@@ -33,13 +35,11 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                 <enricher source="#[payload]" target="#[recordVars['userInSAP']]" doc:name="store in recordVars['userInSAP']">
                     <processor-chain doc:name="Processor Chain">
                         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
-                            <sap:definition><![CDATA[
-<jco>
+                            <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
   	<import>	
-		<field name="FSTNAME_M">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName().toUpperCase())]</field>   
-		<field name="LASTNAME_M">#[org.apache.commons.lang3.StringEscapeUtils.escapeXml(payload.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName().toUpperCase())]</field>
+		<USERID>#[org.apache.commons.lang3.StringEscapeUtils.escapeXml("*" + payload.getWorkerData().getPersonalData().getContactData().getEmailAddressData().get(0).getEmailAddress().toUpperCase() + "*")]</USERID> 		
 	</import>
-</jco>]]></sap:definition>
+</BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
                         </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
                         <logger message="sap search: #[payload]" level="INFO" doc:name="Log the result map"/>
@@ -48,23 +48,26 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 
             </batch:step>
             <batch:step name="MapWorkdayUser">
-                <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map"/>
+                <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map">
+                    <data-mapper:input-arguments>
+                        <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
+                    </data-mapper:input-arguments>
+                </data-mapper:transform>
                 <logger message="sap employee: #[payload]" level="INFO" doc:name="Log the employee map"/>
             </batch:step>
             <batch:step name="UpsertUser" >
-
                 <choice doc:name="Choice">
-                    <when expression="#[recordVars['userInSAP']['id'] == '00000000']">
+                    <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">
                         <logger level="INFO" doc:name="Logger" message="inserting SAP employee..."/>
                         <enricher source="#[payload['EmployeeNumber']]" target="#[flowVars['EmployeeNumber']]" doc:name="store in '#[flowVars['EmployeeNumber']]'">
                             <processor-chain doc:name="Processor Chain">
                                 <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
-                                    <sap:definition><![CDATA[<jco>
+                                    <sap:definition><![CDATA[<ZMULE_NUMBER_GET_NEXT>
   	<import>	
-		<field name="NR_RANGE_NR">03</field>
-		<field name="OBJECT">RP_PREL</field>      
+		<NR_RANGE_NR>03</NR_RANGE_NR>
+		<OBJECT>RP_PREL</OBJECT>      
 	</import>
-</jco>]]></sap:definition>
+</ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
                 
                 
                                 </sap:outbound-endpoint>
@@ -72,32 +75,27 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                                 <logger message="new employee number: #[payload]" level="INFO" doc:name="Log new employee number"/>
                             </processor-chain>
                         </enricher>
-                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("EmployeeNumber", flowVars['EmployeeNumber']);]]></expression-component>
+                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("EmployeeNumber", flowVars['EmployeeNumber']);
+]]></expression-component>
                         <flow-ref name="createSapEmployeeSubflow" doc:name="call createSapEmployeeSubflow"/>
                     </when>
-
                     <otherwise>
                         <logger message="updating SAP employee..." level="INFO" doc:name="Logger"/>
                         <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("id", recordVars['userInSAP']['id']);]]></expression-component>
                         <flow-ref name="updateSapEmployeeSubflow" doc:name="call updateSapEmployeeSubflow"/>
-
-
                     </otherwise>
                 </choice>
             </batch:step>
         </batch:process-records>
         <batch:on-complete>
             <json:object-to-json-transformer doc:name=" transform response to JSON"/>
-            <logger level="INFO" doc:name="Logger" message="Batch completed: #[payload]"/>
+            <logger level="INFO" doc:name="Log the batch result" message="Batch completed: #[payload]"/>
         </batch:on-complete>
     </batch:job>
     
     <sub-flow name="createSapEmployeeSubflow" doc:name="createSapEmployeeSubflow">
-
-        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML">
+        <data-mapper:transform config-ref="Map_To_XML1" doc:name="Map To XML">
             <data-mapper:input-arguments>
-                <data-mapper:input-argument key="sap_hire_org_TO_DATE">${sap.hire.org.TO_DATE}</data-mapper:input-argument>
-                <data-mapper:input-argument key="sap_hire_org_FROM_DATE">${sap.hire.org.FROM_DATE}</data-mapper:input-argument>
                 <data-mapper:input-argument key="sap_hire_org_COMP_CODE">${sap.hire.org.COMP_CODE}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_PERS_AREA">${sap.hire.org.PERS_AREA}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_EMPLOYEE_GROUP">${sap.hire.org.EMPLOYEE_GROUP}</data-mapper:input-argument>
@@ -109,72 +107,38 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 				<data-mapper:input-argument key="sap_hire_org_ORG_UNIT">${sap.hire.org.ORG_UNIT}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_POSITION">${sap.hire.org.POSITION}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_OBJ_TYPE">${sap.hire.org.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_INFOTYPE">${sap.hire.payroll.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_TO_DATE">${sap.hire.payroll.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_FROM_DATE">${sap.hire.payroll.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR">${sap.hire.payroll.EARLIEST_MD_CHANGE_SINCE_PAYR}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_INITIAL_ENTRY_TIME">${sap.hire.payroll.INITIAL_ENTRY_TIME}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_PERS_NO_INPUT_DATE">${sap.hire.payroll.PERS_NO_INPUT_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_PDC_RECALCULATION_DATE">${sap.hire.payroll.PDC_RECALCULATION_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_INFOTYPE_VIEW_IND">${sap.hire.payroll.INFOTYPE_VIEW_IND}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE">${sap.hire.payroll.EARLIEST_PAYROLL_MD_CHANGE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_TO_DATE">${sap.hire.personal.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_FROM_DATE">${sap.hire.personal.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_NAME_FORMAT_INDICATOR">${sap.hire.personal.NAME_FORMAT_INDICATOR}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_FORM_OF_ADDRESS_KEY">${sap.hire.personal.FORM_OF_ADDRESS_KEY}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_COUNTRY_OF_BIRTH">${sap.hire.personal.COUNTRY_OF_BIRTH}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_STATE">${sap.hire.personal.STATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_BIRTHPLACE">${sap.hire.personal.BIRTHPLACE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_NATIONALITY">${sap.hire.personal.NATIONALITY}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_THIRD_NATIONALITY">${sap.hire.personal.THIRD_NATIONALITY}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_LANGU">${sap.hire.personal.LANGU}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_NUMBER_OF_CHILDREN">${sap.hire.personal.NUMBER_OF_CHILDREN}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID">${sap.hire.personal.MODIFIER_FOR_PERSONNEL_ID}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_INFOTYPE">${sap.hire.personnel.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_TO_DATE">${sap.hire.personnel.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_FROM_DATE">${sap.hire.personnel.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_ACTION_TYPE">${sap.hire.personnel.ACTION_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_EMPLOYMENT_STATUS">${sap.hire.personnel.EMPLOYMENT_STATUS}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personnel_SPECIAL_PAYMENT_STATUS">${sap.hire.personnel.SPECIAL_PAYMENT_STATUS}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype1_PLAN_VER">${sap.hire.hr_infotype1.PLAN_VER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype1_OBJ_TYPE">${sap.hire.hr_infotype1.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype1_INFOTYPE">${sap.hire.hr_infotype1.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype1_FROM_DATE">${sap.hire.hr_infotype1.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype1_TO_DATE">${sap.hire.hr_infotype1.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype2_PLAN_VER">${sap.hire.hr_infotype2.PLAN_VER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype2_OBJ_TYPE">${sap.hire.hr_infotype2.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype2_INFOTYPE">${sap.hire.hr_infotype2.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype2_FROM_DATE">${sap.hire.hr_infotype2.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype2_TO_DATE">${sap.hire.hr_infotype2.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype3_PLAN_VER">${sap.hire.hr_infotype3.PLAN_VER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype3_OBJ_TYPE">${sap.hire.hr_infotype3.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype3_INFOTYPE">${sap.hire.hr_infotype3.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype3_FROM_DATE">${sap.hire.hr_infotype3.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype3_TO_DATE">${sap.hire.hr_infotype3.TO_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype4_PLAN_VER">${sap.hire.hr_infotype4.PLAN_VER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype4_OBJ_TYPE">${sap.hire.hr_infotype4.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype4_INFOTYPE">${sap.hire.hr_infotype4.INFOTYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype4_FROM_DATE">${sap.hire.hr_infotype4.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_infotype4_FROM_DATE">${sap.hire.hr_infotype4.FROM_DATE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_object_PLAN_VER">${sap.hire.hr_object.PLAN_VER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hr_object_OBJ_TYPE">${sap.hire.hr_object.OBJ_TYPE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_hrobject_OPERATOR">${sap.hire.hr_object.OPERATOR}</data-mapper:input-argument>
-                
+				<data-mapper:input-argument key="sap_hire_personal_PERSIDNO">${sap.hire.personal.PERSIDNO}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_hr_infotype_TO_DATE">${sap.hire.hr_infotype.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>                
             </data-mapper:input-arguments>
         </data-mapper:transform>
-        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
-
-        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" bapiTransaction="true" evaluateFunctionResponse="true"/>
-
-    
+        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" 
+        functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" 
+        bapiTransaction="true" evaluateFunctionResponse="true"/>
+        <logger message="sap create: #[payload]" level="INFO" doc:name="Log the create result"/>   
     </sub-flow>
+    
     <sub-flow name="updateSapEmployeeSubflow" doc:name="updateSapEmployeeSubflow">
-        <logger message="1111: #[payload]" level="INFO" doc:name="Logger"/>
-        <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML"/>
-        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
-        <logger message="2222: #[payload]" level="INFO" doc:name="Logger"/>
-        <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP" exchange-pattern="request-response"/>
-        <logger message="uuuuu: #[payload]" level="INFO" doc:name="Logger"/>
+        <set-variable variableName="worker" value="#[payload]" doc:name="Store worker"/>
+		<data-mapper:transform config-ref="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_" doc:name="Map To XML"/>
+        <transactional action="ALWAYS_BEGIN" doc:name="Transactional">
+            <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_ENQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Lock Employee" >
+                <sap:transaction action="ALWAYS_JOIN"/>
+            </sap:outbound-endpoint>
+            <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
+            <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML">
+                <data-mapper:input-arguments>
+                    <data-mapper:input-argument key="to">#[recordVars['userInSAP']['to']]</data-mapper:input-argument>
+                    <data-mapper:input-argument key="from">#[recordVars['userInSAP']['from']]</data-mapper:input-argument>
+                    <data-mapper:input-argument key="subtype">#[recordVars['userInSAP']['subtype']]</data-mapper:input-argument>
+                    <data-mapper:input-argument key="objectid">#[recordVars['userInSAP']['objectid']]</data-mapper:input-argument>
+                    <data-mapper:input-argument key="idnumber">#[recordVars['userInSAP']['idnumber']]</data-mapper:input-argument>
+                </data-mapper:input-arguments>
+            </data-mapper:transform>
+            <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Update Employee" bapiTransaction="true" >
+                <sap:transaction action="ALWAYS_JOIN"/>
+            </sap:outbound-endpoint>
+        </transactional>
+        <logger message="sap update: #[payload]" level="INFO" doc:name="Log the update result"/>
     </sub-flow>
 </mule>

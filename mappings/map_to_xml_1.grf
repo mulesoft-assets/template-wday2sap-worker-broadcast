@@ -63,11 +63,18 @@
 <Field __index="1" __sourcePath="{}/employee/LastName" containerType="SINGLE" label="LastName" name="lastName" type="string"/>
 <Field __sourcePath="{}/employee/birthDate" containerType="SINGLE" label="birthDate" name="birthDate" type="string"/>
 <Field __sourcePath="{}/employee/MiddleName" containerType="SINGLE" label="MiddleName" name="middleName" type="string"/>
+<Field __sourcePath="{}/employee/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
+<Field __sourcePath="{}/employee/Gender" containerType="SINGLE" label="Gender" name="Gender" type="string"/>
 </Record>
 </Metadata>
 <Dictionary>
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="to" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="from" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="subtype" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="objectid" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="idnumber" output="false" type="string"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -79,6 +86,8 @@
   <Mapping cloverField="lastName" trim="true" xpath="LastName"/>
   <Mapping cloverField="birthDate" trim="true" xpath="birthDate"/>
   <Mapping cloverField="middleName" trim="true" xpath="MiddleName"/>
+  <Mapping cloverField="Dob" trim="true" xpath="Dob"/>
+  <Mapping cloverField="Gender" trim="true" xpath="Gender"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
@@ -153,24 +162,17 @@ output.__id = input.__id;
 //END -> DO NOT REMOVE
 output.FIRSTNAME = input.firstName;
 output.LASTNAME = input.lastName;
+output.FULLNAME = input.firstName + ' ' + input.lastName;
 output.EMPLOYEENUMBER = input.id;
 output.RECORDNUMBER = "000";
-output.IDNUMBER = "547547547";
+output.IDNUMBER = input.id + "0";
 output.SUBTYPE = "";
 output.LOCKINDICATOR = "";
 output.OBJECTID = "";
-output.VALIDITYBEGIN = "20141118";
-output.VALIDITYEND = "99991231";
-output.FORMOFADDRESS = "1";
-output.KNOWNAS = input.firstName;
-output.GENDER = "1";
-output.MARITALSTATUSSINCE = "00000000";
-output.LANGUAGE = "E";
-output.NATIONALITY = "US";
-output.MIDDLENAME = input.middleName;
-output.NAME_FORMAT_INDICATOR = "00";
-output.NUMBEROFCHILDREN = "0";
-output.DATEOFBIRTH = "19800101";]]></attr>
+output.VALIDITYBEGIN = inputArguments.from;
+output.VALIDITYEND = inputArguments.to;
+output.DATEOFBIRTH = "19860420";
+]]></attr>
 </Node>
 <Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="7f79b218-75f3-4f08-ada4-0e519433995e" outPort="Port 0 (out)" toNode="FOREACH_EMPLOYEE_BAPI_PERSDATA_CHANGE:0"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_BAPI_PERSDATA_CHANGE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="a3feb4a4-d973-481b-858b-9b563d60decd" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>

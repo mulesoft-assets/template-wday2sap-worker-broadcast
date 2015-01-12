@@ -5,7 +5,7 @@
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.0"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -20,6 +20,10 @@ http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mu
 
 	<!-- In this file you should declare all your inbound endpoints and from 
 		here controll the access to your application -->
+	<spring:beans>
+    <spring:bean id="watermarkObjectStore"
+        class="org.mule.util.store.SimpleMemoryObjectStore" />
+</spring:beans> 
 
 	<flow name="triggerFlow" processingStrategy="synchronous"
 		doc:name="triggerFlow"
@@ -34,7 +38,7 @@ Here you should not:
 			<fixed-frequency-scheduler frequency="${poll.frequencyMillis}"
 				startDelay="${poll.startDelayMillis}" />
 			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}"
-				update-expression="#[ new java.util.Date() ]" />
+				update-expression="#[ new java.util.Date() ]" object-store-ref="watermarkObjectStore"/>
 			<processor-chain doc:name="query Workers and set collection">
                 <logger message="Fetching Workday updates...#[flowVars['lastQueryDate']] ... #[new java.util.Date()]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"
@@ -49,6 +53,7 @@ Here you should not:
 
         <logger level="INFO" doc:name="log worker's name" message="#[groovy: payload.collect { it.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getFirstName() +  ' '+ it.getWorkerData().getPersonalData().getNameData().getLegalNameData().getNameDetailData().getLastName() } ]"/>
         <batch:execute name="broadcastUsers" doc:name="Batch Execute"/>
+        <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 		
 	</flow>
 

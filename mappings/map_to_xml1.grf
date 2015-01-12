@@ -5,13 +5,15 @@
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
 </Record>
 </Metadata>
-<Metadata __index="0" __referenceCounter="10" __sourcePath="{}/Employee" _dataStructure="OBJECT" _id="__id" _type="Input" id="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9">
+<Metadata __index="0" __referenceCounter="14" __sourcePath="{}/Employee" _dataStructure="OBJECT" _id="__id" _type="Input" id="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9">
 <Record fieldDelimiter="," name="Employee" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
 <Field __index="0" __sourcePath="{}/Employee/FirstName" containerType="SINGLE" label="FirstName" name="FirstName" type="string"/>
 <Field __index="1" __sourcePath="{}/Employee/LastName" containerType="SINGLE" label="LastName" name="LastName" type="string"/>
 <Field __sourcePath="{}/Employee/EmployeeNumber" containerType="SINGLE" label="EmployeeNumber" name="EmployeeNumber" type="string"/>
-<Field __sourcePath="{}/Employee/MiddleName" containerType="SINGLE" label="MiddleName" name="MiddleName" type="string"/>
+<Field __sourcePath="{}/Employee/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
+<Field __sourcePath="{}/Employee/Gender" containerType="SINGLE" label="Gender" name="Gender" type="string"/>
+<Field __sourcePath="{}/Employee/Email" containerType="SINGLE" label="Email" name="Email" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="0" __referenceCounter="0" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/EMPLOYEE_ARCHIVED_OBJECTS/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="459aefee-a68d-40cc-b307-ec7c67e00ac7" _parent_id="__parent_id" _type="Output" id="46201fa2-6e41-4199-a158-cb8440f86886">
@@ -156,7 +158,7 @@
 <Field __index="123" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/EMPLOYEE_CATS_DEFAULT_VALUES/row/@id" containerType="SINGLE" label="id" name="id" type="integer"/>
 </Record>
 </Metadata>
-<Metadata __index="124" __referenceCounter="0" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/EMPLOYEE_COMMUNICATIONS/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="459aefee-a68d-40cc-b307-ec7c67e00ac7" _parent_id="__parent_id" _type="Output" id="7cfd140f-cf7d-4c25-88a6-1a1340507fd0">
+<Metadata __index="124" __referenceCounter="2" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/EMPLOYEE_COMMUNICATIONS/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="459aefee-a68d-40cc-b307-ec7c67e00ac7" _parent_id="__parent_id" _type="Output" id="7cfd140f-cf7d-4c25-88a6-1a1340507fd0">
 <Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
 <Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
@@ -652,7 +654,7 @@
 <Field __index="559" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/EMPLOYEE_TRIP_PRIVILEGES/row/@id" containerType="SINGLE" label="id" name="id" type="integer"/>
 </Record>
 </Metadata>
-<Metadata __index="560" __referenceCounter="4" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/HR_INFOTYPE_HEADER/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="459aefee-a68d-40cc-b307-ec7c67e00ac7" _parent_id="__parent_id" _type="Output" id="409f7f8e-86d7-4180-9f11-1d321fd95729">
+<Metadata __index="560" __referenceCounter="6" __sourcePath="{}/BAPI_HRMASTER_SAVE_REPL_MULT/tables/HR_INFOTYPE_HEADER/row" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="459aefee-a68d-40cc-b307-ec7c67e00ac7" _parent_id="__parent_id" _type="Output" id="409f7f8e-86d7-4180-9f11-1d321fd95729">
 <Record fieldDelimiter="," name="row" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
 <Field __artificialType="_parent_id" __systemManaged="true" name="__parent_id" type="string"/>
 <Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
@@ -3180,137 +3182,70 @@
 <Dictionary>
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry10" input="true" name="sap_hire_personnel_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry100" input="true" name="sap.hire.org.POSITION" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry101" input="true" name="sap.hire.hr_infotype2.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry102" input="true" name="sap_hire_org_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry103" input="true" name="sap_hire_org_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry104" input="true" name="sap_hire_org_COMP_CODE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry105" input="true" name="sap_hire_org_PERS_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry106" input="true" name="sap_hire_org_EMPLOYEE_GROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry107" input="true" name="sap_hire_org_EMPLOYEE_SUBGROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry108" input="true" name="sap_hire_org_PERSONNEL_SUBAREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry109" input="true" name="sap_hire_org_LEGAL_PERSON" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry11" input="true" name="sap_hire_personnel_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry110" input="true" name="sap_hire_org_PAYROLL_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry111" input="true" name="sap.hire.personnel.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry112" input="true" name="sap_hire_org_COSTCENTER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry113" input="true" name="sap_hire_org_ORG_UNIT" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry114" input="true" name="sap_hire_org_POSITION" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry115" input="true" name="sap_hire_org_JOB" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry116" input="true" name="sap_hire_org_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry117" input="true" name="sap_hire_payroll_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry118" input="true" name="sap_hire_payroll_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry119" input="true" name="sap_hire_payroll_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry12" input="true" name="sap_hire_personnel_ACTION_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry120" input="true" name="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry121" input="true" name="sap_hire_payroll_INITIAL_ENTRY_TIME" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry122" input="true" name="sap.hire.hr_infotype3.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry123" input="true" name="sap_hire_payroll_PERS_NO_INPUT_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry124" input="true" name="sap_hire_payroll_PDC_RECALCULATION_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry125" input="true" name="sap_hire_payroll_INFOTYPE_VIEW_IND" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry126" input="true" name="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry127" input="true" name="sap_hire_personal_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry128" input="true" name="sap_hire_personal_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry129" input="true" name="sap_hire_personal_NAME_FORMAT_INDICATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry13" input="true" name="sap.hire.hr_infotype3.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry130" input="true" name="sap_hire_personal_FORM_OF_ADDRESS_KEY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry131" input="true" name="sap_hire_personal_COUNTRY_OF_BIRTH" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry132" input="true" name="sap_hire_personal_STATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry14" input="true" name="sap_hire_personnel_EMPLOYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry15" input="true" name="sap_hire_personnel_SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry16" input="true" name="sap_hire_hr_infotype1_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry17" input="true" name="sap_hire_hr_infotype1_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry18" input="true" name="sap_hire_hr_infotype1_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry19" input="true" name="sap_hire_hr_infotype1_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="sap.hire.hr_infotype3.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry20" input="true" name="sap_hire_hr_infotype1_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry21" input="true" name="sap_hire_hr_infotype2_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry22" input="true" name="sap_hire_hr_infotype2_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry23" input="true" name="sap_hire_hr_infotype2_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry24" input="true" name="sap.hire.hr_infotype1.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry25" input="true" name="sap_hire_hr_infotype2_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry26" input="true" name="sap_hire_hr_infotype2_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry27" input="true" name="sap_hire_hr_infotype3_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry28" input="true" name="sap_hire_hr_infotype3_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry29" input="true" name="sap_hire_hr_infotype3_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="sap_hire_personal_BIRTHPLACE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry30" input="true" name="sap_hire_hr_infotype3_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry31" input="true" name="sap_hire_hr_infotype3_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry32" input="true" name="sap_hire_hr_infotype4_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry33" input="true" name="sap_hire_hr_infotype4_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry34" input="true" name="sap_hire_hr_infotype4_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry35" input="true" name="sap.hire.hr_infotype3.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry36" input="true" name="sap_hire_hr_infotype4_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry37" input="true" name="sap_hire_hr_object_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry38" input="true" name="sap_hire_hr_object_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry39" input="true" name="sap.hire.payroll.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="sap_hire_personal_NATIONALITY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry40" input="true" name="sap.hire.payroll.INITIAL_ENTRY_TIME" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry41" input="true" name="sap.hire.hr_infotype1.PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry42" input="true" name="sap.hire.hr_infotype4.PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry43" input="true" name="sap.hire.hr_infotype4.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry44" input="true" name="sap.hire.org.EMPLOYEE_GROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry45" input="true" name="sap.hire.hr_infotype2.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry46" input="true" name="sap.hire.hr_infotype4.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry47" input="true" name="sap.hire.personal.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry48" input="true" name="sap.hire.personal.NAME_FORMAT_INDICATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry49" input="true" name="sap.hire.hr_infotype2.PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="sap_hire_personal_THIRD_NATIONALITY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry50" input="true" name="sap.hire.hr_infotype4.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry51" input="true" name="sap.hire.hr_object.PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry52" input="true" name="sap.hire.org.JOB" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry53" input="true" name="sap.hire.hr_object.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry54" input="true" name="sap.hire.personal.BIRTHPLACE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry55" input="true" name="sap.hire.personal.THIRD_NATIONALITY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry56" input="true" name="sap.hire.hr_infotype2.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry57" input="true" name="sap.hire.hr_object.OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry58" input="true" name="sap.hire.org.EMPLOYEE_SUBGROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry59" input="true" name="sap.hire.payroll.PERS_NO_INPUT_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="sap_hire_personal_LANGU" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry60" input="true" name="sap.hire.org.PERSONNEL_SUBAREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry61" input="true" name="sap.hire.personnel.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry62" input="true" name="sap.hire.personnel.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry63" input="true" name="sap.hire.org.LEGAL_PERSON" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry64" input="true" name="a.b.c." output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry65" input="true" name="sap.hire.personal.FORM_OF_ADDRESS_KEY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry66" input="true" name="sap.hire.org.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry67" input="true" name="sap.hire.personnel.SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry68" input="true" name="sap.hire.hr_infotype1.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry69" input="true" name="sap.hire.payroll.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry7" input="true" name="sap_hire_personal_NUMBER_OF_CHILDREN" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry70" input="true" name="sap.hire.payroll.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry71" input="true" name="sap.hire.personal.LANGU" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry72" input="true" name="OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry73" input="true" name="sap.hire.hr_infotype2.OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry74" input="true" name="sap.hire.payroll.PDC_RECALCULATION_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry75" input="true" name="sap.hire.payroll.INFOTYPE_VIEW_IND" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry76" input="true" name="sap.hire.org.COMP_CODE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry77" input="true" name="sap.hire.payroll.EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry78" input="true" name="sap.hire.hr_infotype3.PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry79" input="true" name="sap.hire.personal.COUNTRY_OF_BIRTH" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry8" input="true" name="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry80" input="true" name="sap.hire.org.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry81" input="true" name="sap.hire.org.ORG_UNIT" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry82" input="true" name="sap.hire.personal.STATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry83" input="true" name="sap.hire.hrobject.OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry84" input="true" name="sap.hire.personal.NUMBER_OF_CHILDREN" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry85" input="true" name="sap.hire.org.TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry86" input="true" name="sap.hire.org.COSTCENTER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry87" input="true" name="sap.hire.personal.MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry88" input="true" name="saphirehrobjectOPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry89" input="true" name="sap.hire.org.PAYROLL_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry9" input="true" name="sap_hire_personnel_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry90" input="true" name="sap.hire.personnel.ACTION_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry91" input="true" name="sap.hire.payroll.EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry92" input="true" name="sap.hire.personnel.EMPLOYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry93" input="true" name="sap-hire-hrobject-OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry94" input="true" name="sap.hire.hr_infotype1.INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry95" input="true" name="sap.hire.personal.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry96" input="true" name="sap.hire.hr_infotype1.FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry97" input="true" name="sap.hire.org.PERS_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry98" input="true" name="sap_hire_hrobject_OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry99" input="true" name="sap.hire.personal.NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry10" input="true" name="sap_hire_hr_infotype3_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry11" input="true" name="sap_hire_org_PERSONNEL_SUBAREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry12" input="true" name="sap_hire_personal_NUMBER_OF_CHILDREN" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry13" input="true" name="sap_hire_org_COSTCENTER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry14" input="true" name="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry15" input="true" name="sap_hire_hr_infotype3_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry16" input="true" name="sap_hire_hr_infotype3_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry17" input="true" name="sap_hire_hr_infotype4_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry18" input="true" name="sap_hire_personal_LANGU" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry19" input="true" name="sap_hire_hrobject_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="sap_hire_payroll_INFOTYPE_VIEW_IND" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry20" input="true" name="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
+<Entry dictval.__javaType="java.util.Date" id="DictionaryEntry21" input="true" name="currentDate" output="false" type="date"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry22" input="true" name="sap_hire_hr_infotype3_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry23" input="true" name="sap_hire_org_PERS_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry24" input="true" name="sap_hire_hr_infotype1_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry25" input="true" name="sap_hire_org_COMP_CODE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry26" input="true" name="sap_hire_personal_COUNTRY_OF_BIRTH" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry27" input="true" name="sap_hire_personal_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry28" input="true" name="sap_hire_org_EMPLOYEE_GROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry29" input="true" name="sap_hire_hr_infotype_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="sap_hire_hr_infotype4_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry30" input="true" name="sap_hire_payroll_PERS_NO_INPUT_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry31" input="true" name="sap_hire_personnel_ACTION_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry32" input="true" name="sap_hire_payroll_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry33" input="true" name="sap_hire_org_ORG_UNIT" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry34" input="true" name="sap_hire_personnel_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry35" input="true" name="sap_hire_hr_infotype3_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry36" input="true" name="sap_hire_personal_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry37" input="true" name="sap_hire_hr_infotype1_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry38" input="true" name="sap_hire_hr_infotype2_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry39" input="true" name="sap_hire_personnel_SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="sap_hire_hr_infotype1_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry40" input="true" name="sap_hire_org_EMPLOYEE_SUBGROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry41" input="true" name="sap_hire_hr_infotype4_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry42" input="true" name="sap_hire_hr_infotype2_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry43" input="true" name="sap_hire_personal_FORM_OF_ADDRESS_KEY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry44" input="true" name="sap_hire_org_JOB" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry45" input="true" name="sap_hire_hr_infotype2_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry46" input="true" name="sap_hire_hrobject_OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry47" input="true" name="sap_hire_personal_STATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry48" input="true" name="sap_hire_personal_BIRTHPLACE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry49" input="true" name="sap_hire_payroll_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="sap_hire_hr_infotype1_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry50" input="true" name="sap_hire_personal_NAME_FORMAT_INDICATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry51" input="true" name="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry52" input="true" name="sap_hire_personal_PERSIDNO" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry53" input="true" name="sap_hire_hr_infotype4_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry54" input="true" name="sap_hire_personal_THIRD_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry55" input="true" name="sap_hire_hr_infotype4_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry56" input="true" name="sap_hire_org_LEGAL_PERSON" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry57" input="true" name="sap_hire_org_POSITION" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry58" input="true" name="sap_hire_personnel_EMPLOYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry59" input="true" name="sap_hire_hrobject_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="sap_hire_payroll_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry60" input="true" name="sap_hire_payroll_INITIAL_ENTRY_TIME" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry61" input="true" name="sap_hire_hr_infotype1_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry62" input="true" name="sap_hire_hr_infotype2_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry63" input="true" name="sap_hire_personal_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry64" input="true" name="sap_hire_hr_infotype2_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry65" input="true" name="sap_hire_personnel_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry7" input="true" name="sap_hire_personal_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry8" input="true" name="sap_hire_org_PAYROLL_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry9" input="true" name="sap_hire_payroll_PDC_RECALCULATION_DATE" output="false" type="string"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -3320,7 +3255,9 @@
   <Mapping cloverField="FirstName" trim="true" xpath="FirstName"/>
   <Mapping cloverField="LastName" trim="true" xpath="LastName"/>
   <Mapping cloverField="EmployeeNumber" trim="true" xpath="EmployeeNumber"/>
-  <Mapping cloverField="MiddleName" trim="true" xpath="MiddleName"/>
+  <Mapping cloverField="Dob" trim="true" xpath="Dob"/>
+  <Mapping cloverField="Gender" trim="true" xpath="Gender"/>
+  <Mapping cloverField="Email" trim="true" xpath="Email"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
@@ -3329,6 +3266,62 @@
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <clover:element clover:name="BAPI_HRMASTER_SAVE_REPL_MULT" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
   <tables>
+    <clover:element clover:name="EMPLOYEE_COMMUNICATIONS">
+      <row id="$10.id" clover:inPort="10" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="OBJ_ID">$10.OBJ_ID</clover:element>
+        <INFOTYPE>$10.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$10.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="OBJECT_IDENTIFICATION">$10.OBJECT_IDENTIFICATION</clover:element>
+        <LOCKINDIC>$10.LOCKINDIC</LOCKINDIC>
+        <clover:element clover:name="TO_DATE">$10.TO_DATE</clover:element>
+        <clover:element clover:name="FROM_DATE">$10.FROM_DATE</clover:element>
+        <clover:element clover:name="IT_REC_NO">$10.IT_REC_NO</clover:element>
+        <clover:element clover:name="CHANGED_ON">$10.CHANGED_ON</clover:element>
+        <clover:element clover:name="CHANGED_BY">$10.CHANGED_BY</clover:element>
+        <clover:element clover:name="HIST_FLAG">$10.HIST_FLAG</clover:element>
+        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$10.INFOTYPE_TEXT_EXISTS</clover:element>
+        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$10.REFERENCE_FILEDS_EXIST</clover:element>
+        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$10.CONFIRMATION_FIELDS_EXIST</clover:element>
+        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$10.INFOTYPE_SCREEN_CONTROL</clover:element>
+        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$10.REASON_TO_CHANGE_MASTER_DATA</clover:element>
+        <clover:element clover:name="FLAG_1">$10.FLAG_1</clover:element>
+        <clover:element clover:name="FLAG_2">$10.FLAG_2</clover:element>
+        <clover:element clover:name="FLAG_3">$10.FLAG_3</clover:element>
+        <clover:element clover:name="FLAG_4">$10.FLAG_4</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_1">$10.RESERVED_FIELD_1</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_2">$10.RESERVED_FIELD_2</clover:element>
+        <clover:element clover:name="COMMUNICATION_TYPE">$10.COMMUNICATION_TYPE</clover:element>
+        <clover:element clover:name="COMMUNICATION_ID_NO">$10.COMMUNICATION_ID_NO</clover:element>
+        <clover:element clover:name="E_MAIL">$10.E_MAIL</clover:element>
+      </row>
+      <row id="$11.id" clover:inPort="11" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="OBJ_ID">$11.OBJ_ID</clover:element>
+        <INFOTYPE>$11.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$11.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="OBJECT_IDENTIFICATION">$11.OBJECT_IDENTIFICATION</clover:element>
+        <LOCKINDIC>$11.LOCKINDIC</LOCKINDIC>
+        <clover:element clover:name="TO_DATE">$11.TO_DATE</clover:element>
+        <clover:element clover:name="FROM_DATE">$11.FROM_DATE</clover:element>
+        <clover:element clover:name="IT_REC_NO">$11.IT_REC_NO</clover:element>
+        <clover:element clover:name="CHANGED_ON">$11.CHANGED_ON</clover:element>
+        <clover:element clover:name="CHANGED_BY">$11.CHANGED_BY</clover:element>
+        <clover:element clover:name="HIST_FLAG">$11.HIST_FLAG</clover:element>
+        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$11.INFOTYPE_TEXT_EXISTS</clover:element>
+        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$11.REFERENCE_FILEDS_EXIST</clover:element>
+        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$11.CONFIRMATION_FIELDS_EXIST</clover:element>
+        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$11.INFOTYPE_SCREEN_CONTROL</clover:element>
+        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$11.REASON_TO_CHANGE_MASTER_DATA</clover:element>
+        <clover:element clover:name="FLAG_1">$11.FLAG_1</clover:element>
+        <clover:element clover:name="FLAG_2">$11.FLAG_2</clover:element>
+        <clover:element clover:name="FLAG_3">$11.FLAG_3</clover:element>
+        <clover:element clover:name="FLAG_4">$11.FLAG_4</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_1">$11.RESERVED_FIELD_1</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_2">$11.RESERVED_FIELD_2</clover:element>
+        <clover:element clover:name="COMMUNICATION_TYPE">$11.COMMUNICATION_TYPE</clover:element>
+        <clover:element clover:name="COMMUNICATION_ID_NO">$11.COMMUNICATION_ID_NO</clover:element>
+        <clover:element clover:name="E_MAIL">$11.E_MAIL</clover:element>
+      </row>
+    </clover:element>
     <clover:element clover:name="EMPLOYEE_ORG_ASSIGNMENT">
       <row id="$3.id" clover:inPort="3" clover:key="__parent_id" clover:parentKey="__id">
         <clover:element clover:name="OBJ_ID">$3.OBJ_ID</clover:element>
@@ -3381,132 +3374,56 @@
       </row>
     </clover:element>
     <clover:element clover:name="EMPLOYEE_PAYROLL_STATUS">
-      <row id="$4.id" clover:inPort="4" clover:key="__parent_id" clover:parentKey="__id">
-        <clover:element clover:name="OBJ_ID">$4.OBJ_ID</clover:element>
-        <INFOTYPE>$4.INFOTYPE</INFOTYPE>
-        <SUBTYPE>$4.SUBTYPE</SUBTYPE>
-        <clover:element clover:name="OBJECT_IDENTIFICATION">$4.OBJECT_IDENTIFICATION</clover:element>
-        <LOCKINDIC>$4.LOCKINDIC</LOCKINDIC>
-        <clover:element clover:name="TO_DATE">$4.TO_DATE</clover:element>
-        <clover:element clover:name="FROM_DATE">$4.FROM_DATE</clover:element>
-        <clover:element clover:name="IT_REC_NO">$4.IT_REC_NO</clover:element>
-        <clover:element clover:name="CHANGED_ON">$4.CHANGED_ON</clover:element>
-        <clover:element clover:name="CHANGED_BY">$4.CHANGED_BY</clover:element>
-        <clover:element clover:name="HIST_FLAG">$4.HIST_FLAG</clover:element>
-        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$4.INFOTYPE_TEXT_EXISTS</clover:element>
-        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$4.REFERENCE_FILEDS_EXIST</clover:element>
-        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$4.CONFIRMATION_FIELDS_EXIST</clover:element>
-        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$4.INFOTYPE_SCREEN_CONTROL</clover:element>
-        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$4.REASON_TO_CHANGE_MASTER_DATA</clover:element>
-        <clover:element clover:name="FLAG_1">$4.FLAG_1</clover:element>
-        <clover:element clover:name="FLAG_2">$4.FLAG_2</clover:element>
-        <clover:element clover:name="FLAG_3">$4.FLAG_3</clover:element>
-        <clover:element clover:name="FLAG_4">$4.FLAG_4</clover:element>
-        <clover:element clover:name="RESERVED_FIELD_1">$4.RESERVED_FIELD_1</clover:element>
-        <clover:element clover:name="RESERVED_FIELD_2">$4.RESERVED_FIELD_2</clover:element>
-        <clover:element clover:name="PERS_NO_LOCKED_FOR_PAYROLL">$4.PERS_NO_LOCKED_FOR_PAYROLL</clover:element>
-        <clover:element clover:name="ACCOUNTED_TO">$4.ACCOUNTED_TO</clover:element>
-        <clover:element clover:name="EARLIEST_MD_CHANGE_SINCE_PAYR">$4.EARLIEST_MD_CHANGE_SINCE_PAYR</clover:element>
-        <clover:element clover:name="RECAL_DATE_FOR_FOLLOWUP_PROGS">$4.RECAL_DATE_FOR_FOLLOWUP_PROGS</clover:element>
-        <clover:element clover:name="PAYROLL_CONNECTION_NEEDED">$4.PAYROLL_CONNECTION_NEEDED</clover:element>
-        <clover:element clover:name="EARLIEST_PERSONAL_RA_DATE">$4.EARLIEST_PERSONAL_RA_DATE</clover:element>
-        <clover:element clover:name="PERS_CALENDAR_GENERATION_DATE">$4.PERS_CALENDAR_GENERATION_DATE</clover:element>
-        <clover:element clover:name="END_OF_PROCESSING_1">$4.END_OF_PROCESSING_1</clover:element>
-        <clover:element clover:name="END_OF_PROCESSING_MAX">$4.END_OF_PROCESSING_MAX</clover:element>
-        <clover:element clover:name="PDC_RECALCULATION_DATE">$4.PDC_RECALCULATION_DATE</clover:element>
-        <clover:element clover:name="EFFECTGIVE_PDC_RECAL_DATE">$4.EFFECTGIVE_PDC_RECAL_DATE</clover:element>
-        <clover:element clover:name="PDC_ERROR_INDICATOR">$4.PDC_ERROR_INDICATOR</clover:element>
-        <clover:element clover:name="PDC_ENTRY_TIME">$4.PDC_ENTRY_TIME</clover:element>
-        <clover:element clover:name="PERS_NO_INPUT_DATE">$4.PERS_NO_INPUT_DATE</clover:element>
-        <clover:element clover:name="INITIAL_ENTRY_TIME">$4.INITIAL_ENTRY_TIME</clover:element>
-        <clover:element clover:name="RESERVED_FIELD8">$4.RESERVED_FIELD8</clover:element>
-        <clover:element clover:name="ADMINISTRATOR_GROUP">$4.ADMINISTRATOR_GROUP</clover:element>
-        <clover:element clover:name="TIME_ADMINISTRATOR">$4.TIME_ADMINISTRATOR</clover:element>
-        <clover:element clover:name="SORT_FIELD_INFOTYPE_3">$4.SORT_FIELD_INFOTYPE_3</clover:element>
-        <clover:element clover:name="SPECIAL_PAYROLL_RUN">$4.SPECIAL_PAYROLL_RUN</clover:element>
-        <clover:element clover:name="INFOTYPE_VIEW_IND">$4.INFOTYPE_VIEW_IND</clover:element>
-        <clover:element clover:name="RECORDED_TRIPS_FLAG">$4.RECORDED_TRIPS_FLAG</clover:element>
-        <clover:element clover:name="EARLIEST_PAYROLL_MD_CHANGE">$4.EARLIEST_PAYROLL_MD_CHANGE</clover:element>
-        <clover:element clover:name="EARLIEST_PERS_RECAL_DATE_TIME">$4.EARLIEST_PERS_RECAL_DATE_TIME</clover:element>
+      <row id="$9.id" clover:inPort="9" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="OBJ_ID">$9.OBJ_ID</clover:element>
+        <INFOTYPE>$9.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$9.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="OBJECT_IDENTIFICATION">$9.OBJECT_IDENTIFICATION</clover:element>
+        <LOCKINDIC>$9.LOCKINDIC</LOCKINDIC>
+        <clover:element clover:name="TO_DATE">$9.TO_DATE</clover:element>
+        <clover:element clover:name="FROM_DATE">$9.FROM_DATE</clover:element>
+        <clover:element clover:name="IT_REC_NO">$9.IT_REC_NO</clover:element>
+        <clover:element clover:name="CHANGED_ON">$9.CHANGED_ON</clover:element>
+        <clover:element clover:name="CHANGED_BY">$9.CHANGED_BY</clover:element>
+        <clover:element clover:name="HIST_FLAG">$9.HIST_FLAG</clover:element>
+        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$9.INFOTYPE_TEXT_EXISTS</clover:element>
+        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$9.REFERENCE_FILEDS_EXIST</clover:element>
+        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$9.CONFIRMATION_FIELDS_EXIST</clover:element>
+        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$9.INFOTYPE_SCREEN_CONTROL</clover:element>
+        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$9.REASON_TO_CHANGE_MASTER_DATA</clover:element>
+        <clover:element clover:name="FLAG_1">$9.FLAG_1</clover:element>
+        <clover:element clover:name="FLAG_2">$9.FLAG_2</clover:element>
+        <clover:element clover:name="FLAG_3">$9.FLAG_3</clover:element>
+        <clover:element clover:name="FLAG_4">$9.FLAG_4</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_1">$9.RESERVED_FIELD_1</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_2">$9.RESERVED_FIELD_2</clover:element>
+        <clover:element clover:name="PERS_NO_LOCKED_FOR_PAYROLL">$9.PERS_NO_LOCKED_FOR_PAYROLL</clover:element>
+        <clover:element clover:name="ACCOUNTED_TO">$9.ACCOUNTED_TO</clover:element>
+        <clover:element clover:name="EARLIEST_MD_CHANGE_SINCE_PAYR">$9.EARLIEST_MD_CHANGE_SINCE_PAYR</clover:element>
+        <clover:element clover:name="RECAL_DATE_FOR_FOLLOWUP_PROGS">$9.RECAL_DATE_FOR_FOLLOWUP_PROGS</clover:element>
+        <clover:element clover:name="PAYROLL_CONNECTION_NEEDED">$9.PAYROLL_CONNECTION_NEEDED</clover:element>
+        <clover:element clover:name="EARLIEST_PERSONAL_RA_DATE">$9.EARLIEST_PERSONAL_RA_DATE</clover:element>
+        <clover:element clover:name="PERS_CALENDAR_GENERATION_DATE">$9.PERS_CALENDAR_GENERATION_DATE</clover:element>
+        <clover:element clover:name="END_OF_PROCESSING_1">$9.END_OF_PROCESSING_1</clover:element>
+        <clover:element clover:name="END_OF_PROCESSING_MAX">$9.END_OF_PROCESSING_MAX</clover:element>
+        <clover:element clover:name="PDC_RECALCULATION_DATE">$9.PDC_RECALCULATION_DATE</clover:element>
+        <clover:element clover:name="EFFECTGIVE_PDC_RECAL_DATE">$9.EFFECTGIVE_PDC_RECAL_DATE</clover:element>
+        <clover:element clover:name="PDC_ERROR_INDICATOR">$9.PDC_ERROR_INDICATOR</clover:element>
+        <clover:element clover:name="PDC_ENTRY_TIME">$9.PDC_ENTRY_TIME</clover:element>
+        <clover:element clover:name="PERS_NO_INPUT_DATE">$9.PERS_NO_INPUT_DATE</clover:element>
+        <clover:element clover:name="INITIAL_ENTRY_TIME">$9.INITIAL_ENTRY_TIME</clover:element>
+        <clover:element clover:name="RESERVED_FIELD8">$9.RESERVED_FIELD8</clover:element>
+        <clover:element clover:name="ADMINISTRATOR_GROUP">$9.ADMINISTRATOR_GROUP</clover:element>
+        <clover:element clover:name="TIME_ADMINISTRATOR">$9.TIME_ADMINISTRATOR</clover:element>
+        <clover:element clover:name="SORT_FIELD_INFOTYPE_3">$9.SORT_FIELD_INFOTYPE_3</clover:element>
+        <clover:element clover:name="SPECIAL_PAYROLL_RUN">$9.SPECIAL_PAYROLL_RUN</clover:element>
+        <clover:element clover:name="INFOTYPE_VIEW_IND">$9.INFOTYPE_VIEW_IND</clover:element>
+        <clover:element clover:name="RECORDED_TRIPS_FLAG">$9.RECORDED_TRIPS_FLAG</clover:element>
+        <clover:element clover:name="EARLIEST_PAYROLL_MD_CHANGE">$9.EARLIEST_PAYROLL_MD_CHANGE</clover:element>
+        <clover:element clover:name="EARLIEST_PERS_RECAL_DATE_TIME">$9.EARLIEST_PERS_RECAL_DATE_TIME</clover:element>
       </row>
     </clover:element>
     <clover:element clover:name="EMPLOYEE_PERSONAL_DATA">
-      <row id="$6.id" clover:inPort="6" clover:key="__parent_id" clover:parentKey="__id">
-        <clover:element clover:name="OBJ_ID">$6.OBJ_ID</clover:element>
-        <INFOTYPE>$6.INFOTYPE</INFOTYPE>
-        <SUBTYPE>$6.SUBTYPE</SUBTYPE>
-        <clover:element clover:name="OBJECT_IDENTIFICATION">$6.OBJECT_IDENTIFICATION</clover:element>
-        <LOCKINDIC>$6.LOCKINDIC</LOCKINDIC>
-        <clover:element clover:name="TO_DATE">$6.TO_DATE</clover:element>
-        <clover:element clover:name="FROM_DATE">$6.FROM_DATE</clover:element>
-        <clover:element clover:name="IT_REC_NO">$6.IT_REC_NO</clover:element>
-        <clover:element clover:name="CHANGED_ON">$6.CHANGED_ON</clover:element>
-        <clover:element clover:name="CHANGED_BY">$6.CHANGED_BY</clover:element>
-        <clover:element clover:name="HIST_FLAG">$6.HIST_FLAG</clover:element>
-        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$6.INFOTYPE_TEXT_EXISTS</clover:element>
-        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$6.REFERENCE_FILEDS_EXIST</clover:element>
-        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$6.CONFIRMATION_FIELDS_EXIST</clover:element>
-        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$6.INFOTYPE_SCREEN_CONTROL</clover:element>
-        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$6.REASON_TO_CHANGE_MASTER_DATA</clover:element>
-        <clover:element clover:name="FLAG_1">$6.FLAG_1</clover:element>
-        <clover:element clover:name="FLAG_2">$6.FLAG_2</clover:element>
-        <clover:element clover:name="FLAG_3">$6.FLAG_3</clover:element>
-        <clover:element clover:name="FLAG_4">$6.FLAG_4</clover:element>
-        <clover:element clover:name="RESERVED_FIELD_1">$6.RESERVED_FIELD_1</clover:element>
-        <clover:element clover:name="RESERVED_FIELD_2">$6.RESERVED_FIELD_2</clover:element>
-        <clover:element clover:name="EMPLOYEE_INITIALS">$6.EMPLOYEE_INITIALS</clover:element>
-        <clover:element clover:name="LAST_NAME">$6.LAST_NAME</clover:element>
-        <clover:element clover:name="NAME_AT_BIRTH">$6.NAME_AT_BIRTH</clover:element>
-        <clover:element clover:name="SECOND_NAME">$6.SECOND_NAME</clover:element>
-        <clover:element clover:name="FIRST_NAME">$6.FIRST_NAME</clover:element>
-        <clover:element clover:name="FULL_EMPLOYEE_NAME">$6.FULL_EMPLOYEE_NAME</clover:element>
-        <TITLE>$6.TITLE</TITLE>
-        <clover:element clover:name="SECOND_TITLE">$6.SECOND_TITLE</clover:element>
-        <clover:element clover:name="ARISTOCRATIC_TITLE">$6.ARISTOCRATIC_TITLE</clover:element>
-        <clover:element clover:name="NAME_AFFIX">$6.NAME_AFFIX</clover:element>
-        <clover:element clover:name="SECOND_NAME_PREFIX">$6.SECOND_NAME_PREFIX</clover:element>
-        <clover:element clover:name="KNOWN_AS">$6.KNOWN_AS</clover:element>
-        <clover:element clover:name="MIDDLE_NAME">$6.MIDDLE_NAME</clover:element>
-        <clover:element clover:name="NAME_FORMAT_INDICATOR">$6.NAME_FORMAT_INDICATOR</clover:element>
-        <clover:element clover:name="FORM_OF_ADDRESS_KEY">$6.FORM_OF_ADDRESS_KEY</clover:element>
-        <clover:element clover:name="GENDER_KEY">$6.GENDER_KEY</clover:element>
-        <clover:element clover:name="DATE_BIRTH">$6.DATE_BIRTH</clover:element>
-        <clover:element clover:name="COUNTRY_OF_BIRTH">$6.COUNTRY_OF_BIRTH</clover:element>
-        <clover:element clover:name="COUNTRY_OF_BIRTH_ISO">$6.COUNTRY_OF_BIRTH_ISO</clover:element>
-        <STATE>$6.STATE</STATE>
-        <BIRTHPLACE>$6.BIRTHPLACE</BIRTHPLACE>
-        <NATIONALITY>$6.NATIONALITY</NATIONALITY>
-        <clover:element clover:name="NATIONALITY_ISO">$6.NATIONALITY_ISO</clover:element>
-        <clover:element clover:name="SECOND_NATIONALITY">$6.SECOND_NATIONALITY</clover:element>
-        <clover:element clover:name="SECOND_NATIONALITY_ISO">$6.SECOND_NATIONALITY_ISO</clover:element>
-        <clover:element clover:name="THIRD_NATIONALITY">$6.THIRD_NATIONALITY</clover:element>
-        <clover:element clover:name="THIRD_NATIONALITY_ISO">$6.THIRD_NATIONALITY_ISO</clover:element>
-        <LANGU>$6.LANGU</LANGU>
-        <clover:element clover:name="LANGU_ISO">$6.LANGU_ISO</clover:element>
-        <clover:element clover:name="RELIGIOUS_DENOMINATION">$6.RELIGIOUS_DENOMINATION</clover:element>
-        <clover:element clover:name="MARITAL_STATUS">$6.MARITAL_STATUS</clover:element>
-        <clover:element clover:name="START_DATE_OF_MARITAL_STATUS">$6.START_DATE_OF_MARITAL_STATUS</clover:element>
-        <clover:element clover:name="NUMBER_OF_CHILDREN">$6.NUMBER_OF_CHILDREN</clover:element>
-        <clover:element clover:name="NAME_CONNECTION">$6.NAME_CONNECTION</clover:element>
-        <clover:element clover:name="MODIFIER_FOR_PERSONNEL_ID">$6.MODIFIER_FOR_PERSONNEL_ID</clover:element>
-        <PERSIDNO>$6.PERSIDNO</PERSIDNO>
-        <clover:element clover:name="PASSPORT_DATE_OF_BIRTH">$6.PASSPORT_DATE_OF_BIRTH</clover:element>
-        <clover:element clover:name="FIRST_NAME_KATAKANA">$6.FIRST_NAME_KATAKANA</clover:element>
-        <clover:element clover:name="LAST_NAME_KATAKANA">$6.LAST_NAME_KATAKANA</clover:element>
-        <clover:element clover:name="FIRST_NAME_ROMAJI">$6.FIRST_NAME_ROMAJI</clover:element>
-        <clover:element clover:name="LAST_NAME_ROMAJI">$6.LAST_NAME_ROMAJI</clover:element>
-        <clover:element clover:name="NAME_OF_BIRTH_KATAKANA">$6.NAME_OF_BIRTH_KATAKANA</clover:element>
-        <clover:element clover:name="NAME_OF_BIRTH_ROMAJI">$6.NAME_OF_BIRTH_ROMAJI</clover:element>
-        <clover:element clover:name="NICKNAME_KATAKANA">$6.NICKNAME_KATAKANA</clover:element>
-        <clover:element clover:name="NICKNAME_ROMAJI">$6.NICKNAME_ROMAJI</clover:element>
-        <clover:element clover:name="YEAR_OF_BIRTH">$6.YEAR_OF_BIRTH</clover:element>
-        <clover:element clover:name="MONTH_OF_BIRTH">$6.MONTH_OF_BIRTH</clover:element>
-        <clover:element clover:name="DAY_OF_BIRTH">$6.DAY_OF_BIRTH</clover:element>
-        <clover:element clover:name="LAST_NAME_MATCHCODE">$6.LAST_NAME_MATCHCODE</clover:element>
-        <clover:element clover:name="FIRST_NAME_MATCHCODE">$6.FIRST_NAME_MATCHCODE</clover:element>
-      </row>
-    </clover:element>
-    <clover:element clover:name="EMPLOYEE_PERSONNEL_ACTION">
       <row id="$5.id" clover:inPort="5" clover:key="__parent_id" clover:parentKey="__id">
         <clover:element clover:name="OBJ_ID">$5.OBJ_ID</clover:element>
         <INFOTYPE>$5.INFOTYPE</INFOTYPE>
@@ -3530,11 +3447,87 @@
         <clover:element clover:name="FLAG_4">$5.FLAG_4</clover:element>
         <clover:element clover:name="RESERVED_FIELD_1">$5.RESERVED_FIELD_1</clover:element>
         <clover:element clover:name="RESERVED_FIELD_2">$5.RESERVED_FIELD_2</clover:element>
-        <clover:element clover:name="ACTION_TYPE">$5.ACTION_TYPE</clover:element>
-        <clover:element clover:name="ACTION_REASON">$5.ACTION_REASON</clover:element>
-        <clover:element clover:name="USER_DEFINED_STATUS">$5.USER_DEFINED_STATUS</clover:element>
-        <clover:element clover:name="EMPLOYMENT_STATUS">$5.EMPLOYMENT_STATUS</clover:element>
-        <clover:element clover:name="SPECIAL_PAYMENT_STATUS">$5.SPECIAL_PAYMENT_STATUS</clover:element>
+        <clover:element clover:name="EMPLOYEE_INITIALS">$5.EMPLOYEE_INITIALS</clover:element>
+        <clover:element clover:name="LAST_NAME">$5.LAST_NAME</clover:element>
+        <clover:element clover:name="NAME_AT_BIRTH">$5.NAME_AT_BIRTH</clover:element>
+        <clover:element clover:name="SECOND_NAME">$5.SECOND_NAME</clover:element>
+        <clover:element clover:name="FIRST_NAME">$5.FIRST_NAME</clover:element>
+        <clover:element clover:name="FULL_EMPLOYEE_NAME">$5.FULL_EMPLOYEE_NAME</clover:element>
+        <TITLE>$5.TITLE</TITLE>
+        <clover:element clover:name="SECOND_TITLE">$5.SECOND_TITLE</clover:element>
+        <clover:element clover:name="ARISTOCRATIC_TITLE">$5.ARISTOCRATIC_TITLE</clover:element>
+        <clover:element clover:name="NAME_AFFIX">$5.NAME_AFFIX</clover:element>
+        <clover:element clover:name="SECOND_NAME_PREFIX">$5.SECOND_NAME_PREFIX</clover:element>
+        <clover:element clover:name="KNOWN_AS">$5.KNOWN_AS</clover:element>
+        <clover:element clover:name="MIDDLE_NAME">$5.MIDDLE_NAME</clover:element>
+        <clover:element clover:name="NAME_FORMAT_INDICATOR">$5.NAME_FORMAT_INDICATOR</clover:element>
+        <clover:element clover:name="FORM_OF_ADDRESS_KEY">$5.FORM_OF_ADDRESS_KEY</clover:element>
+        <clover:element clover:name="GENDER_KEY">$5.GENDER_KEY</clover:element>
+        <clover:element clover:name="DATE_BIRTH">$5.DATE_BIRTH</clover:element>
+        <clover:element clover:name="COUNTRY_OF_BIRTH">$5.COUNTRY_OF_BIRTH</clover:element>
+        <clover:element clover:name="COUNTRY_OF_BIRTH_ISO">$5.COUNTRY_OF_BIRTH_ISO</clover:element>
+        <STATE>$5.STATE</STATE>
+        <BIRTHPLACE>$5.BIRTHPLACE</BIRTHPLACE>
+        <NATIONALITY>$5.NATIONALITY</NATIONALITY>
+        <clover:element clover:name="NATIONALITY_ISO">$5.NATIONALITY_ISO</clover:element>
+        <clover:element clover:name="SECOND_NATIONALITY">$5.SECOND_NATIONALITY</clover:element>
+        <clover:element clover:name="SECOND_NATIONALITY_ISO">$5.SECOND_NATIONALITY_ISO</clover:element>
+        <clover:element clover:name="THIRD_NATIONALITY">$5.THIRD_NATIONALITY</clover:element>
+        <clover:element clover:name="THIRD_NATIONALITY_ISO">$5.THIRD_NATIONALITY_ISO</clover:element>
+        <LANGU>$5.LANGU</LANGU>
+        <clover:element clover:name="LANGU_ISO">$5.LANGU_ISO</clover:element>
+        <clover:element clover:name="RELIGIOUS_DENOMINATION">$5.RELIGIOUS_DENOMINATION</clover:element>
+        <clover:element clover:name="MARITAL_STATUS">$5.MARITAL_STATUS</clover:element>
+        <clover:element clover:name="START_DATE_OF_MARITAL_STATUS">$5.START_DATE_OF_MARITAL_STATUS</clover:element>
+        <clover:element clover:name="NUMBER_OF_CHILDREN">$5.NUMBER_OF_CHILDREN</clover:element>
+        <clover:element clover:name="NAME_CONNECTION">$5.NAME_CONNECTION</clover:element>
+        <clover:element clover:name="MODIFIER_FOR_PERSONNEL_ID">$5.MODIFIER_FOR_PERSONNEL_ID</clover:element>
+        <PERSIDNO>$5.PERSIDNO</PERSIDNO>
+        <clover:element clover:name="PASSPORT_DATE_OF_BIRTH">$5.PASSPORT_DATE_OF_BIRTH</clover:element>
+        <clover:element clover:name="FIRST_NAME_KATAKANA">$5.FIRST_NAME_KATAKANA</clover:element>
+        <clover:element clover:name="LAST_NAME_KATAKANA">$5.LAST_NAME_KATAKANA</clover:element>
+        <clover:element clover:name="FIRST_NAME_ROMAJI">$5.FIRST_NAME_ROMAJI</clover:element>
+        <clover:element clover:name="LAST_NAME_ROMAJI">$5.LAST_NAME_ROMAJI</clover:element>
+        <clover:element clover:name="NAME_OF_BIRTH_KATAKANA">$5.NAME_OF_BIRTH_KATAKANA</clover:element>
+        <clover:element clover:name="NAME_OF_BIRTH_ROMAJI">$5.NAME_OF_BIRTH_ROMAJI</clover:element>
+        <clover:element clover:name="NICKNAME_KATAKANA">$5.NICKNAME_KATAKANA</clover:element>
+        <clover:element clover:name="NICKNAME_ROMAJI">$5.NICKNAME_ROMAJI</clover:element>
+        <clover:element clover:name="YEAR_OF_BIRTH">$5.YEAR_OF_BIRTH</clover:element>
+        <clover:element clover:name="MONTH_OF_BIRTH">$5.MONTH_OF_BIRTH</clover:element>
+        <clover:element clover:name="DAY_OF_BIRTH">$5.DAY_OF_BIRTH</clover:element>
+        <clover:element clover:name="LAST_NAME_MATCHCODE">$5.LAST_NAME_MATCHCODE</clover:element>
+        <clover:element clover:name="FIRST_NAME_MATCHCODE">$5.FIRST_NAME_MATCHCODE</clover:element>
+      </row>
+    </clover:element>
+    <clover:element clover:name="EMPLOYEE_PERSONNEL_ACTION">
+      <row id="$4.id" clover:inPort="4" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="OBJ_ID">$4.OBJ_ID</clover:element>
+        <INFOTYPE>$4.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$4.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="OBJECT_IDENTIFICATION">$4.OBJECT_IDENTIFICATION</clover:element>
+        <LOCKINDIC>$4.LOCKINDIC</LOCKINDIC>
+        <clover:element clover:name="TO_DATE">$4.TO_DATE</clover:element>
+        <clover:element clover:name="FROM_DATE">$4.FROM_DATE</clover:element>
+        <clover:element clover:name="IT_REC_NO">$4.IT_REC_NO</clover:element>
+        <clover:element clover:name="CHANGED_ON">$4.CHANGED_ON</clover:element>
+        <clover:element clover:name="CHANGED_BY">$4.CHANGED_BY</clover:element>
+        <clover:element clover:name="HIST_FLAG">$4.HIST_FLAG</clover:element>
+        <clover:element clover:name="INFOTYPE_TEXT_EXISTS">$4.INFOTYPE_TEXT_EXISTS</clover:element>
+        <clover:element clover:name="REFERENCE_FILEDS_EXIST">$4.REFERENCE_FILEDS_EXIST</clover:element>
+        <clover:element clover:name="CONFIRMATION_FIELDS_EXIST">$4.CONFIRMATION_FIELDS_EXIST</clover:element>
+        <clover:element clover:name="INFOTYPE_SCREEN_CONTROL">$4.INFOTYPE_SCREEN_CONTROL</clover:element>
+        <clover:element clover:name="REASON_TO_CHANGE_MASTER_DATA">$4.REASON_TO_CHANGE_MASTER_DATA</clover:element>
+        <clover:element clover:name="FLAG_1">$4.FLAG_1</clover:element>
+        <clover:element clover:name="FLAG_2">$4.FLAG_2</clover:element>
+        <clover:element clover:name="FLAG_3">$4.FLAG_3</clover:element>
+        <clover:element clover:name="FLAG_4">$4.FLAG_4</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_1">$4.RESERVED_FIELD_1</clover:element>
+        <clover:element clover:name="RESERVED_FIELD_2">$4.RESERVED_FIELD_2</clover:element>
+        <clover:element clover:name="ACTION_TYPE">$4.ACTION_TYPE</clover:element>
+        <clover:element clover:name="ACTION_REASON">$4.ACTION_REASON</clover:element>
+        <clover:element clover:name="USER_DEFINED_STATUS">$4.USER_DEFINED_STATUS</clover:element>
+        <clover:element clover:name="EMPLOYMENT_STATUS">$4.EMPLOYMENT_STATUS</clover:element>
+        <clover:element clover:name="SPECIAL_PAYMENT_STATUS">$4.SPECIAL_PAYMENT_STATUS</clover:element>
       </row>
     </clover:element>
     <clover:element clover:name="HR_INFOTYPE_HEADER">
@@ -3546,6 +3539,15 @@
         <SUBTYPE>$2.SUBTYPE</SUBTYPE>
         <clover:element clover:name="FROM_DATE">$2.FROM_DATE</clover:element>
         <clover:element clover:name="TO_DATE">$2.TO_DATE</clover:element>
+      </row>
+      <row id="$6.id" clover:inPort="6" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="PLAN_VER">$6.PLAN_VER</clover:element>
+        <clover:element clover:name="OBJ_TYPE">$6.OBJ_TYPE</clover:element>
+        <clover:element clover:name="OBJ_ID">$6.OBJ_ID</clover:element>
+        <INFOTYPE>$6.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$6.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="FROM_DATE">$6.FROM_DATE</clover:element>
+        <clover:element clover:name="TO_DATE">$6.TO_DATE</clover:element>
       </row>
       <row id="$7.id" clover:inPort="7" clover:key="__parent_id" clover:parentKey="__id">
         <clover:element clover:name="PLAN_VER">$7.PLAN_VER</clover:element>
@@ -3565,14 +3567,23 @@
         <clover:element clover:name="FROM_DATE">$8.FROM_DATE</clover:element>
         <clover:element clover:name="TO_DATE">$8.TO_DATE</clover:element>
       </row>
-      <row id="$9.id" clover:inPort="9" clover:key="__parent_id" clover:parentKey="__id">
-        <clover:element clover:name="PLAN_VER">$9.PLAN_VER</clover:element>
-        <clover:element clover:name="OBJ_TYPE">$9.OBJ_TYPE</clover:element>
-        <clover:element clover:name="OBJ_ID">$9.OBJ_ID</clover:element>
-        <INFOTYPE>$9.INFOTYPE</INFOTYPE>
-        <SUBTYPE>$9.SUBTYPE</SUBTYPE>
-        <clover:element clover:name="FROM_DATE">$9.FROM_DATE</clover:element>
-        <clover:element clover:name="TO_DATE">$9.TO_DATE</clover:element>
+      <row id="$12.id" clover:inPort="12" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="PLAN_VER">$12.PLAN_VER</clover:element>
+        <clover:element clover:name="OBJ_TYPE">$12.OBJ_TYPE</clover:element>
+        <clover:element clover:name="OBJ_ID">$12.OBJ_ID</clover:element>
+        <INFOTYPE>$12.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$12.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="FROM_DATE">$12.FROM_DATE</clover:element>
+        <clover:element clover:name="TO_DATE">$12.TO_DATE</clover:element>
+      </row>
+      <row id="$13.id" clover:inPort="13" clover:key="__parent_id" clover:parentKey="__id">
+        <clover:element clover:name="PLAN_VER">$13.PLAN_VER</clover:element>
+        <clover:element clover:name="OBJ_TYPE">$13.OBJ_TYPE</clover:element>
+        <clover:element clover:name="OBJ_ID">$13.OBJ_ID</clover:element>
+        <INFOTYPE>$13.INFOTYPE</INFOTYPE>
+        <SUBTYPE>$13.SUBTYPE</SUBTYPE>
+        <clover:element clover:name="FROM_DATE">$13.FROM_DATE</clover:element>
+        <clover:element clover:name="TO_DATE">$13.TO_DATE</clover:element>
       </row>
     </clover:element>
     <clover:element clover:name="HR_OBJECT_HEADER">
@@ -3605,7 +3616,7 @@ output.__parent_id = input.__id;
 output.OBJ_ID = input.EmployeeNumber;
 output.PLAN_VER = "01";
 output.OBJ_TYPE = "P";
-output.OPERATOR = inputArguments.sap_hire_hrobject_OPERATOR;]]></attr>
+output.OPERATOR = "I";]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 1" guiX="460" guiY="220" id="FOREACH_EMPLOYEE_ROW1" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3613,12 +3624,59 @@ output.OPERATOR = inputArguments.sap_hire_hrobject_OPERATOR;]]></attr>
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
+//MEL
+//START -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.PLAN_VER = inputArguments.sap_hire_hr_infotype1_PLAN_VER;
-output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype1_OBJ_TYPE;
-output.INFOTYPE = inputArguments.sap_hire_hr_infotype1_INFOTYPE;
-output.FROM_DATE = inputArguments.sap_hire_hr_infotype1_FROM_DATE;
-output.TO_DATE = inputArguments.sap_hire_hr_infotype1_TO_DATE;]]></attr>
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";
+output.INFOTYPE = "0000";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="email2" guiX="460" guiY="1120" id="FOREACH_EMPLOYEE_ROW10" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__id;
+//END -> DO NOT REMOVE
+output.SUBTYPE = "0010";
+output.COMMUNICATION_TYPE = "0010";
+output.COMMUNICATION_ID_NO = "";
+output.E_MAIL = input.Email.toUpperCase();
+output.OBJ_ID = input.EmployeeNumber;
+output.INFOTYPE = "0105";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE
+]]></attr>
+</Node>
+<Node enabled="enabled" guiName="hr_infotype5" guiX="460" guiY="1220" id="FOREACH_EMPLOYEE_ROW11" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__id;
+//END -> DO NOT REMOVE
+output.OBJ_ID = input.EmployeeNumber;
+output.SUBTYPE = "0001";
+output.INFOTYPE = "0105";
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;]]></attr>
+</Node>
+<Node enabled="enabled" guiName="hr_infotype6" guiX="460" guiY="1320" id="FOREACH_EMPLOYEE_ROW12" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__id;
+//END -> DO NOT REMOVE
+output.OBJ_ID = input.EmployeeNumber;
+output.SUBTYPE = "0010";
+output.INFOTYPE = "0105";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_org_assignment Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="320" id="FOREACH_EMPLOYEE_ROW2" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3628,8 +3686,8 @@ output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
 output.INFOTYPE = "0001";
-output.TO_DATE = inputArguments.sap_hire_org_TO_DATE;
-output.FROM_DATE = inputArguments.sap_hire_org_FROM_DATE;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
 output.COMP_CODE = inputArguments.sap_hire_org_COMP_CODE;
 output.PERS_AREA = inputArguments.sap_hire_org_PERS_AREA;
 output.EMPLOYEE_GROUP = inputArguments.sap_hire_org_EMPLOYEE_GROUP;
@@ -3641,24 +3699,24 @@ output.COSTCENTER = inputArguments.sap_hire_org_COSTCENTER;
 output.ORG_UNIT = inputArguments.sap_hire_org_ORG_UNIT;
 output.POSITION = inputArguments.sap_hire_org_POSITION;
 output.JOB = inputArguments.sap_hire_org_JOB;
-output.OBJ_TYPE = inputArguments.sap_hire_org_OBJ_TYPE;]]></attr>
+output.OBJ_TYPE = "S";]]></attr>
 </Node>
-<Node enabled="enabled" guiName="employee_payroll_status Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="420" id="FOREACH_EMPLOYEE_ROW3" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<Node enabled="enabled" guiName="Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="1320" id="FOREACH_EMPLOYEE_ROW3" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
 //START -> DO NOT REMOVE
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = inputArguments.sap_hire_payroll_INFOTYPE;
-output.TO_DATE = inputArguments.sap_hire_payroll_TO_DATE;
-output.FROM_DATE = inputArguments.sap_hire_payroll_FROM_DATE;
-output.EARLIEST_MD_CHANGE_SINCE_PAYR = inputArguments.sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR;
-output.INITIAL_ENTRY_TIME = inputArguments.sap_hire_payroll_INITIAL_ENTRY_TIME;
-output.PERS_NO_INPUT_DATE = inputArguments.sap_hire_payroll_PERS_NO_INPUT_DATE;
-output.PDC_RECALCULATION_DATE = inputArguments.sap_hire_payroll_PDC_RECALCULATION_DATE;
-output.INFOTYPE_VIEW_IND = inputArguments.sap_hire_payroll_INFOTYP_VIEW_IND;
-output.EARLIEST_PAYROLL_MD_CHANGE = inputArguments.sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE;]]></attr>
+output.INFOTYPE = "0003";
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.FROM_DATE = "18000101";
+output.EARLIEST_MD_CHANGE_SINCE_PAYR = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.INITIAL_ENTRY_TIME = date2str(inputArguments.currentDate, "HHmmss");
+output.PERS_NO_INPUT_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.PDC_RECALCULATION_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.INFOTYPE_VIEW_IND = "10";
+output.EARLIEST_PAYROLL_MD_CHANGE = date2str(inputArguments.currentDate, "yyyyMMdd");]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_personnel_action 'Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="520" id="FOREACH_EMPLOYEE_ROW4" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3667,12 +3725,12 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.INFOTYPE = inputArguments.sap_hire_personnel_INFOTYPE;
-output.TO_DATE = inputArguments.sap_hire_personnel_TO_DATE;
-output.FROM_DATE = inputArguments.sap_hire_personnel_FROM_DATE;
-output.ACTION_TYPE = inputArguments.sap_hire_personnel_ACTION_TYPE;
-output.EMPLOYMENT_STATUS = inputArguments.sap_hire_personnel_EMPLOYMENT_STATUS;
-output.SPECIAL_PAYMENT_STATUS = inputArguments.sap_hire_personnel_SPECIAL_PAYMENT_STATUS;]]></attr>
+output.INFOTYPE = "0000";
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.ACTION_TYPE = "01";
+output.EMPLOYMENT_STATUS = "3";
+output.SPECIAL_PAYMENT_STATUS = "1";]]></attr>
 </Node>
 <Node enabled="enabled" guiName="employee_personal_data Foreach 'Employee' -&gt; 'row'" guiX="460" guiY="620" id="FOREACH_EMPLOYEE_ROW5" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3681,62 +3739,60 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.INFOTYPE = "0002";
-output.PERSIDNO = "547547574";
-output.YEAR_OF_BIRTH = "1980";
-output.MONTH_OF_BIRTH = "01";
-output.DAY_OF_BIRTH = "01";
-output.SUBTYPE = "";
-output.OBJECT_IDENTIFICATION = "";
-output.LOCKINDIC = "";
-output.SECOND_NAME = "Mc";
-output.MIDDLE_NAME = "Mc";
-output.GENDER_KEY = "1";
-output.DATE_BIRTH = "19800101";
 output.OBJ_ID = input.EmployeeNumber;
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
 output.LAST_NAME = input.LastName;
+output.SECOND_NAME = "";
 output.FIRST_NAME = input.FirstName;
-output.FULL_EMPLOYEE_NAME = input.FirstName + " " + input.LastName;;
+output.FULL_EMPLOYEE_NAME = input.FirstName + " " + input.LastName;
 output.KNOWN_AS = input.FirstName;
+output.MIDDLE_NAME = "";
+output.NAME_FORMAT_INDICATOR = "0";
+output.FORM_OF_ADDRESS_KEY = "1";
+output.GENDER_KEY = "1";
+output.DATE_BIRTH = date2str(input.Dob, "yyyyMMdd");
+output.COUNTRY_OF_BIRTH = "US";
+output.STATE = "NJ";
+output.BIRTHPLACE = "Parsippany";
+output.NATIONALITY = "US";
+output.THIRD_NATIONALITY = "US";
+output.LANGU = "EN";
+output.NUMBER_OF_CHILDREN = "1";
+output.MODIFIER_FOR_PERSONNEL_ID = "10";
+output.PERSIDNO = inputArguments.sap_hire_personal_PERSIDNO;
+output.YEAR_OF_BIRTH = date2str(input.Dob, "yyyy");
+output.MONTH_OF_BIRTH = date2str(input.Dob, "MM");
+output.DAY_OF_BIRTH = date2str(input.Dob, "dd");
 output.LAST_NAME_MATCHCODE = input.LastName.toUpperCase();
 output.FIRST_NAME_MATCHCODE = input.FirstName.toUpperCase();
-output.TO_DATE = inputArguments.sap_hire_personal_TO_DATE;
-output.FROM_DATE = inputArguments.sap_hire_personal_FROM_DATE;
-output.NAME_FORMAT_INDICATOR = inputArguments.sap_hire_personal_NAME_FORMAT_INDICATOR;
-output.FORM_OF_ADDRESS_KEY = inputArguments.sap_hire_personal_FORM_OF_ADDRESS_KEY;
-output.COUNTRY_OF_BIRTH = inputArguments.sap_hire_personal_COUNTRY_OF_BIRTH;
-output.STATE = inputArguments.sap_hire_personal_STATE;
-output.BIRTHPLACE = inputArguments.sap_hire_personal_BIRTHPLACE;
-output.NATIONALITY = inputArguments.sap_hire_personal_NATIONALITY;
-output.THIRD_NATIONALITY = inputArguments.sap_hire_personal_THIRD_NATIONALITY;
-output.LANGU = inputArguments.sap_hire_personal_LANGU;
-output.NUMBER_OF_CHILDREN = inputArguments.sap_hire_personal_NUMBER_OF_CHILDREN;
-output.MODIFIER_FOR_PERSONNEL_ID = inputArguments.sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID;]]></attr>
+output.SUBTYPE = "";
+output.OBJECT_IDENTIFICATION = "";
+output.LOCKINDIC = "";]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 2" guiX="460" guiY="720" id="FOREACH_EMPLOYEE_ROW6" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
-//START -> DO NOT REMOVE
 output.__id = input.__id;
 output.__parent_id = input.__id;
-//END -> DO NOT REMOVE
+//START -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.PLAN_VER = inputArguments.sap_hire_hr_infotype2_PLAN_VER;
-output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype2_OBJ_TYPE;
-output.INFOTYPE = inputArguments.sap_hire_hr_infotype2_INFOTYPE;
-output.FROM_DATE = inputArguments.sap_hire_hr_infotype2_FROM_DATE;
-output.TO_DATE = inputArguments.sap_hire_hr_infotype2_TO_DATE;]]></attr>
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";
+output.INFOTYPE = "0001";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 3" guiX="460" guiY="820" id="FOREACH_EMPLOYEE_ROW7" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
-//START -> DO NOT REMOVE
 output.__id = input.__id;
 output.__parent_id = input.__id;
-//END -> DO NOT REMOVE
+//START -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.PLAN_VER = inputArguments.sap_hire_hr_infotype3_PLAN_VER;
-output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype3_OBJ_TYPE;
-output.INFOTYPE = inputArguments.sap_hire_hr_infotype3_INFOTYPE;
-output.FROM_DATE = inputArguments.sap_hire_hr_infotype3_FROM_DATE;
-output.TO_DATE = inputArguments.sap_hire_hr_infotype3_TO_DATE;]]></attr>
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";
+output.INFOTYPE = "0002";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE]]></attr>
 </Node>
 <Node enabled="enabled" guiName="hr_infotype 4" guiX="460" guiY="920" id="FOREACH_EMPLOYEE_ROW8" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -3745,33 +3801,56 @@ output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
-output.PLAN_VER = inputArguments.sap_hire_hr_infotype4_PLAN_VER;
-output.OBJ_TYPE = inputArguments.sap_hire_hr_infotype4_OBJ_TYPE;
-output.INFOTYPE = inputArguments.sap_hire_hr_infotype4_INFOTYPE;
-output.FROM_DATE = inputArguments.sap_hire_hr_infotype4_FROM_DATE;
-output.TO_DATE = inputArguments.sap_hire_hr_infotype4_TO_DATE;]]></attr>
+output.PLAN_VER = "01";
+output.OBJ_TYPE = "P";
+output.INFOTYPE = "0003";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE]]></attr>
+</Node>
+<Node enabled="enabled" guiName="email1" guiX="460" guiY="1020" id="FOREACH_EMPLOYEE_ROW9" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+output.__parent_id = input.__id;
+//END -> DO NOT REMOVE
+output.SUBTYPE = "0001";
+output.COMMUNICATION_TYPE = "0001";
+output.COMMUNICATION_ID_NO = input.Email.toUpperCase();
+output.E_MAIL = "";
+output.OBJ_ID = input.EmployeeNumber;
+output.INFOTYPE = "0105";
+output.FROM_DATE = date2str(inputArguments.currentDate, "yyyyMMdd");
+output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Duplicate Employee" guiX="240" guiY="20" id="SIMPLE_COPY0" type="SIMPLE_COPY"/>
 <Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge2" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 0 (out)" toNode="SIMPLE_COPY0:0"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_BAPI_HRMASTER_SAVE_REPL_MULT:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="459aefee-a68d-40cc-b307-ec7c67e00ac7" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW:0" guiBendpoints="" id="Edge4" inPort="Port 1 (in)" metadata="01158dc1-d630-404e-b410-c550f389862f" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:1"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW1:0" guiBendpoints="" id="Edge6" inPort="Port 2 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:2"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW10:0" guiBendpoints="" id="Edge24" inPort="Port 11 (in)" metadata="7cfd140f-cf7d-4c25-88a6-1a1340507fd0" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:11"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW11:0" guiBendpoints="" id="Edge26" inPort="Port 12 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:12"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW12:0" guiBendpoints="" id="Edge28" inPort="Port 13 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:13"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW2:0" guiBendpoints="" id="Edge8" inPort="Port 3 (in)" metadata="631a1866-f06d-4ddc-a1c6-b7d00e1d631d" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:3"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW3:0" guiBendpoints="" id="Edge10" inPort="Port 4 (in)" metadata="c1a64a6c-63b5-4012-a5c8-89c1c968db78" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:4"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW4:0" guiBendpoints="" id="Edge12" inPort="Port 5 (in)" metadata="8cbaf9f5-1c5f-4860-8705-f8ab61310b94" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:5"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW5:0" guiBendpoints="" id="Edge14" inPort="Port 6 (in)" metadata="892ff499-6055-4d7f-865d-baa25998a4a4" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:6"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW6:0" guiBendpoints="" id="Edge16" inPort="Port 7 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:7"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW7:0" guiBendpoints="" id="Edge18" inPort="Port 8 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:8"/>
-<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW8:0" guiBendpoints="" id="Edge20" inPort="Port 9 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:9"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW3:0" guiBendpoints="" id="Edge10" inPort="Port 9 (in)" metadata="c1a64a6c-63b5-4012-a5c8-89c1c968db78" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:9"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW4:0" guiBendpoints="" id="Edge12" inPort="Port 4 (in)" metadata="8cbaf9f5-1c5f-4860-8705-f8ab61310b94" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:4"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW5:0" guiBendpoints="" id="Edge14" inPort="Port 5 (in)" metadata="892ff499-6055-4d7f-865d-baa25998a4a4" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:5"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW6:0" guiBendpoints="" id="Edge16" inPort="Port 6 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:6"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW7:0" guiBendpoints="" id="Edge18" inPort="Port 7 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:7"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW8:0" guiBendpoints="" id="Edge20" inPort="Port 8 (in)" metadata="409f7f8e-86d7-4180-9f11-1d321fd95729" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:8"/>
+<Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_ROW9:0" guiBendpoints="" id="Edge22" inPort="Port 10 (in)" metadata="7cfd140f-cf7d-4c25-88a6-1a1340507fd0" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:10"/>
 <Edge debugMode="true" fromNode="SIMPLE_COPY0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 0 (out)" toNode="FOREACH_EMPLOYEE_BAPI_HRMASTER_SAVE_REPL_MULT:0"/>
 <Edge debugMode="true" fromNode="SIMPLE_COPY0:1" guiBendpoints="" id="Edge3" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 1 (out)" toNode="FOREACH_EMPLOYEE_ROW:0"/>
 <Edge debugMode="true" fromNode="SIMPLE_COPY0:2" guiBendpoints="" id="Edge5" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 2 (out)" toNode="FOREACH_EMPLOYEE_ROW1:0"/>
 <Edge debugMode="true" fromNode="SIMPLE_COPY0:3" guiBendpoints="" id="Edge7" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 3 (out)" toNode="FOREACH_EMPLOYEE_ROW2:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:4" guiBendpoints="" id="Edge9" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 4 (out)" toNode="FOREACH_EMPLOYEE_ROW3:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:5" guiBendpoints="" id="Edge11" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 5 (out)" toNode="FOREACH_EMPLOYEE_ROW4:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:6" guiBendpoints="" id="Edge13" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 6 (out)" toNode="FOREACH_EMPLOYEE_ROW5:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:7" guiBendpoints="" id="Edge15" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 7 (out)" toNode="FOREACH_EMPLOYEE_ROW6:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:8" guiBendpoints="" id="Edge17" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 8 (out)" toNode="FOREACH_EMPLOYEE_ROW7:0"/>
-<Edge debugMode="true" fromNode="SIMPLE_COPY0:9" guiBendpoints="" id="Edge19" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 9 (out)" toNode="FOREACH_EMPLOYEE_ROW8:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:4" guiBendpoints="" id="Edge11" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 4 (out)" toNode="FOREACH_EMPLOYEE_ROW4:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:5" guiBendpoints="" id="Edge13" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 5 (out)" toNode="FOREACH_EMPLOYEE_ROW5:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:6" guiBendpoints="" id="Edge15" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 6 (out)" toNode="FOREACH_EMPLOYEE_ROW6:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:7" guiBendpoints="" id="Edge17" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 7 (out)" toNode="FOREACH_EMPLOYEE_ROW7:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:8" guiBendpoints="" id="Edge19" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 8 (out)" toNode="FOREACH_EMPLOYEE_ROW8:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:9" guiBendpoints="" id="Edge9" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 9 (out)" toNode="FOREACH_EMPLOYEE_ROW3:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:10" guiBendpoints="" id="Edge21" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 10 (out)" toNode="FOREACH_EMPLOYEE_ROW9:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:11" guiBendpoints="" id="Edge23" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 11 (out)" toNode="FOREACH_EMPLOYEE_ROW10:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:12" guiBendpoints="" id="Edge25" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 12 (out)" toNode="FOREACH_EMPLOYEE_ROW11:0"/>
+<Edge debugMode="true" fromNode="SIMPLE_COPY0:13" guiBendpoints="" id="Edge27" inPort="Port 0 (in)" metadata="f0c144cf-0b4a-4488-8fac-cf5f232b1ac9" outPort="Port 13 (out)" toNode="FOREACH_EMPLOYEE_ROW12:0"/>
 </Phase>
 </Graph>

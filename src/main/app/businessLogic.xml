@@ -107,9 +107,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 				<data-mapper:input-argument key="sap_hire_org_COSTCENTER">${sap.hire.org.COSTCENTER}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_ORG_UNIT">${sap.hire.org.ORG_UNIT}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_POSITION">${sap.hire.org.POSITION}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>
-
-				<data-mapper:input-argument key="sap_hire_hr_infotype_TO_DATE">${sap.hire.hr_infotype.TO_DATE}</data-mapper:input-argument>
+				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>				
 				<data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>                
             </data-mapper:input-arguments>
         </data-mapper:transform>

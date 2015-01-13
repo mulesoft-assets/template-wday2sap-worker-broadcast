@@ -16,6 +16,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <data-mapper:config name="User_To_Contact" transformationGraphPath="user_to_maintaincontactinformationforpersoneventrequesttype.grf" doc:name="DataMapper"/>
     <data-mapper:config name="Map_To_WorkdayAccountForWorkerUpdateType" transformationGraphPath="map_to_workdayaccountforworkerupdatetype.grf" doc:name="Map_To_WorkdayAccountForWorkerUpdateType"/>
     <data-mapper:config name="Pojo_To_ChangeLegalNameRequestType" transformationGraphPath="pojo_to_changelegalnamerequesttype.grf" doc:name="Pojo_To_ChangeLegalNameRequestType"/>
+    <data-mapper:config name="Map_To_XML" transformationGraphPath="map_to_xml.grf" doc:name="Map_To_XML"/>
     <sub-flow name="getSAPEmployeeByEmail" doc:name="getSAPEmployeeByEmail">
         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
             <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
@@ -59,6 +60,17 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <sub-flow name="updateWorkdayEmployeeName" doc:name="updateWorkdayEmployeeName">
         <data-mapper:transform config-ref="Pojo_To_ChangeLegalNameRequestType" doc:name="Pojo To ChangeLegalNameRequestType"/>
         <wd-hr:change-legal-name config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+    </sub-flow>
+    <sub-flow name="terminateSAPEmployee" doc:name="terminateSAPEmployee">
+        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML">
+        	<data-mapper:input-arguments >
+                <data-mapper:input-argument key="sys_user">${sap.jco.user}</data-mapper:input-argument>
+                <data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>
+
+        	</data-mapper:input-arguments>
+        </data-mapper:transform>
+        <sap:outbound-endpoint  connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP" exchange-pattern="request-response"/>
+        <logger message="sap terminate employee: #[payload]" level="INFO" doc:name="Logger"/>
     </sub-flow>
     
 </mule>

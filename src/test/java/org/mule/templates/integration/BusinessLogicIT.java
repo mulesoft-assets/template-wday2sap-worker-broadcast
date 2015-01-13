@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -37,14 +38,14 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 
 	private static final long TIMEOUT_MILLIS = 300000;
 	private static final long DELAY_MILLIS = 500;
-	protected static final String PATH_TO_TEST_PROPERTIES = "./src/test/resources/mule.test.properties";
-	protected static final int TIMEOUT_SEC = 60;
+	private static final String PATH_TO_TEST_PROPERTIES = "./src/test/resources/mule.test.properties";
 	private static final String TEST_NAME = "wday";
 	private BatchTestHelper helper;
 	private Employee user;
 	private Map<String, String> emailUser;
 	private static String WORKDAY_ID;	
     private static String EMAIL = "@broadcast.com"; 
+    private String SAP_ID; 
     
     @BeforeClass
     public static void beforeTestClass() {
@@ -122,6 +123,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		MuleEvent response = flow.process(getTestEvent(emailUser.get("Email"), MessageExchangePattern.REQUEST_RESPONSE));
 		
 		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();
+		SAP_ID = sapEmployee.get("id");
 		logger.info("sap employee after create: " + sapEmployee);
 		assertNotNull("SAP Employee should have been synced", sapEmployee);
 								
@@ -154,8 +156,12 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	}    
     
     private void deleteTestDataFromSandBox() throws MuleException, Exception {
-    	logger.info("deleting test data...");		    					
-
+    	logger.info("deleting test employee: " + SAP_ID);
+    	SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("terminateSAPEmployee");
+		flow.initialise();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("id", SAP_ID);
+		flow.process(getTestEvent(map));		
 	}       
 	
 }

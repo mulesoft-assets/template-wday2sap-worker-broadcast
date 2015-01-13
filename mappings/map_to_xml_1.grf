@@ -65,6 +65,7 @@
 <Field __sourcePath="{}/employee/MiddleName" containerType="SINGLE" label="MiddleName" name="middleName" type="string"/>
 <Field __sourcePath="{}/employee/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
 <Field __sourcePath="{}/employee/Gender" containerType="SINGLE" label="Gender" name="Gender" type="string"/>
+<Field __sourcePath="{}/employee/Ssn" containerType="SINGLE" label="Ssn" name="Ssn" type="string"/>
 </Record>
 </Metadata>
 <Dictionary>
@@ -88,6 +89,7 @@
   <Mapping cloverField="middleName" trim="true" xpath="MiddleName"/>
   <Mapping cloverField="Dob" trim="true" xpath="Dob"/>
   <Mapping cloverField="Gender" trim="true" xpath="Gender"/>
+  <Mapping cloverField="Ssn" trim="true" xpath="Ssn"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
@@ -165,14 +167,14 @@ output.LASTNAME = input.lastName;
 output.FULLNAME = input.firstName + ' ' + input.lastName;
 output.EMPLOYEENUMBER = input.id;
 output.RECORDNUMBER = "000";
-output.IDNUMBER = input.id + "0";
+output.IDNUMBER = isnull(input.Ssn) ? input.id + "0" : input.Ssn;
 output.SUBTYPE = "";
 output.LOCKINDICATOR = "";
 output.OBJECTID = "";
 output.VALIDITYBEGIN = inputArguments.from;
 output.VALIDITYEND = inputArguments.to;
-output.DATEOFBIRTH = "19860420";
-]]></attr>
+output.DATEOFBIRTH = date2str(input.Dob, "yyyy-MM-dd");
+output.GENDER = input.Gender;]]></attr>
 </Node>
 <Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="7f79b218-75f3-4f08-ada4-0e519433995e" outPort="Port 0 (out)" toNode="FOREACH_EMPLOYEE_BAPI_PERSDATA_CHANGE:0"/>
 <Edge debugMode="true" fromNode="FOREACH_EMPLOYEE_BAPI_PERSDATA_CHANGE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="a3feb4a4-d973-481b-858b-9b563d60decd" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>

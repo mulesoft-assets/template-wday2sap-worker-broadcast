@@ -26,6 +26,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>
     <data-mapper:config name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_" transformationGraphPath="map_to_xml_bapi_employee_enqueue_.grf" doc:name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_"/>
+    <data-mapper:config name="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_" transformationGraphPath="map_to_xml_bapi_employee_dequeue_.grf" doc:name="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_"/>
     
     
     <batch:job name="broadcastUsers">
@@ -107,7 +108,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 				<data-mapper:input-argument key="sap_hire_org_ORG_UNIT">${sap.hire.org.ORG_UNIT}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_POSITION">${sap.hire.org.POSITION}</data-mapper:input-argument>
 				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_personal_PERSIDNO">${sap.hire.personal.PERSIDNO}</data-mapper:input-argument>
+
 				<data-mapper:input-argument key="sap_hire_hr_infotype_TO_DATE">${sap.hire.hr_infotype.TO_DATE}</data-mapper:input-argument>
 				<data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>                
             </data-mapper:input-arguments>
@@ -138,7 +139,13 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
             <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Update Employee" bapiTransaction="true" >
                 <sap:transaction action="ALWAYS_JOIN"/>
             </sap:outbound-endpoint>
+                    <logger message="sap update: #[payload]" level="INFO" doc:name="Log the update result"/>
+            <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
+            <data-mapper:transform config-ref="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_" doc:name="Map To Xml"/>
+            <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_DEQUEUE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Unlock Employee" bapiTransaction="true" exchange-pattern="request-response">
+                <sap:transaction action="ALWAYS_JOIN"/>
+            </sap:outbound-endpoint>
         </transactional>
-        <logger message="sap update: #[payload]" level="INFO" doc:name="Log the update result"/>
+
     </sub-flow>
 </mule>

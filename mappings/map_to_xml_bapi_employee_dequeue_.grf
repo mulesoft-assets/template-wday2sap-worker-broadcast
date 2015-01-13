@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><Graph __version="3.5.0" author="Admin" created="Tue Jan 13 08:25:53 CET 2015" description="Map To Xml&lt;BAPI_EMPLOYEE_DEQUEUE&gt;" guiVersion="3.4.4.P" id="1421142602833" licenseCode="Unlicensed" licenseType="Unknown" modified="Tue Jan 13 08:25:53 CET 2015" modifiedBy="Admin" name="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_" revision="1.0" showComponentDetails="false">
+<Global>
+<Metadata __filteredMetadata="false" __index="0" __referenceCounter="1" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE" _dataStructure="OBJECT" _id="__id" _type="Output" id="cfa62bc0-a75a-427e-ad21-9d6db76f4a82">
+<Record fieldDelimiter="," name="BAPI_EMPLOYEE_DEQUEUE" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/import/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER" type="string"/>
+<Field __index="1" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/TYPE" containerType="SINGLE" label="TYPE" name="TYPE" type="string"/>
+<Field __index="2" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/ID" containerType="SINGLE" label="ID" name="ID" type="string"/>
+<Field __index="3" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/NUMBER" containerType="SINGLE" label="NUMBER" name="NUMBER_1" type="string"/>
+<Field __index="4" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/MESSAGE" containerType="SINGLE" label="MESSAGE" name="MESSAGE" type="string"/>
+<Field __index="5" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/LOG_NO" containerType="SINGLE" label="LOG_NO" name="LOG_NO" type="string"/>
+<Field __index="6" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/LOG_MSG_NO" containerType="SINGLE" label="LOG_MSG_NO" name="LOG_MSG_NO" type="string"/>
+<Field __index="7" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/MESSAGE_V1" containerType="SINGLE" label="MESSAGE_V1" name="MESSAGE_V1" type="string"/>
+<Field __index="8" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/MESSAGE_V2" containerType="SINGLE" label="MESSAGE_V2" name="MESSAGE_V2" type="string"/>
+<Field __index="9" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/MESSAGE_V3" containerType="SINGLE" label="MESSAGE_V3" name="MESSAGE_V3" type="string"/>
+<Field __index="10" __sourcePath="{}/BAPI_EMPLOYEE_DEQUEUE/export/RETURN/MESSAGE_V4" containerType="SINGLE" label="MESSAGE_V4" name="MESSAGE_V4" type="string"/>
+</Record>
+</Metadata>
+<Metadata __index="0" __referenceCounter="1" __sourcePath="{}/worker" _dataStructure="OBJECT" _id="__id" _type="Input" id="a800a854-db9b-44e3-ab7c-3e87370cdf63">
+<Record fieldDelimiter="," name="worker" recordDelimiter="\n\\|\r\n\\|\r" type="delimited">
+<Field __artificialType="_id" __systemManaged="true" name="__id" type="string"/>
+<Field __index="0" __sourcePath="{}/worker/id" containerType="SINGLE" label="id" name="id" type="string"/>
+</Record>
+</Metadata>
+<Dictionary>
+<Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
+<Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
+</Dictionary>
+</Global>
+<Phase number="0">
+<Node enabled="enabled" fileURL="dict:inputPayload" guiName="Map&lt;k,v&gt; READER" guiX="20" guiY="20" id="BEAN_READER0" type="BEAN_READER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Context outPort="0" sequenceField="__id" xpath=".">
+  <Mapping cloverField="id" trim="true" xpath="id"/>
+</Context>
+]]></attr>
+<attr name="_data_format"><![CDATA[MAP]]></attr>
+</Node>
+<Node cacheInMemory="true" charset="UTF-8" enabled="enabled" fileURL="dict:outputPayload" guiName="XML WRITER" guiX="900" guiY="20" id="EXT_XML_WRITER0" type="EXT_XML_WRITER">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<clover:element clover:name="BAPI_EMPLOYEE_DEQUEUE" xmlns:clover="http://www.cloveretl.com/ns/xmlmapping" clover:inPort="0">
+  <import>
+    <NUMBER>$0.NUMBER</NUMBER>
+  </import>
+  <export>
+    <RETURN>
+      <TYPE>$0.TYPE</TYPE>
+      <ID>$0.ID</ID>
+      <NUMBER>$0.NUMBER_1</NUMBER>
+      <MESSAGE>$0.MESSAGE</MESSAGE>
+      <clover:element clover:name="LOG_NO">$0.LOG_NO</clover:element>
+      <clover:element clover:name="LOG_MSG_NO">$0.LOG_MSG_NO</clover:element>
+      <clover:element clover:name="MESSAGE_V1">$0.MESSAGE_V1</clover:element>
+      <clover:element clover:name="MESSAGE_V2">$0.MESSAGE_V2</clover:element>
+      <clover:element clover:name="MESSAGE_V3">$0.MESSAGE_V3</clover:element>
+      <clover:element clover:name="MESSAGE_V4">$0.MESSAGE_V4</clover:element>
+    </RETURN>
+  </export>
+</clover:element>]]></attr>
+<attr name="_data_format"><![CDATA[XML]]></attr>
+<attr name="__metadata"><![CDATA[true]]></attr>
+</Node>
+<Node enabled="enabled" guiName="Foreach 'worker' -&gt; 'BAPI_EMPLOYEE_DEQUEUE'" guiX="460" guiY="20" id="FOREACH_WORKER_BAPI_EMPLOYEE_DEQUEUE" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
+<attr name="melScript"><![CDATA[//MEL
+//START -> DO NOT REMOVE
+output.__id = input.__id;
+//END -> DO NOT REMOVE
+output.NUMBER = input.id;]]></attr>
+</Node>
+<Edge debugMode="true" fromNode="BEAN_READER0:0" guiBendpoints="" id="Edge0" inPort="Port 0 (in)" metadata="a800a854-db9b-44e3-ab7c-3e87370cdf63" outPort="Port 0 (out)" toNode="FOREACH_WORKER_BAPI_EMPLOYEE_DEQUEUE:0"/>
+<Edge debugMode="true" fromNode="FOREACH_WORKER_BAPI_EMPLOYEE_DEQUEUE:0" guiBendpoints="" id="Edge1" inPort="Port 0 (in)" metadata="cfa62bc0-a75a-427e-ad21-9d6db76f4a82" outPort="Port 0 (out)" toNode="EXT_XML_WRITER0:0"/>
+</Phase>
+</Graph>

@@ -698,7 +698,7 @@
 <Field __index="0" __sourcePath="{}/employee/FirstName" containerType="SINGLE" label="FirstName" name="FirstName" type="string"/>
 <Field __sourcePath="{}/employee/LastName" containerType="SINGLE" label="LastName" name="LastName" type="string"/>
 <Field __sourcePath="{}/employee/MiddleName" containerType="SINGLE" label="MiddleName" name="middleName" type="string"/>
-<Field __sourcePath="{}/employee/gender" containerType="SINGLE" label="gender" name="gender" type="string"/>
+<Field __sourcePath="{}/employee/Gender" containerType="SINGLE" label="Gender" name="gender" type="string"/>
 <Field __sourcePath="{}/employee/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
 <Field __sourcePath="{}/employee/Email" containerType="SINGLE" label="Email" name="Email" type="string"/>
 <Field __sourcePath="{}/employee/CountryOfBirth" containerType="SINGLE" label="CountryOfBirth" name="CountryOfBirth" type="string"/>
@@ -706,6 +706,7 @@
 <Field __sourcePath="{}/employee/Nationality" containerType="SINGLE" label="Nationality" name="Nationality" type="string"/>
 <Field __sourcePath="{}/employee/Children" containerType="SINGLE" label="Children" length="12" name="Children" scale="2" type="decimal"/>
 <Field __sourcePath="{}/employee/State" containerType="SINGLE" label="State" name="State" type="string"/>
+<Field __sourcePath="{}/employee/Ssn" containerType="SINGLE" label="Ssn" name="ssn" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="782" __referenceCounter="0" __sourcePath="{}/object/workerData/employeeContractsData/employeeContractData/employeeContractCollectiveAgreementReference" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="99c3febc-af6f-4001-8062-fe752734f9d2" _parent_id="__parent_id" _type="Input" id="7ca4d10e-9aa7-4e8e-ba22-77f0e366d197">
@@ -7332,6 +7333,7 @@
 <Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/countryOfBirthReference/ID[1]/value" containerType="SINGLE" label="CoBRule" name="CoBRule" type="string"/>
 <Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/nationalityReference/ID[1]/value" containerType="SINGLE" label="NationalityRule" name="NationalityRule" type="string"/>
 <Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/regionOfBirthReference/ID[1]/value" containerType="SINGLE" label="StateRule" name="StateRule" type="string"/>
+<Field __artificialType="XPATH" __xpath="{=}/workerData/personalData/identificationData[1]/nationalID[1]/nationalIDData[1]/ID" containerType="SINGLE" label="SSNRule" name="SSNRule" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="1954" __referenceCounter="0" __sourcePath="{}/object/workerData/qualificationData/workExperience" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="e12228ac-7142-4d54-a18b-eeebbff57cbe" _parent_id="__parent_id" _type="Input" id="872cd2d8-1798-4c91-b8b7-95c80228da02">
@@ -7633,6 +7635,7 @@
   <Mapping cloverField="CoBRule" trim="true" xpath="workerData/personalData/countryOfBirthReference/ID[1]/value"/>
   <Mapping cloverField="NationalityRule" trim="true" xpath="workerData/personalData/nationalityReference/ID[1]/value"/>
   <Mapping cloverField="StateRule" trim="true" xpath="workerData/personalData/regionOfBirthReference/ID[1]/value"/>
+  <Mapping cloverField="SSNRule" trim="true" xpath="workerData/personalData/identificationData[1]/nationalID[1]/nationalIDData[1]/ID"/>
 </Context>
 ]]></attr>
 <attr name="_data_format"><![CDATA[JAVA]]></attr>
@@ -11359,14 +11362,15 @@ output.__id = input.__id;
 output.FirstName = input.firstName;
 output.LastName = input.lastName;
 output.middleName = input.middleName_1;
-output.gender = isnull(input.GenderRule) ? "1" : (input.GenderRule == "Female" : "1" : "0");
+output.gender = isnull(input.GenderRule) ? "" : (input.GenderRule == "Not_Declared" ? "0" : (input.GenderRule == "Female" ? "2" : "1"));
 output.Dob = isnull(input.birthDate) ? str2date(inputArguments.defaultDOB, "dd.MM.yyyy") : calendar2date(input.birthDate);
 output.Email = input.EmailRule;
 output.CountryOfBirth = input.CoBRule;
 output.BirthPlace = input.cityOfBirth;
 output.Nationality = input.NationalityRule;
 output.Children = input.numberOfPayrollDependents;
-output.State = input.StateRule;]]></attr>
+output.State = input.StateRule;
+output.ssn = input.SSNRule;]]></attr>
 </Node>
 <Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -11374,7 +11378,7 @@ output.State = input.StateRule;]]></attr>
   <FirstName>$0.FirstName</FirstName>
   <LastName>$0.LastName</LastName>
   <MiddleName>$0.middleName</MiddleName>
-  <gender>$0.gender</gender>
+  <Gender>$0.gender</Gender>
   <Dob>$0.Dob</Dob>
   <Email>$0.Email</Email>
   <CountryOfBirth>$0.CountryOfBirth</CountryOfBirth>
@@ -11382,6 +11386,7 @@ output.State = input.StateRule;]]></attr>
   <Nationality>$0.Nationality</Nationality>
   <Children>$0.Children</Children>
   <State>$0.State</State>
+  <Ssn>$0.ssn</Ssn>
 </employee>]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>
 </Node>

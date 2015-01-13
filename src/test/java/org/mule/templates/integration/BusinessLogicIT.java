@@ -45,7 +45,6 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	private Map<String, String> emailUser;
 	private static String WORKDAY_ID;	
     private static String EMAIL = "@broadcast.com"; 
-    private String SAP_ID; 
     
     @BeforeClass
     public static void beforeTestClass() {
@@ -75,11 +74,6 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
     	return emailUser;
 	}
 
-	@After
-    public void tearDown() throws MuleException, Exception {
-    	deleteTestDataFromSandBox();
-    }
-    
     private void registerListeners() throws NotificationException {
 		muleContext.registerListener(pipelineListener);
 	}
@@ -122,11 +116,12 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		flow.initialise();
 		MuleEvent response = flow.process(getTestEvent(emailUser.get("Email"), MessageExchangePattern.REQUEST_RESPONSE));
 		
-		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();
-		SAP_ID = sapEmployee.get("id");
+		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();		
 		logger.info("sap employee after create: " + sapEmployee);
 		assertNotNull("SAP Employee should have been synced", sapEmployee);
-								
+		
+		// remove test data from SAP, moved here as @After would cause the redundant and invalid remove call
+		deleteTestDataFromSandBox(sapEmployee.get("id"));
     }
 
 	@Test
@@ -155,12 +150,12 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		helper.assertJobWasSuccessful();							
 	}    
     
-    private void deleteTestDataFromSandBox() throws MuleException, Exception {
-    	logger.info("deleting test employee: " + SAP_ID);
+    private void deleteTestDataFromSandBox(String id) throws MuleException, Exception {
+    	logger.info("deleting test employee: " + id);
     	SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("terminateSAPEmployee");
 		flow.initialise();
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", SAP_ID);
+		map.put("id", id);
 		flow.process(getTestEvent(map));		
 	}       
 	

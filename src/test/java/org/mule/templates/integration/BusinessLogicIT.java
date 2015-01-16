@@ -6,17 +6,13 @@
 
 package org.mule.templates.integration;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.FileInputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -122,8 +118,9 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		
 		// remove test data from SAP, moved here as @After would cause the redundant and invalid remove call
 		deleteTestDataFromSandBox(sapEmployee.get("id"));
-    }
-
+				
+	}	
+	
 	@Test
     public void testUpdateFlow() throws Exception {
 		updateNameTestDataInSandBox(generateEmployee());
@@ -141,6 +138,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		assertNotNull("SAP Employee should have been synced", sapEmployee.get("id"));
 		
     }
+	
 	private void basicTest() throws InterruptedException, Exception,
 			InitialisationException, MuleException {
 		Thread.sleep(20000);

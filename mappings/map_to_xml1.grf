@@ -3183,69 +3183,69 @@
 <Dictionary>
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry10" input="true" name="sap_hire_hr_infotype2_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry11" input="true" name="sap_hire_personal_FORM_OF_ADDRESS_KEY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry12" input="true" name="sap_hire_personnel_ACTION_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry13" input="true" name="sap_hire_org_JOB" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry14" input="true" name="sap_hire_personal_NUMBER_OF_CHILDREN" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry15" input="true" name="sap_hire_hr_infotype2_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry16" input="true" name="sap_hire_personal_COUNTRY_OF_BIRTH" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry17" input="true" name="sap_hire_hrobject_OPERATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry18" input="true" name="sap_hire_personal_STATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry19" input="true" name="sap_hire_personal_BIRTHPLACE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="sap_hire_hr_infotype1_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry20" input="true" name="sap_hire_payroll_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry21" input="true" name="sap_hire_payroll_INFOTYPE_VIEW_IND" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry22" input="true" name="sap_hire_hr_infotype1_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry23" input="true" name="sap_hire_payroll_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry24" input="true" name="sap_hire_personal_NAME_FORMAT_INDICATOR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry25" input="true" name="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry26" input="true" name="sap_hire_hr_infotype4_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry27" input="true" name="sap_hire_org_COSTCENTER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry28" input="true" name="sap_hire_hr_infotype3_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry29" input="true" name="sap_hire_personal_THIRD_NATIONALITY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="sap_hire_hr_infotype2_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry30" input="true" name="sap_hire_hr_infotype4_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry31" input="true" name="sap_hire_org_LEGAL_PERSON" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry32" input="true" name="sap_hire_org_POSITION" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry33" input="true" name="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry34" input="true" name="sap_hire_personal_LANGU" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry35" input="true" name="sap_hire_personnel_EMPLOYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry36" input="true" name="sap_hire_hrobject_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry37" input="true" name="sap_hire_payroll_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry38" input="true" name="sap_hire_payroll_INITIAL_ENTRY_TIME" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry39" input="true" name="sap_hire_hr_infotype1_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="sap_hire_org_COMP_CODE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry40" input="true" name="sap_hire_personal_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry41" input="true" name="sap_hire_hr_infotype2_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry42" input="true" name="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry43" input="true" name="sap_hire_personal_NATIONALITY" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry44" input="true" name="sap_hire_hr_infotype2_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry45" input="true" name="sap_hire_org_ORG_UNIT" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry46" input="true" name="sap_hire_personnel_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.util.Date" id="DictionaryEntry47" input="true" name="currentDate" output="false" type="date"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry48" input="true" name="sap_hire_personal_INFOTYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry49" input="true" name="sap_hire_org_PAYROLL_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="sap_hire_personnel_SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry50" input="true" name="sap_hire_payroll_PDC_RECALCULATION_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry51" input="true" name="sap_hire_hr_infotype3_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry52" input="true" name="sap_hire_org_EMPLOYEE_GROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry53" input="true" name="sap_hire_hr_infotype3_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry54" input="true" name="sap_hire_hr_infotype4_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry55" input="true" name="sap_hire_hr_infotype3_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry56" input="true" name="sap_hire_personnel_FROM_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry57" input="true" name="sap_hire_org_PERS_AREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry58" input="true" name="sap_hire_hr_infotype1_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry59" input="true" name="sap_hire_hr_infotype_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="sap_hire_hr_infotype1_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry60" input="true" name="sap_hire_hr_infotype4_PLAN_VER" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry61" input="true" name="sap_hire_payroll_PERS_NO_INPUT_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry62" input="true" name="sap_hire_hr_infotype3_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry63" input="true" name="sap_hire_org_PERSONNEL_SUBAREA" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry64" input="true" name="sap_hire_personal_TO_DATE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry7" input="true" name="sap_hire_org_EMPLOYEE_SUBGROUP" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry8" input="true" name="sap_hire_hrobject_OBJ_TYPE" output="false" type="string"/>
-<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry9" input="true" name="sap_hire_hr_infotype4_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry10" input="true" name="sap_hire_personal_MODIFIER_FOR_PERSONNEL_ID" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry11" input="true" name="sap_hire_hr_infotype4_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry12" input="true" name="sap_hire_hr_infotype2_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry13" input="true" name="sap_hire_org_COSTCENTER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry14" input="true" name="sap_hire_hr_infotype3_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry15" input="true" name="sap_hire_personal_THIRD_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry16" input="true" name="sap_hire_hr_infotype2_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry17" input="true" name="sap_hire_hr_infotype4_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry18" input="true" name="sap_hire_org_LEGAL_PERSON" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry19" input="true" name="sap_hire_org_POSITION" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="sap_hire_personal_STATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry20" input="true" name="sap_hire_payroll_EARLIEST_MD_CHANGE_SINCE_PAYR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry21" input="true" name="sap_hire_personal_LANGU" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry22" input="true" name="sap_hire_personnel_EMPLOYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry23" input="true" name="sap_hire_personal_FORM_OF_ADDRESS_KEY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry24" input="true" name="sap_hire_hrobject_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry25" input="true" name="sap_hire_payroll_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry26" input="true" name="sap_hire_payroll_INITIAL_ENTRY_TIME" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry27" input="true" name="sap_hire_hr_infotype1_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry28" input="true" name="sap_hire_org_COMP_CODE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry29" input="true" name="sap_hire_personal_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry3" input="true" name="sap_hire_personal_BIRTHPLACE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry30" input="true" name="sap_hire_hr_infotype2_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry31" input="true" name="sap_hire_payroll_EARLIEST_PAYROLL_MD_CHANGE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry32" input="true" name="sap_hire_personal_NATIONALITY" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry33" input="true" name="sap_hire_hr_infotype2_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry34" input="true" name="sap_hire_personnel_ACTION_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry35" input="true" name="sap_hire_org_ORG_UNIT" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry36" input="true" name="sap_hire_personnel_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.util.Date" id="DictionaryEntry37" input="true" name="currentDate" output="false" type="date"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry38" input="true" name="sap_hire_personal_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry39" input="true" name="sap_hire_org_PAYROLL_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry4" input="true" name="sap_hire_hr_infotype1_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry40" input="true" name="sap_hire_personnel_SPECIAL_PAYMENT_STATUS" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry41" input="true" name="sap_hire_payroll_PDC_RECALCULATION_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry42" input="true" name="sap_hire_hr_infotype3_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry43" input="true" name="sap_hire_org_EMPLOYEE_GROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry44" input="true" name="sap_hire_hr_infotype3_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry45" input="true" name="sap_hire_org_JOB" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry46" input="true" name="sap_hire_hr_infotype4_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry47" input="true" name="sap_hire_hr_infotype3_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry48" input="true" name="sap_hire_personnel_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry49" input="true" name="sap_hire_org_PERS_AREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry5" input="true" name="sap_hire_payroll_FROM_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry50" input="true" name="sap_hire_hr_infotype1_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry51" input="true" name="sap_hire_hr_infotype_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry52" input="true" name="sap_hire_hr_infotype1_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry53" input="true" name="sap_hire_hr_infotype4_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry54" input="true" name="sap_hire_payroll_PERS_NO_INPUT_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry55" input="true" name="sap_hire_hr_infotype3_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry56" input="true" name="sap_hire_personal_NUMBER_OF_CHILDREN" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry57" input="true" name="sap_hire_org_PERSONNEL_SUBAREA" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry58" input="true" name="sap_hire_personal_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry59" input="true" name="sap_hire_org_EMPLOYEE_SUBGROUP" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry6" input="true" name="sap_hire_payroll_INFOTYPE_VIEW_IND" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry60" input="true" name="sap_hire_hrobject_OBJ_TYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry61" input="true" name="sap_hire_hr_infotype4_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry62" input="true" name="sap_hire_hr_infotype2_TO_DATE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry63" input="true" name="sap_hire_personal_COUNTRY_OF_BIRTH" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry64" input="true" name="sap_hire_hrobject_OPERATOR" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry7" input="true" name="sap_hire_hr_infotype1_PLAN_VER" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry8" input="true" name="sap_hire_payroll_INFOTYPE" output="false" type="string"/>
+<Entry dictval.__javaType="java.lang.String" id="DictionaryEntry9" input="true" name="sap_hire_personal_NAME_FORMAT_INDICATOR" output="false" type="string"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -3710,7 +3710,7 @@ output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
 output.OBJ_ID = input.EmployeeNumber;
 output.INFOTYPE = "0003";
-output.TO_DATE = inputArguments.sap_hire_hr_infotype_TO_DATE;
+output.TO_DATE = "99991231";
 output.FROM_DATE = "18000101";
 output.EARLIEST_MD_CHANGE_SINCE_PAYR = date2str(inputArguments.currentDate, "yyyyMMdd");
 output.INITIAL_ENTRY_TIME = date2str(inputArguments.currentDate, "HHmmss");

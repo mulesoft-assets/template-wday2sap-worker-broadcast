@@ -24,10 +24,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     <data-mapper:config name="XML_To_Map_1" transformationGraphPath="xml_to_map_1.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Pojo_To_Map" transformationGraphPath="pojo_to_map.grf" doc:name="Pojo_To_Map"/>
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
-    <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>
-    <data-mapper:config name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_" transformationGraphPath="map_to_xml_bapi_employee_enqueue_.grf" doc:name="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_"/>
-    <data-mapper:config name="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_" transformationGraphPath="map_to_xml_bapi_employee_dequeue_.grf" doc:name="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_"/>
-    
+    <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>    
     
     <batch:job name="broadcastUsers">
         <batch:threading-profile poolExhaustedAction="WAIT"/>
@@ -41,6 +38,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<USERID>#["*" + payload.getWorkerData().getPersonalData().getContactData().getEmailAddressData().get(0).getEmailAddress().toUpperCase() + "*"]</USERID> 		
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
+
                         </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
                         <logger message="sap search: #[payload]" level="INFO" doc:name="Log the result map"/>
@@ -69,6 +67,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<OBJECT>RP_PREL</OBJECT>      
 	</import>
 </ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
+
                 
                 
                                 </sap:outbound-endpoint>
@@ -119,10 +118,15 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     
     <sub-flow name="updateSapEmployeeSubflow" doc:name="updateSapEmployeeSubflow">
         <set-variable variableName="worker" value="#[payload]" doc:name="Store worker"/>
-		<data-mapper:transform config-ref="Map_To_Xml_BAPI_EMPLOYEE_ENQUEUE_" doc:name="Map To XML"/>
         <transactional action="ALWAYS_BEGIN" doc:name="Transactional">
             <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_ENQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Lock Employee" >
                 <sap:transaction action="ALWAYS_JOIN"/>
+                <sap:definition><![CDATA[<BAPI_EMPLOYEE_ENQUEUE>
+  <import>
+    <NUMBER>#[payload.id]</NUMBER>
+  </import>
+</BAPI_EMPLOYEE_ENQUEUE>]]></sap:definition>
+
             </sap:outbound-endpoint>
             <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
             <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML">
@@ -139,9 +143,14 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
             </sap:outbound-endpoint>
                     <logger message="sap update: #[payload]" level="INFO" doc:name="Log the update result"/>
             <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
-            <data-mapper:transform config-ref="Map_To_Xml_BAPI_EMPLOYEE_DEQUEUE_" doc:name="Map To Xml"/>
             <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_DEQUEUE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Unlock Employee" bapiTransaction="true" exchange-pattern="request-response">
                 <sap:transaction action="ALWAYS_JOIN"/>
+                <sap:definition><![CDATA[<BAPI_EMPLOYEE_DEQUEUE>
+  <import>
+    <NUMBER>#[payload.id]</NUMBER>
+  </import>
+</BAPI_EMPLOYEE_DEQUEUE>]]></sap:definition>
+
             </sap:outbound-endpoint>
         </transactional>
 

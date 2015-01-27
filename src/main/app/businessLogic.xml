@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 
                         </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
-                        <logger message="sap search: #[payload]" level="INFO" doc:name="Log the result map"/>
+
                     </processor-chain>
                 </enricher>
 
@@ -52,12 +52,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
                         <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
                     </data-mapper:input-arguments>
                 </data-mapper:transform>
-                <logger message="sap employee: #[payload]" level="INFO" doc:name="Log the employee map"/>
+
             </batch:step>
             <batch:step name="UpsertUser" >
                 <choice doc:name="Choice">
                     <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">
-                        <logger level="INFO" doc:name="Logger" message="inserting SAP employee..."/>
+                        <logger level="INFO" doc:name="Logger" message="inserting SAP employee...#[payload]"/>
                         <enricher source="#[payload['EmployeeNumber']]" target="#[flowVars['EmployeeNumber']]" doc:name="store in '#[flowVars['EmployeeNumber']]'">
                             <processor-chain doc:name="Processor Chain">
                                 <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
@@ -80,7 +80,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
                         <flow-ref name="createSapEmployeeSubflow" doc:name="call createSapEmployeeSubflow"/>
                     </when>
                     <otherwise>
-                        <logger message="updating SAP employee..." level="INFO" doc:name="Logger"/>
+                        <logger message="updating SAP employee...#[payload]" level="INFO" doc:name="Logger"/>
                         <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("id", recordVars['userInSAP']['id']);]]></expression-component>
                         <flow-ref name="updateSapEmployeeSubflow" doc:name="call updateSapEmployeeSubflow"/>
                     </otherwise>
@@ -113,7 +113,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" 
         functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" 
         bapiTransaction="true" evaluateFunctionResponse="true"/>
-        <logger message="sap create: #[payload]" level="INFO" doc:name="Log the create result"/>   
+   
     </sub-flow>
     
     <sub-flow name="updateSapEmployeeSubflow" doc:name="updateSapEmployeeSubflow">
@@ -141,7 +141,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
             <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Update Employee" bapiTransaction="true" >
                 <sap:transaction action="ALWAYS_JOIN"/>
             </sap:outbound-endpoint>
-                    <logger message="sap update: #[payload]" level="INFO" doc:name="Log the update result"/>
+
             <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
             <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_DEQUEUE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Unlock Employee" bapiTransaction="true" exchange-pattern="request-response">
                 <sap:transaction action="ALWAYS_JOIN"/>

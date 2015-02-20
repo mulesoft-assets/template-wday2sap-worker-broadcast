@@ -4,7 +4,7 @@
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.0"
 	xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow"
 	xmlns:wd-staffing="http://www.mulesoft.org/schema/mule/wd-staffing"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

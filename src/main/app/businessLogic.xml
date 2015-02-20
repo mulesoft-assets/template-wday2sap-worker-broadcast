@@ -7,7 +7,7 @@
 	xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.5.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
@@ -93,7 +93,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
         </batch:on-complete>
     </batch:job>
     
-    <sub-flow name="createSapEmployeeSubflow" doc:name="createSapEmployeeSubflow">
+    <sub-flow name="createSapEmployeeSubflow" >
         <data-mapper:transform config-ref="Map_To_XML1" doc:name="Map To XML">
             <data-mapper:input-arguments>
                 <data-mapper:input-argument key="sap_hire_org_COMP_CODE">${sap.hire.org.COMP_CODE}</data-mapper:input-argument>
@@ -116,7 +116,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
    
     </sub-flow>
     
-    <sub-flow name="updateSapEmployeeSubflow" doc:name="updateSapEmployeeSubflow">
+    <sub-flow name="updateSapEmployeeSubflow" >
         <set-variable variableName="worker" value="#[payload]" doc:name="Store worker"/>
         <transactional action="ALWAYS_BEGIN" doc:name="Transactional">
             <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_ENQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Lock Employee" >

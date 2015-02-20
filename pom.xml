@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.mule.templates</groupId>
 		<artifactId>templates-tooling-parent-pom</artifactId>
-		<version>1.0.8</version>
+		<version>1.0.15</version>
 	</parent>
 
 	<artifactId>template-wday2sap-worker-broadcast</artifactId>
@@ -15,7 +15,6 @@
 	<name>template-wday2sap-worker-broadcast Anypoint Template Project</name>
 
 	<properties>
-		<wday.version>4.0.0</wday.version>
 		<sap.jco.version>3.0.10</sap.jco.version>
 		<sap.idoc.version>3.0.10</sap.idoc.version>
 		<sap.build.type>mac64</sap.build.type>
@@ -30,8 +29,12 @@
 					<copyToAppsDirectory>true</copyToAppsDirectory>
 					<inclusions>
 						<inclusion>
+                            <groupId>com.mulesoft.muleesb.transports</groupId>
+                            <artifactId>mule-transport-sap</artifactId>
+                        </inclusion>						
+						<inclusion>
 							<groupId>org.mule.modules</groupId>
-							<artifactId>mule-module-wday</artifactId>
+							<artifactId>mule-module-wday-humanresources</artifactId>
 						</inclusion>
 					</inclusions>
 				</configuration>
@@ -90,13 +93,12 @@
 	</build>
 
 	<dependencies>
-		
-		<dependency>
-			<groupId>org.mule.modules</groupId>
-			<artifactId>mule-module-workday</artifactId>
-			<version>${wday.version}</version>
-		</dependency>
-		<dependency>
+    	<dependency>
+            <groupId>org.mule.modules</groupId>
+            <artifactId>mule-module-workday-humanresources</artifactId>
+            <version>${wday.hr.version}</version>
+        </dependency>
+        <dependency>
 			<groupId>com.mulesoft.muleesb.transports</groupId>
 			<artifactId>mule-transport-sap</artifactId>
 			<version>${sap.version}</version>

@@ -26,10 +26,11 @@ Note that using this template is subject to the conditions of this [License Agre
 Please review the terms of the license before downloading and using this template. In short, you are allowed to use the template for free with Mule ESB Enterprise Edition, CloudHub, or as a trial in Anypoint Studio.
 
 # Use Case <a name="usecase"/>
-I want to synchronize Workers between Workday and SAP.
+As a Workday admin I want to synchronize Workers between Workday and SAP.
 
 As implemented, this Anypoint Template leverage the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
 The batch job is divided in Input, Process and On Complete stages.
+
 1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
 2. In the batch the employee is fetched from SAP by the email and mapped to SAP input data structure.
 3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
@@ -40,7 +41,7 @@ To make this Anypoint Template run, there are certain preconditions that must be
 
 ## Disclaimer
 
-This Anypoint template uses a few private Maven dependencies in oder to work. If you intend to run this template with Maven support, please continue reading.
+This Anypoint template uses a few private Maven dependencies in order to work. If you intend to run this template with Maven support, please continue reading.
 
 You will find that there are three dependencies in the pom.xml file that begin with the following group id: 
 	**com.sap.conn.jco** 
@@ -70,7 +71,7 @@ Simple steps to get Workday to Salesforce Worker Broadcast running.
 
 
 ## Running on premise <a name="runonopremise"/>
-In this section we detail the way you have to run you Anypoint Temple on you computer.
+In this section we detail the way you should run your Anypoint Template on your computer.
 
 
 ### Where to Download Mule Studio and Mule ESB
@@ -102,7 +103,7 @@ Once you have imported you Anypoint Template into Anypoint Studio you need to fo
 
 
 ### Running on Mule ESB stand alone <a name="runonmuleesbstandalone"/>
-Complete all properties in one of the property files, for example in [mule.prod.properties] (../blob/master/src/main/resources/mule.prod.properties) and run your app with the corresponding environment variable to use it. To follow the example, this will be `mule.env=prod`. 
+Complete all properties in one of the property files, for example in [mule.prod.properties] (../master/src/main/resources/mule.prod.properties) and run your app with the corresponding environment variable to use it. To follow the example, this will be `mule.env=prod`. 
 
 
 ## Running on CloudHub <a name="runoncloudhub"/>
@@ -175,18 +176,19 @@ In the visual editor they can be found on the *Global Element* tab.
 
 
 ## businessLogic.xml<a name="businesslogicxml"/>
-This file holds the functional aspect of the template (points 2. to 3. described in the template overview. Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
+This file holds the functional aspect of the template (points 2. to 3. described in the template overview). Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
 
 
 
 ## endpoints.xml<a name="endpointsxml"/>
 This file should contain every inbound endpoint of your integration app. It is intended to contain the application API.
-In this particular template, this file contains a poll inbound endpoints that query Workday for updates using watermark.
+In this particular template, this file contains a poll inbound endpoints that queries Workday for updates using a watermark.
 
 
 
 ## errorHandling.xml<a name="errorhandlingxml"/>
-Contains a [Catch Exception Strategy](http://www.mulesoft.org/documentation/display/current/Catch+Exception+Strategy) that is only Logging the exception thrown (If so). As you imagine, this is the right place to handle how your integration will react depending on the different exceptions.
+This is the right place to handle how your integration will react depending on the different exceptions. 
+This file holds a [Choice Exception Strategy](http://www.mulesoft.org/documentation/display/current/Choice+Exception+Strategy) that is referenced by the main flow in the business logic.
 
 
 

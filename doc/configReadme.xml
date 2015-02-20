@@ -6,14 +6,14 @@
 	<sections>
 		<section id="use_case">
 			<![CDATA[
-I want to synchronize Workers between Workday and SAP.
+As a Workday admin I want to synchronize Workers between Workday and SAP.
 
 As implemented, this Anypoint Template leverage the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
 The batch job is divided in Input, Process and On Complete stages.
+
 1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
 2. In the batch the employee is fetched from SAP by the email and mapped to SAP input data structure.
 3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
-		
 ]]>
 		</section>
 		<section id="considerations">
@@ -22,7 +22,7 @@ To make this Anypoint Template run, there are certain preconditions that must be
 
 ## Disclaimer
 
-This Anypoint template uses a few private Maven dependencies in oder to work. If you intend to run this template with Maven support, please continue reading.
+This Anypoint template uses a few private Maven dependencies in order to work. If you intend to run this template with Maven support, please continue reading.
 
 You will find that there are three dependencies in the pom.xml file that begin with the following group id: 
 	**com.sap.conn.jco** 
@@ -76,12 +76,12 @@ There are no special considerations regarding API calls.
 		<section id="default_endpoints_xml">
 		<![CDATA[
 This file should contain every inbound endpoint of your integration app. It is intended to contain the application API.
-In this particular template, this file contains a poll inbound endpoints that query Workday for updates using watermark.
+In this particular template, this file contains a poll inbound endpoints that queries Workday for updates using a watermark.
 ]]>
 		</section>
 		<section id="default_business_logic_xml">
 		<![CDATA[
-This file holds the functional aspect of the template (points 2. to 3. described in the template overview. Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
+This file holds the functional aspect of the template (points 2. to 3. described in the template overview). Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
 ]]>
 	</section>
 	</sections>

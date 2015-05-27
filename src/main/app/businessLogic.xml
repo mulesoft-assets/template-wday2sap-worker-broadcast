@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:core="http://www.mulesoft.org/schema/mule/core"
-	xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
+	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" 
+	xmlns:json="http://www.mulesoft.org/schema/mule/json" 
+	xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
 	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
 	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
-	xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.0"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
-http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
 	<data-mapper:config name="Map_To_XML1" transformationGraphPath="map_to_xml1.grf" doc:name="Map_To_XML"/>
     <data-mapper:config name="XML_To_Map_1" transformationGraphPath="xml_to_map_1.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Pojo_To_Map" transformationGraphPath="pojo_to_map.grf" doc:name="Pojo_To_Map"/>
@@ -38,6 +38,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<USERID>#["*" + payload.getWorkerData().getPersonalData().getContactData().getEmailAddressData().get(0).getEmailAddress().toUpperCase() + "*"]</USERID> 		
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
+
 
                         </sap:outbound-endpoint>
                         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
@@ -67,6 +68,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<OBJECT>RP_PREL</OBJECT>      
 	</import>
 </ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
+
 
                 
                 
@@ -127,6 +129,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
   </import>
 </BAPI_EMPLOYEE_ENQUEUE>]]></sap:definition>
 
+
             </sap:outbound-endpoint>
             <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
             <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML">
@@ -150,6 +153,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     <NUMBER>#[payload.id]</NUMBER>
   </import>
 </BAPI_EMPLOYEE_DEQUEUE>]]></sap:definition>
+
 
             </sap:outbound-endpoint>
         </transactional>

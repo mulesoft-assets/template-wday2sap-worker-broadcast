@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.mule.templates</groupId>
 		<artifactId>templates-tooling-parent-pom</artifactId>
-		<version>1.1.3</version>
+		<version>1.1.9</version>
 	</parent>
 
 	<artifactId>template-wday2sap-worker-broadcast</artifactId>
 	<packaging>mule</packaging>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>1.1.1-SNAPSHOT</version>
 	<name>template-wday2sap-worker-broadcast Anypoint Template Project</name>
 
 	<properties>
@@ -103,8 +103,6 @@
 			<artifactId>mule-transport-sap</artifactId>
 			<version>${sap.version}</version>
 		</dependency>
-
-		
 		<dependency>
 			<groupId>com.sap.conn.jco</groupId>
 			<artifactId>sapjco3</artifactId>
@@ -131,15 +129,9 @@
 			<version>${mule.version}</version>
 			<scope>provided</scope>
 		</dependency>
-	<dependency>
+		<dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-spring-config</artifactId>
-            <version>${mule.version}</version>
-            <scope>provided</scope>
-        </dependency>
-    <dependency>
-            <groupId>org.mule.transports</groupId>
-            <artifactId>mule-transport-http</artifactId>
             <version>${mule.version}</version>
             <scope>provided</scope>
         </dependency>

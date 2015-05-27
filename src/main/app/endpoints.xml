@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow" xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
-	xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr"
+<mule xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow" 
+	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" 
+	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:json="http://www.mulesoft.org/schema/mule/json" 
+	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr"
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
-	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.0"
+	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" 
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
@@ -20,11 +25,6 @@ http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mu
 
 	<!-- 	In this file you should declare all your inbound endpoints in order to control the access to your application -->
 
-	<spring:beans>
-    <spring:bean id="watermarkObjectStore"
-        class="org.mule.util.store.SimpleMemoryObjectStore" />
-</spring:beans> 
-
 	<flow name="triggerFlow" processingStrategy="synchronous"
 		doc:name="triggerFlow"
 		doc:description="This is the simpliest entry point to start the excecution of your Kick
@@ -38,7 +38,7 @@ Here you should not:
 			<fixed-frequency-scheduler frequency="${poll.frequencyMillis}"
 				startDelay="${poll.startDelayMillis}" />
 			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}"
-				update-expression="#[ new java.util.Date() ]" object-store-ref="watermarkObjectStore"/>
+				update-expression="#[ new java.util.Date() ]"/>
 			<processor-chain doc:name="query Workers and set collection">
                 <logger message="Fetching Workday updates...#[flowVars['lastQueryDate']] ... #[new java.util.Date()]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"

@@ -144,7 +144,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	
 	private void basicTest() throws InterruptedException, Exception,
 			InitialisationException, MuleException {
-		Thread.sleep(10000);
+		Thread.sleep(20000);
 		runSchedulersOnce(POLL_FLOW_NAME);
 		waitForPollToRun();
 		helper.awaitJobTermination(TIMEOUT_MILLIS, DELAY_MILLIS);

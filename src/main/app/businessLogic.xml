@@ -48,14 +48,6 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                 </enricher>
 
             </batch:step>
-<!--             <batch:step name="MapWorkdayUser"> -->
-<!--                 <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map"> -->
-<!--                     <data-mapper:input-arguments> -->
-<!--                         <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument> -->
-<!--                     </data-mapper:input-arguments> -->
-<!--                 </data-mapper:transform> -->
-
-<!--             </batch:step> -->
             <batch:step name="UpsertEmployee" >
                 <choice doc:name="Choice">
                     <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">

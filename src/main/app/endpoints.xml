@@ -51,10 +51,6 @@ Here you should not:
                         <data-mapper:input-argument key="updatedThrough">#[payload.getRequestCriteria().getTransactionLogCriteriaData()[0].getTransactionDateRangeData().getUpdatedThrough()]</data-mapper:input-argument>
                     </data-mapper:input-arguments>
                 </data-mapper:transform>
-
-<!--                 <set-payload value="#[payload.responseData == null ? null : payload.responseData.worker]" -->
-<!--         					doc:name="set to Worker collection" /> -->
-
 			</processor-chain>
 		</poll>
 

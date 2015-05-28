@@ -28,11 +28,11 @@ Please review the terms of the license before downloading and using this templat
 # Use Case <a name="usecase"/>
 As a Workday admin I want to synchronize Workers between Workday and SAP.
 
-As implemented, this Anypoint Template leverage the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
+As implemented, this Anypoint Template leverages the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
 The batch job is divided in Input, Process and On Complete stages.
 
 1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
-2. In the batch the employee is fetched from SAP by the email and mapped to SAP input data structure.
+2. In the batch the employee is fetched from SAP by the e-mail and mapped to SAP input data structure.
 3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
 
 # Considerations <a name="considerations"/>
@@ -64,6 +64,10 @@ There are no particular considerations for this Anypoint Template regarding Sap 
 ### As source of data
 
 There are no particular considerations for this Anypoint Template regarding Workday as data origin.
+
+
+
+
 
 
 # Run it! <a name="runit"/>
@@ -121,7 +125,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 
 + polling.frequency `10000`
 + polling.start.delay `5000`
-+ watermark.default.expression `#[groovy: new Date()]`
++ watermark.default.expression `#[groovy: new GregorianCalendar(2015, Calendar.MAY, 28, 14, 00, 00)]` //(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
 
 #### Workday Connector configuration
 + wday.user `admin@workday`

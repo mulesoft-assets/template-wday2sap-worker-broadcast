@@ -39,16 +39,16 @@ Here you should not:
 		<poll doc:name="fireup Worker synchronization">
 			<fixed-frequency-scheduler frequency="${poll.frequencyMillis}"
 				startDelay="${poll.startDelayMillis}" />
-			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}"
-				update-expression="#[ new java.util.Date() ]"/>
+			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}" selector="FIRST" selector-expression="#[payload.LastModifiedDate]"/>
 			<processor-chain doc:name="query Workers and set collection">
-                <logger message="Fetching Workday updates...#[flowVars['lastQueryDate']] ... #[new java.util.Date()]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
+                <logger message="Fetching Workday with watermark: #[new java.text.SimpleDateFormat(&quot;yyyy/dd/MM HH:mm:ss.SSS&quot;).format(lastQueryDate.getTime())]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"
 					doc:name="get Workers from Workday Human Resource"
 					workersRequest-ref="#[org.mule.templates.WorkersRequest.create(lastQueryDate)]"></wd-hr:get-workers>
                 <data-mapper:transform config-ref="Workers_Pojo_To_Maps" doc:name="Workers Pojo To Maps">
                     <data-mapper:input-arguments>
                         <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
+                        <data-mapper:input-argument key="updatedThrough">#[payload.getRequestCriteria().getTransactionLogCriteriaData()[0].getTransactionDateRangeData().getUpdatedThrough()]</data-mapper:input-argument>
                     </data-mapper:input-arguments>
                 </data-mapper:transform>
 
@@ -58,7 +58,7 @@ Here you should not:
 			</processor-chain>
 		</poll>
 
-        <batch:execute name="broadcastUsers" doc:name="Batch Execute"/>
+        <batch:execute name="broadcastEmployees" doc:name="broadcastEmployees"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>
 		
 	</flow>

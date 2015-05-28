@@ -8,15 +8,14 @@ package org.mule.templates;
 
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.workday.hr.EffectiveAndUpdatedDateTimeDataType;
 import com.workday.hr.GetWorkersRequestType;
@@ -25,15 +24,17 @@ import com.workday.hr.WorkerRequestCriteriaType;
 
 public class WorkersRequest {
 
-	private static Logger LOGGER = LoggerFactory.getLogger(WorkersRequest.class);
+	private static Logger LOGGER = LogManager.getLogger(WorkersRequest.class);
 	
-	public static GetWorkersRequestType create(Date startDate) throws ParseException, DatatypeConfigurationException {
+	public static GetWorkersRequestType create(GregorianCalendar startDate) throws ParseException, DatatypeConfigurationException {
 
 		EffectiveAndUpdatedDateTimeDataType dateRangeData = new EffectiveAndUpdatedDateTimeDataType();
-		dateRangeData.setUpdatedFrom(xmlDate(startDate));		
-		Calendar cal = Calendar.getInstance();		
-		cal.add(Calendar.SECOND, -5);
-		dateRangeData.setUpdatedThrough(xmlDate(cal.getTime()));
+		
+		GregorianCalendar current = new GregorianCalendar();
+        current.add(Calendar.SECOND, -5);
+        dateRangeData.setUpdatedFrom(getXMLGregorianCalendar(startDate));	
+		dateRangeData.setUpdatedThrough(getXMLGregorianCalendar(current));
+		
 		LOGGER.info("worker request: " + dateRangeData.getUpdatedFrom() + " - " + dateRangeData.getUpdatedThrough());		
 
 		TransactionLogCriteriaType transactionLogCriteria = new TransactionLogCriteriaType();
@@ -46,11 +47,9 @@ public class WorkersRequest {
 		
 		return getWorkersType;
 	}
-
-	private static XMLGregorianCalendar xmlDate(Date date) throws DatatypeConfigurationException {
-		GregorianCalendar gregorianCalendar = (GregorianCalendar) GregorianCalendar.getInstance();
-		gregorianCalendar.setTime(date);
-		return DatatypeFactory.newInstance().newXMLGregorianCalendar(gregorianCalendar);
+	
+	private static XMLGregorianCalendar getXMLGregorianCalendar(GregorianCalendar cal) throws DatatypeConfigurationException {
+		return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
 	}
 
 }

@@ -754,7 +754,7 @@
 <Field __index="7" __sourcePath="{}/employees/BirthPlace" containerType="SINGLE" label="BirthPlace" name="BirthPlace" type="string"/>
 <Field __index="9" __sourcePath="{}/employees/Children" containerType="SINGLE" label="Children" name="Children" type="decimal"/>
 <Field __index="6" __sourcePath="{}/employees/CountryOfBirth" containerType="SINGLE" label="CountryOfBirth" name="CountryOfBirth" type="string"/>
-<Field __index="4" __sourcePath="{}/employees/Dob" containerType="SINGLE" format="" label="Dob" name="Dob" type="date"/>
+<Field __index="4" __sourcePath="{}/employees/Dob" containerType="SINGLE" label="Dob" name="Dob" type="date"/>
 <Field __index="5" __sourcePath="{}/employees/Email" containerType="SINGLE" label="Email" name="Email" type="string"/>
 <Field __index="0" __sourcePath="{}/employees/FirstName" containerType="SINGLE" label="FirstName" name="FirstName" type="string"/>
 <Field __index="3" __sourcePath="{}/employees/Gender" containerType="SINGLE" label="Gender" name="Gender" type="string"/>
@@ -763,6 +763,7 @@
 <Field __index="8" __sourcePath="{}/employees/Nationality" containerType="SINGLE" label="Nationality" name="Nationality" type="string"/>
 <Field __index="11" __sourcePath="{}/employees/Ssn" containerType="SINGLE" label="Ssn" name="Ssn" type="string"/>
 <Field __index="10" __sourcePath="{}/employees/State" containerType="SINGLE" label="State" name="State" type="string"/>
+<Field __dmType="Calendar" __sourcePath="{}/employees/LastModifiedDate" containerType="SINGLE" label="LastModifiedDate" name="LastModifiedDate" type="string"/>
 </Record>
 </Metadata>
 <Metadata __index="1047" __referenceCounter="0" __sourcePath="{}/object/responseData/worker/workerData/employmentData/positionData/endEmploymentReasonReference" _dataStructure="SINGLE_DIMENSIONAL_COLLECTION" _id="__id" _metadataParentId="cebc5056-5af1-4ee2-a9af-5dfb104720ba" _parent_id="__parent_id" _type="Input" id="9a524846-f1e1-4b61-a99d-33c705cb12bf">
@@ -7566,6 +7567,7 @@
 <Entry id="DictionaryEntry0" input="true" name="inputPayload" output="false" type="object"/>
 <Entry id="DictionaryEntry1" input="false" name="outputPayload" output="true" type="object"/>
 <Entry dictval.__javaType="java.lang.String" id="DictionaryEntry2" input="true" name="defaultDOB" output="false" type="string"/>
+<Entry dictval.__javaType="javax.xml.datatype.XMLGregorianCalendar" id="DictionaryEntry3" input="true" name="updatedThrough" output="false" type="object"/>
 </Dictionary>
 </Global>
 <Phase number="0">
@@ -11742,7 +11744,8 @@ output.BirthPlace = input.cityOfBirth;
 output.Nationality = input.NationalityRule;
 output.Children = input.numberOfPayrollDependents;
 output.State = input.StateRule;
-output.Ssn = input.SSNRule;]]></attr>
+output.Ssn = input.SSNRule;
+output.LastModifiedDate = inputArguments.updatedThrough;]]></attr>
 </Node>
 <Node cacheInMemory="true" enabled="enabled" fileURL="dict:outputPayload" guiName="Map&lt;k,v&gt; WRITER" guiX="900" guiY="20" id="MAP_WRITER0" type="MAP_WRITER">
 <attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -11760,6 +11763,7 @@ output.Ssn = input.SSNRule;]]></attr>
     <Children>$0.Children</Children>
     <State>$0.State</State>
     <Ssn>$0.Ssn</Ssn>
+    <LastModifiedDate clover:dataType="java.util.Calendar">$0.LastModifiedDate</LastModifiedDate>
   </item>
 </clover:collection>]]></attr>
 <attr name="_data_format"><![CDATA[MAP]]></attr>

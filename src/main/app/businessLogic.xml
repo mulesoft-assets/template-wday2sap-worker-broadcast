@@ -26,10 +26,10 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
     <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>    
     
-    <batch:job name="broadcastUsers">
+    <batch:job name="broadcastEmployees">
         <batch:threading-profile poolExhaustedAction="WAIT"/>
         <batch:process-records>
-            <batch:step name="GetServiceNowUserIfExists">
+            <batch:step name="GetSAPEmployeeIfExists">
                 <enricher source="#[payload]" target="#[recordVars['userInSAP']]" doc:name="store in recordVars['userInSAP']">
                     <processor-chain doc:name="Processor Chain">
                         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
@@ -56,7 +56,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 <!--                 </data-mapper:transform> -->
 
 <!--             </batch:step> -->
-            <batch:step name="UpsertUser" >
+            <batch:step name="UpsertEmployee" >
                 <choice doc:name="Choice">
                     <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">
                         <logger level="INFO" doc:name="Logger" message="inserting SAP employee...#[payload]"/>

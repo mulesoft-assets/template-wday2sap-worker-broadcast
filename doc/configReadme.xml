@@ -35,7 +35,7 @@ These dependencies are private for Mulesoft and will cause you application not t
 
 + polling.frequency `10000`
 + polling.start.delay `5000`
-+ watermark.default.expression `#[groovy: new Date()]`
++ watermark.default.expression `#[groovy: new GregorianCalendar(2015, Calendar.MAY, 28, 14, 00, 00)]` //(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
 
 #### Workday Connector configuration
 + wday.user `admin@workday`

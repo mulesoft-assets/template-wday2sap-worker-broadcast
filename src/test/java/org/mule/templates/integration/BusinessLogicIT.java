@@ -26,6 +26,8 @@ import org.mule.context.notification.NotificationException;
 import org.mule.processor.chain.SubflowInterceptingChainLifecycleWrapper;
 import org.mule.templates.utils.Employee;
 
+import com.mulesoft.module.batch.BatchTestHelper;
+
 /**
  * The objective of this class is to validate the correct behavior of the flows
  * for this Anypoint Template that make calls to external systems.
@@ -142,7 +144,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	
 	private void basicTest() throws InterruptedException, Exception,
 			InitialisationException, MuleException {
-		Thread.sleep(20000);
+		Thread.sleep(10000);
 		runSchedulersOnce(POLL_FLOW_NAME);
 		waitForPollToRun();
 		helper.awaitJobTermination(TIMEOUT_MILLIS, DELAY_MILLIS);

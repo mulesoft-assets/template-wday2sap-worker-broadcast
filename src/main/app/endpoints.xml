@@ -22,11 +22,13 @@ http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/jso
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd">
+    <data-mapper:config name="Workers_Pojo_To_Maps" transformationGraphPath="workers_pojo_to_maps.grf" doc:name="Workers_Pojo_To_Maps"/>
+
 
 	<!-- 	In this file you should declare all your inbound endpoints in order to control the access to your application -->
 
 	<flow name="triggerFlow" processingStrategy="synchronous"
-		doc:name="triggerFlow"
+		
 		doc:description="This is the simpliest entry point to start the excecution of your Kick
 Here you should:
 	* Define any inbound endpoint
@@ -44,8 +46,14 @@ Here you should not:
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"
 					doc:name="get Workers from Workday Human Resource"
 					workersRequest-ref="#[org.mule.templates.WorkersRequest.create(lastQueryDate)]"></wd-hr:get-workers>
-                <set-payload value="#[payload.responseData == null ? null : payload.responseData.worker]"
-        					doc:name="set to Worker collection" />
+                <data-mapper:transform config-ref="Workers_Pojo_To_Maps" doc:name="Workers Pojo To Maps">
+                    <data-mapper:input-arguments>
+                        <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
+                    </data-mapper:input-arguments>
+                </data-mapper:transform>
+
+<!--                 <set-payload value="#[payload.responseData == null ? null : payload.responseData.worker]" -->
+<!--         					doc:name="set to Worker collection" /> -->
 
 			</processor-chain>
 		</poll>

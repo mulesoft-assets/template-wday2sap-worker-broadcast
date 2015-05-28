@@ -747,7 +747,8 @@
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.emailAddress = input.Email;]]></attr>
+output.emailAddress = input.Email;
+]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Foreach 'User' -&gt; 'ID'" guiX="460" guiY="120" id="FOREACH_USER_ID" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -772,7 +773,7 @@ output.value = "HOME";]]></attr>
 //START -> DO NOT REMOVE
 output.__id = input.__id;
 //END -> DO NOT REMOVE
-]]></attr>
+output.effectiveDate = date2calendar(inputArguments.EffectiveDate);]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Foreach 'User' -&gt; 'typeData'" guiX="460" guiY="420" id="FOREACH_USER_TYPE_DATA" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL
@@ -780,7 +781,8 @@ output.__id = input.__id;
 output.__id = input.__id;
 output.__parent_id = input.__id;
 //END -> DO NOT REMOVE
-output.primary = 1;]]></attr>
+output.primary = 1;
+]]></attr>
 </Node>
 <Node enabled="enabled" guiName="Foreach 'User' -&gt; 'usageData'" guiX="460" guiY="320" id="FOREACH_USER_USAGE_DATA" transformClass="com.mulesoft.datamapper.transform.MelRecordTransform" type="REFORMAT">
 <attr name="melScript"><![CDATA[//MEL

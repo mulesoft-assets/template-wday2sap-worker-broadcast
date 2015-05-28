@@ -32,6 +32,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
+
     	</sap:outbound-endpoint>
     	<data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
         <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
@@ -47,6 +48,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 						</import>
 					</BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
+
        </sap:outbound-endpoint>
         <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
         <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
@@ -59,14 +61,17 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
         <data-mapper:transform doc:name="Map to Maintain Contact" config-ref="User_To_Contact">
             <data-mapper:input-arguments>
                 <data-mapper:input-argument key="EffectiveDate">#[new java.util.Date()]</data-mapper:input-argument>
+
             </data-mapper:input-arguments>
         </data-mapper:transform>
         <wd-hr:maintain-contact-information config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+        <logger message="Flow updateWorkdayEmployeeEmail finished..." level="INFO" doc:name="Logger"/>
 
     </sub-flow>
     <sub-flow name="updateWorkdayEmployeeName" >
         <data-mapper:transform config-ref="Pojo_To_ChangeLegalNameRequestType" doc:name="Pojo To ChangeLegalNameRequestType"/>
         <wd-hr:change-legal-name config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
+        <logger message="Flow updateWorkdayEmployeeName finished..." level="INFO" doc:name="Logger"/>
     </sub-flow>
     <sub-flow name="terminateSAPEmployee" >
         <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML">

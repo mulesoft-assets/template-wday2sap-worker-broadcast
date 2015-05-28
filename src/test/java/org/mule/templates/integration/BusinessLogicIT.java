@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,8 +26,6 @@ import org.mule.context.notification.NotificationException;
 import org.mule.processor.chain.SubflowInterceptingChainLifecycleWrapper;
 import org.mule.templates.utils.Employee;
 
-import com.mulesoft.module.batch.BatchTestHelper;
-
 /**
  * The objective of this class is to validate the correct behavior of the flows
  * for this Anypoint Template that make calls to external systems.
@@ -36,6 +36,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	private static final long DELAY_MILLIS = 500;
 	private static final String PATH_TO_TEST_PROPERTIES = "./src/test/resources/mule.test.properties";
 	private static final String TEST_NAME = "wday";
+	private static final Logger log = LogManager.getLogger(BusinessLogicIT.class);
 	private BatchTestHelper helper;
 	private Employee user;
 	private Map<String, String> emailUser;
@@ -54,7 +55,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
     	try {
     		props.load(new FileInputStream(PATH_TO_TEST_PROPERTIES));
     	} catch (Exception e) {
-    	   logger.error("Error occured while reading mule.test.properties", e);
+    	   log.error("Error occured while reading mule.test.properties", e);
     	} 
     	WORKDAY_ID = props.getProperty("wday.testuser.id");
     	helper = new BatchTestHelper(muleContext);
@@ -77,7 +78,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
     private void updateNameTestDataInSandBox(Employee user) throws MuleException, Exception {
 		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("updateWorkdayEmployeeName");
 		flow.initialise();
-		logger.info("updating a workday employee...");
+		log.info("updating a workday employee...");
 		try {
 			flow.process(getTestEvent(user, MessageExchangePattern.REQUEST_RESPONSE));						
 		} catch (Exception e) {
@@ -88,7 +89,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
     private void updateEmailTestDataInSandBox(Map<String, String> user) throws MuleException, Exception {
 		SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("updateWorkdayEmployeeEmail");
 		flow.initialise();
-		logger.info("updating a workday employee...");
+		log.info("updating a workday employee...");
 		try {
 			flow.process(getTestEvent(user, MessageExchangePattern.REQUEST_RESPONSE));						
 		} catch (Exception e) {
@@ -113,7 +114,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		MuleEvent response = flow.process(getTestEvent(emailUser.get("Email"), MessageExchangePattern.REQUEST_RESPONSE));
 		
 		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();		
-		logger.info("sap employee after create: " + sapEmployee);
+		log.info("sap employee after create: " + sapEmployee);
 		assertNotNull("SAP Employee should have been synced", sapEmployee);
 		
 		// remove test data from SAP, moved here as @After would cause the redundant and invalid remove call
@@ -134,7 +135,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 		map.put("lastName", user.getFamilyName());
 		MuleEvent response = flow.process(getTestEvent(map, MessageExchangePattern.REQUEST_RESPONSE));
 		Map<String, String> sapEmployee = (Map<String, String>) response.getMessage().getPayload();
-		logger.info("sap employee: " + sapEmployee);
+		log.info("sap employee: " + sapEmployee);
 		assertNotNull("SAP Employee should have been synced", sapEmployee.get("id"));
 		
     }
@@ -149,7 +150,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	}    
     
     private void deleteTestDataFromSandBox(String id) throws MuleException, Exception {
-    	logger.info("deleting test employee: " + id);
+    	log.info("deleting test employee: " + id);
     	SubflowInterceptingChainLifecycleWrapper flow = getSubFlow("terminateSAPEmployee");
 		flow.initialise();
 		Map<String, String> map = new HashMap<String, String>();

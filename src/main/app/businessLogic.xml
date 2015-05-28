@@ -35,9 +35,10 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
                             <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
   	<import>	
-		<USERID>#["*" + payload.getWorkerData().getPersonalData().getContactData().getEmailAddressData().get(0).getEmailAddress().toUpperCase() + "*"]</USERID> 		
+		<USERID>#["*" + payload['Email'].toUpperCase() + "*"]</USERID> 		
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
+
 
 
                         </sap:outbound-endpoint>
@@ -47,14 +48,14 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
                 </enricher>
 
             </batch:step>
-            <batch:step name="MapWorkdayUser">
-                <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map">
-                    <data-mapper:input-arguments>
-                        <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
-                    </data-mapper:input-arguments>
-                </data-mapper:transform>
+<!--             <batch:step name="MapWorkdayUser"> -->
+<!--                 <data-mapper:transform config-ref="Pojo_To_Map" doc:name="Pojo To Map"> -->
+<!--                     <data-mapper:input-arguments> -->
+<!--                         <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument> -->
+<!--                     </data-mapper:input-arguments> -->
+<!--                 </data-mapper:transform> -->
 
-            </batch:step>
+<!--             </batch:step> -->
             <batch:step name="UpsertUser" >
                 <choice doc:name="Choice">
                     <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">
@@ -68,6 +69,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 		<OBJECT>RP_PREL</OBJECT>      
 	</import>
 </ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
+
 
 
                 
@@ -130,6 +132,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 </BAPI_EMPLOYEE_ENQUEUE>]]></sap:definition>
 
 
+
             </sap:outbound-endpoint>
             <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
             <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML">
@@ -153,6 +156,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
     <NUMBER>#[payload.id]</NUMBER>
   </import>
 </BAPI_EMPLOYEE_DEQUEUE>]]></sap:definition>
+
 
 
             </sap:outbound-endpoint>

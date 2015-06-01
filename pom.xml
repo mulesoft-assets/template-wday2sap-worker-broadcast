@@ -11,7 +11,7 @@
 
 	<artifactId>template-wday2sap-worker-broadcast</artifactId>
 	<packaging>mule</packaging>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1</version>
 	<name>template-wday2sap-worker-broadcast Anypoint Template Project</name>
 
 	<properties>
@@ -173,6 +173,6 @@
 		<connection>scm:git:https://github.com/mulesoft/template-wday2sap-worker-broadcast.git</connection>
 		<developerConnection>scm:git:https://github.com/mulesoft/template-wday2sap-worker-broadcast.git</developerConnection>
 		<url>http://github.com/mulesoft/template-wday2sap-worker-broadcast</url>
-	  <tag>HEAD</tag>
+	  <tag>v1.1.1</tag>
   </scm>
 </project>

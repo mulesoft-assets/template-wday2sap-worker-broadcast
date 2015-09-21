@@ -1,5 +1,5 @@
 
-# Anypoint Template: Workday to Salesforce Worker Broadcast
+# Anypoint Template: Workday to SAP Worker Broadcast
 
 + [License Agreement](#licenseagreement)
 + [Use Case](#usecase)
@@ -71,7 +71,7 @@ There are no particular considerations for this Anypoint Template regarding Work
 
 
 # Run it! <a name="runit"/>
-Simple steps to get Workday to Salesforce Worker Broadcast running.
+Simple steps to get Workday to SAP Worker Broadcast running.
 
 
 ## Running on premise <a name="runonopremise"/>
@@ -123,9 +123,9 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 ### Application configuration
 ### Common configuration
 
-+ polling.frequency `10000`
-+ polling.start.delay `5000`
-+ watermark.default.expression `#[groovy: new GregorianCalendar(2015, Calendar.MAY, 28, 14, 00, 00)]` //(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
++ poll.frequencyMillis `10000`
++ poll.startDelayMillis `5000`
++ watermark.defaultExpression `#[groovy: new GregorianCalendar(2015, Calendar.SEPTEMBER, 21, 14, 00, 00)]` //(YEAR, MONTH, DAY, HOUR, MINUTE, SECOND)
 
 #### Workday Connector configuration
 + wday.user `admin@workday`
@@ -154,7 +154,7 @@ In order to use this Mule Anypoint Template you need to configure properties (Cr
 + sap.hire.org.ORG_UNIT `50000590`
 + sap.hire.org.POSITION `50000046`
 + sap.hire.org.JOB `50052752`
-+ sap.hire.default.dob `01.01.1980`
++ sap.hire.default.dob `1980-01-01`
 
 # API Calls <a name="apicalls"/>
 There are no special considerations regarding API calls.

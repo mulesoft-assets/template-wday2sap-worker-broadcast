@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow" 
-	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" 
+<mule version="EE-3.7.1"
+	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" 
 	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
-	xmlns:json="http://www.mulesoft.org/schema/mule/json" 
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr"
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking"
 	xmlns:batch="http://www.mulesoft.org/schema/mule/batch" 
-	xmlns:http="http://www.mulesoft.org/schema/mule/http"
 	xmlns="http://www.mulesoft.org/schema/mule/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
-http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
-http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd">
-    <data-mapper:config name="Workers_Pojo_To_Maps" transformationGraphPath="workers_pojo_to_maps.grf" doc:name="Workers_Pojo_To_Maps"/>
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
+
 
 
 	<!-- 	In this file you should declare all your inbound endpoints in order to control the access to your application -->
@@ -39,20 +34,71 @@ Here you should not:
 		<poll doc:name="fireup Worker synchronization">
 			<fixed-frequency-scheduler frequency="${poll.frequencyMillis}"
 				startDelay="${poll.startDelayMillis}" />
-			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}" selector="FIRST" selector-expression="#[payload.LastModifiedDate]"/>
+			<watermark variable="lastQueryDate" default-expression="${watermark.defaultExpression}" update-expression="#[flowVars.updatedThrough]"/>
 			<processor-chain doc:name="query Workers and set collection">
+
                 <logger message="Fetching Workday with watermark: #[new java.text.SimpleDateFormat(&quot;yyyy/dd/MM HH:mm:ss.SSS&quot;).format(lastQueryDate.getTime())]" level="INFO" doc:name="log 'Fetching workday updates...'"/>
+                <dw:transform-message doc:name="Create GetWorkers Request">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	requestCriteria: {
+		excludeInactiveWorkers		: true,
+		excludeContingentWorkers	: false,
+		excludeEmployees			: false,
+		transactionLogCriteriaData: [
+			{
+				transactionDateRangeData: {
+					updatedFrom		: flowVars.lastQueryDate,
+					updatedThrough	: now - |PT5S|
+				}
+			}
+		]
+	},
+	
+	responseGroup: {
+		includeRoles				: false,
+		includePersonalInformation	: true,
+		includeOrganizations		: false, 
+		includeEmploymentInformation: false,
+		includeReference			: false
+	}
+} as :object {class: "com.workday.hr.GetWorkersRequestType"}]]></dw:set-payload>
+                </dw:transform-message>
 				<wd-hr:get-workers config-ref="Workday_Human_Resource"
 					doc:name="get Workers from Workday Human Resource"
-					workersRequest-ref="#[org.mule.templates.WorkersRequest.create(lastQueryDate)]"></wd-hr:get-workers>
-                <data-mapper:transform config-ref="Workers_Pojo_To_Maps" doc:name="Workers Pojo To Maps">
-                    <data-mapper:input-arguments>
-                        <data-mapper:input-argument key="defaultDOB">${sap.hire.default.dob}</data-mapper:input-argument>
-                        <data-mapper:input-argument key="updatedThrough">#[payload.getRequestCriteria().getTransactionLogCriteriaData()[0].getTransactionDateRangeData().getUpdatedThrough()]</data-mapper:input-argument>
-                    </data-mapper:input-arguments>
-                </data-mapper:transform>
+					></wd-hr:get-workers>
+
 			</processor-chain>
 		</poll>
+        <set-variable variableName="updatedThrough" value="#[payload.getRequestCriteria().getTransactionLogCriteriaData().get(0).getTransactionDateRangeData().getUpdatedThrough()]" doc:name="Set updatedThrough"/>
+        <dw:transform-message doc:name="POJO to Maps">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+%function genderSAP(gender) {
+	result : '0' when gender == 'Not_Declared' otherwise ( '2' when gender == 'Female' otherwise '1')
+}
+%var response = payload as :object { class: "com.workday.hr.GetWorkersResponseType" }
+---
+[] when (response.responseData is :null) otherwise 
+response.responseData.worker map using (person = $.workerData.personalData) {
+	FirstName       : person.NameData.legalNameData.nameDetailData.firstName,
+	MiddleName      : person.NameData.legalNameData.nameDetailData.middleName,
+	LastName        : person.NameData.legalNameData.nameDetailData.lastName,
+	Children 		: payload.workerData.relatedPersonData.numberOfPayrollDependents default null,
+	BirthPlace		: person.cityOfBirth,
+	DoB				: person.birthDate as :string {format: "YYYY-MM-dd"} default p('sap.hire.default.dob'),
+	Gender          : genderSAP(person.genderReference.ID[1].value).result when person.genderReference != null otherwise '',
+	Email			: person.contactData.emailAddressData[-1].emailAddress,
+	CoB             : person.countryOfBirthReference.ID[0].value when  person.countryOfBirthReference != null otherwise null,
+	Nationality     : person.nationalityReference.ID[0].value when person.nationalityReference != null otherwise null,
+	State           : person.regionOfBirthReference.ID[0].value when person.regionOfBirthReference != null otherwise null,
+	Ssn             : person.identificationData.nationalID[0].nationalIDData.ID when person.identificationData != null otherwise null
+} ]]></dw:set-payload>
+        </dw:transform-message>
+        <expression-filter expression="#[payload.size() &gt; 0]" doc:name="Filter empty result set"/>
+        <logger message="New Workday workers: #[payload]" level="INFO" doc:name="Log workers"/>
 
         <batch:execute name="broadcastEmployees" doc:name="broadcastEmployees"/>
         <exception-strategy ref="defaultChoiceExceptionStrategy" doc:name="Reference Exception Strategy"/>

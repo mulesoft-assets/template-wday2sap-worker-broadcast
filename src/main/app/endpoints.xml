@@ -51,7 +51,7 @@ Here you should not:
 			{
 				transactionDateRangeData: {
 					updatedFrom		: flowVars.lastQueryDate,
-					updatedThrough	: now - |PT5S|
+					updatedThrough	: now - |PT10S|
 				}
 			}
 		]
@@ -82,7 +82,7 @@ Here you should not:
 %var response = payload as :object { class: "com.workday.hr.GetWorkersResponseType" }
 ---
 [] when (response.responseData is :null) otherwise 
-response.responseData.worker map using (person = $.workerData.personalData) {
+(response.responseData.worker map using (person = $.workerData.personalData) {
 	FirstName       : person.NameData.legalNameData.nameDetailData.firstName,
 	MiddleName      : person.NameData.legalNameData.nameDetailData.middleName,
 	LastName        : person.NameData.legalNameData.nameDetailData.lastName,
@@ -90,12 +90,12 @@ response.responseData.worker map using (person = $.workerData.personalData) {
 	BirthPlace		: person.cityOfBirth,
 	DoB				: person.birthDate as :string {format: "YYYY-MM-dd"} default p('sap.hire.default.dob'),
 	Gender          : genderSAP(person.genderReference.ID[1].value).result when person.genderReference != null otherwise '',
-	Email			: person.contactData.emailAddressData[-1].emailAddress,
+	Email			: person.contactData.emailAddressData[-1].emailAddress when person.contactData.emailAddressData != null otherwise null,
 	CoB             : person.countryOfBirthReference.ID[0].value when  person.countryOfBirthReference != null otherwise null,
 	Nationality     : person.nationalityReference.ID[0].value when person.nationalityReference != null otherwise null,
 	State           : person.regionOfBirthReference.ID[0].value when person.regionOfBirthReference != null otherwise null,
 	Ssn             : person.identificationData.nationalID[0].nationalIDData.ID when person.identificationData != null otherwise null
-} ]]></dw:set-payload>
+}) filter $.Email != null]]></dw:set-payload>
         </dw:transform-message>
         <expression-filter expression="#[payload.size() &gt; 0]" doc:name="Filter empty result set"/>
         <logger message="New Workday workers: #[payload]" level="INFO" doc:name="Log workers"/>

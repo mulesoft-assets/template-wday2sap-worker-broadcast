@@ -51,7 +51,7 @@ Here you should not:
 			{
 				transactionDateRangeData: {
 					updatedFrom		: flowVars.lastQueryDate,
-					updatedThrough	: now - |PT10S|
+					updatedThrough	: now - |PT5S|
 				}
 			}
 		]

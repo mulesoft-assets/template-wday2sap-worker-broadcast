@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -52,8 +53,7 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	public static void beforeTestClass() {
 		System.setProperty("poll.startDelayMillis", "8000");
 		System.setProperty("poll.frequencyMillis", "30000");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.HOUR, -2);
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 		System.setProperty(
 				"watermark.defaultExpression",
 				"#[groovy: new GregorianCalendar(" 

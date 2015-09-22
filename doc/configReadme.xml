@@ -11,7 +11,7 @@ As a Workday admin I want to synchronize Workers between Workday and SAP.
 As implemented, this Anypoint Template leverages the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
 The batch job is divided in Input, Process and On Complete stages.
 
-1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input.
+1. The integration is triggered by poll to Workday instance. New or modified workers are passed to the batch as input. Workers without at least one e-mail address assigned are filtered.
 2. In the batch the employee is fetched from SAP by the e-mail and mapped to SAP input data structure.
 3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
 ]]>

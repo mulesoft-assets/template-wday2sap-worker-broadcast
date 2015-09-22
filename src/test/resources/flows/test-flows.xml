@@ -1,88 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
-	xmlns:servicenow="http://www.mulesoft.org/schema/mule/servicenow" 
+<mule version="EE-3.7.1"
+	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" 
+	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
-	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper" 
-	xmlns:wd-staffing="http://www.mulesoft.org/schema/mule/wd-staffing" 
-	xmlns:sfdc="http://www.mulesoft.org/schema/mule/sfdc" 
 	xmlns="http://www.mulesoft.org/schema/mule/core" 
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfdc/current/mule-sfdc.xsd
-http://www.mulesoft.org/schema/mule/wd-staffing http://www.mulesoft.org/schema/mule/wd-staffing/current/mule-wd-staffing.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
-http://www.mulesoft.org/schema/mule/servicenow http://www.mulesoft.org/schema/mule/servicenow/current/mule-servicenow.xsd
-http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
 
-    
-    <data-mapper:config name="User_To_Contact" transformationGraphPath="user_to_maintaincontactinformationforpersoneventrequesttype.grf" doc:name="DataMapper"/>
-    <data-mapper:config name="Map_To_WorkdayAccountForWorkerUpdateType" transformationGraphPath="map_to_workdayaccountforworkerupdatetype.grf" doc:name="Map_To_WorkdayAccountForWorkerUpdateType"/>
-    <data-mapper:config name="Pojo_To_ChangeLegalNameRequestType" transformationGraphPath="pojo_to_changelegalnamerequesttype.grf" doc:name="Pojo_To_ChangeLegalNameRequestType"/>
-    <data-mapper:config name="Map_To_XML" transformationGraphPath="map_to_xml.grf" doc:name="Map_To_XML"/>
     <sub-flow name="getSAPEmployeeByEmail" >
         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
             <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
   	<import>	
-		<USERID>#["*" + payload.toUpperCase() + "*"]</USERID> 		
+		<USERID>#["*" + payload.Email.toUpperCase() + "*"]</USERID> 		
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
 
     	</sap:outbound-endpoint>
-    	<data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
-        <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="XML To Map">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{} when payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA is :empty otherwise
+using (row = payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.row){
+	Id           : row.PERNO,
+	LastName     : row.LAST_NAME,
+	FirstName    : row.FIRSTNAME,
+	Subtype      : row.SUBTYPE,
+	Objectid     : row.OBJECT_ID,
+	To           : row.TO_DATE,
+	From         : row.FROM_DATE,
+	DateOfBirth  : row.BIRTHDATE,
+	IdNumber     : row.PERID
+}]]></dw:set-payload>
+        </dw:transform-message>
+        <logger message="sap search (email): #[payload]" level="INFO" doc:name="Logger"/>
 
     </sub-flow>
-    <sub-flow name="getSAPEmployee" >
+    <sub-flow name="getSAPEmployeeByName" >
         <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
             <sap:definition><![CDATA[
 					<BAPI_EMPLOYEE_GETDATA>
 					  	<import>	
-							<FSTNAME_M>#[payload['firstName'].toUpperCase()]</FSTNAME_M>   
-							<LASTNAME_M>#[payload['lastName'].toUpperCase()]</LASTNAME_M>
+							<FSTNAME_M>#[payload.FirstName.toUpperCase()]</FSTNAME_M>   
+							<LASTNAME_M>#[payload.LastName.toUpperCase()]</LASTNAME_M>
 						</import>
 					</BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
 
        </sap:outbound-endpoint>
-        <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
-        <logger message="sap search: #[payload]" level="INFO" doc:name="Logger"/>
+
+        <dw:transform-message doc:name="XML to Map">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{} when payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA is :empty otherwise
+using (row = payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.row) 
+{
+	Id           : row.PERNO,
+	LastName     : row.LAST_NAME,
+	FirstName    : row.FIRSTNAME,
+	Subtype      : row.SUBTYPE,
+	Objectid     : row.OBJECT_ID,
+	To           : row.TO_DATE,
+	From         : row.FROM_DATE,
+	DateOfBirth  : row.BIRTHDATE,
+	IdNumber     : row.PERID
+} ]]></dw:set-payload>
+        </dw:transform-message>
+        <logger message="sap search (name): #[payload]" level="INFO" doc:name="Logger"/>
 
     </sub-flow>
 
 	
     
     <sub-flow name="updateWorkdayEmployeeEmail" >
-        <data-mapper:transform doc:name="Map to Maintain Contact" config-ref="User_To_Contact">
-            <data-mapper:input-arguments>
-                <data-mapper:input-argument key="EffectiveDate">#[new java.util.Date()]</data-mapper:input-argument>
-
-            </data-mapper:input-arguments>
-        </data-mapper:transform>
+        <logger message="Updating worker e-mail... #[payload]" level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="Map to Maintain Contact">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	maintainContactInformationData : {
+		effectiveDate : now,
+		workerContactInformationData : {
+			emailAddressData 	: [{
+				emailAddress	: payload.Email,
+				usageData: [{
+					public: true,
+					typeData: [{
+						primary: true,
+						typeReference: {
+							ID: [{
+								type	: 'Communication_Usage_Type_ID',
+								value	: 'WORK'
+							}]
+						}
+					}]
+				}]
+			}]
+		},
+		workerReference : {
+			ID: [{
+				type	: 'Employee_ID',
+				value	: payload.Id
+			}]
+		}
+	}
+} as :object {class: "com.workday.hr.MaintainContactInformationForPersonEventRequestType"}]]></dw:set-payload>
+        </dw:transform-message>
         <wd-hr:maintain-contact-information config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
-        <logger message="Flow updateWorkdayEmployeeEmail finished..." level="INFO" doc:name="Logger"/>
+        <logger message="... Worker's email updated!" level="INFO" doc:name="Logger"/>
 
     </sub-flow>
     <sub-flow name="updateWorkdayEmployeeName" >
-        <data-mapper:transform config-ref="Pojo_To_ChangeLegalNameRequestType" doc:name="Pojo To ChangeLegalNameRequestType"/>
+        <logger message="Updating worker name... #[payload]" level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="Map To ChangeLegalNameRequestType">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	businessProcessParameters : {
+		autoComplete : true,
+		runNow       : true
+	},
+	changeLegalNameData : {
+		nameData : {
+			countryReference : {
+				ID: [{
+					type	: 'ISO_3166-1_Alpha-3_Code',
+					value	: 'USA'
+				}]
+			},
+			firstName : payload.FirstName,
+			middleName: payload.MiddleName,
+			lastName  : payload.LastName
+		},
+		workerReference : {
+			ID: [{
+				type	: 'Employee_ID',
+				value	: payload.Id
+			}]
+		}
+	} 
+	
+} as :object {class: "com.workday.hr.ChangeLegalNameRequestType"}]]></dw:set-payload>
+        </dw:transform-message>
         <wd-hr:change-legal-name config-ref="Workday_Human_Resource" doc:name="Workday Human Resource"/>
-        <logger message="Flow updateWorkdayEmployeeName finished..." level="INFO" doc:name="Logger"/>
+        <logger message="...Worker's name updated!" level="INFO" doc:name="Logger"/>
     </sub-flow>
     <sub-flow name="terminateSAPEmployee" >
-        <data-mapper:transform config-ref="Map_To_XML" doc:name="Map To XML">
-        	<data-mapper:input-arguments >
-                <data-mapper:input-argument key="sys_user">${sap.jco.user}</data-mapper:input-argument>
-                <data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>
-
-        	</data-mapper:input-arguments>
-        </data-mapper:transform>
+        <logger message="Terminating SAP employee... #[payload]" level="INFO" doc:name="Logger"/>
+        <dw:transform-message doc:name="Map To XML">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+---
+BAPI_HRMASTER_SAVE_REPL_MULT : {
+	tables : {
+		HR_OBJECT_HEADER : {
+			row : {
+				OBJ_ID   : payload.Id,
+				PLAN_VER : '01',
+				OBJ_TYPE : 'P',
+				PROOF    : '',
+				OPERATOR : 'U'
+			}
+		},
+		HR_INFOTYPE_HEADER : {
+			row : {
+				OBJ_ID    : payload.Id,
+				PLAN_VER  : '01',
+				OBJ_TYPE  : 'P',
+				INFOTYPE  : '0000',
+				SUBTYPE   : '',
+				FROM_DATE : now as :string {format: "YYYYMMdd"},
+				TO_DATE   : '99991231'
+			},
+				OBJ_ID    : payload.Id,
+				PLAN_VER  : '01',
+				OBJ_TYPE  : 'P',
+				INFOTYPE  : '0302',
+				SUBTYPE   : '',
+				FROM_DATE : now as :string {format: "YYYYMMdd"},
+				TO_DATE   : '99991231'
+		},
+		EMPLOYEE_PERSONNEL_ACTION : {
+			row : {
+				OBJ_ID                 : payload.Id,
+				INFOTYPE               : '0000',
+				SUBTYPE                : '',
+				OBJECT_IDENTIFICATION  : '',
+				LOCKINDIC              : '',
+				TO_DATE                : '99991231',
+				FROM_DATE              : now as :string {format: "YYYYMMdd"},
+				IT_REC_NO              : '000',
+				ACTION_TYPE            : '10',
+				ACTION_REASON          : '',
+				USER_DEFINED_STATUS    : '0',
+				EMPLOYMENT_STATUS      : '0',
+				SPECIAL_PAYMENT_STATUS : '0',
+				CHANGED_ON             : now as :string {format: "YYYYMMdd"},
+				CHANGED_BY             : ''
+			}
+		}
+	}
+}]]></dw:set-payload>
+        </dw:transform-message>
         <sap:outbound-endpoint  connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP" exchange-pattern="request-response"/>
-        <logger message="sap terminate employee: #[payload]" level="INFO" doc:name="Logger"/>
+        <logger message="SAP employee terminated..." level="INFO" doc:name="Logger"/>
     </sub-flow>
     
 </mule>

@@ -1,86 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
+<mule version="EE-3.7.1"
+	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
+	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
 	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" 
 	xmlns:json="http://www.mulesoft.org/schema/mule/json" 
 	xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
-	xmlns:data-mapper="http://www.mulesoft.org/schema/mule/ee/data-mapper"
 	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
 	xmlns="http://www.mulesoft.org/schema/mule/core"
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:spring="http://www.springframework.org/schema/beans" version="EE-3.6.2"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
-http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
 http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
 http://www.mulesoft.org/schema/mule/wd-hr http://www.mulesoft.org/schema/mule/wd-hr/current/mule-wd-hr.xsd
 http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
-	<data-mapper:config name="Map_To_XML1" transformationGraphPath="map_to_xml1.grf" doc:name="Map_To_XML"/>
-    <data-mapper:config name="XML_To_Map_1" transformationGraphPath="xml_to_map_1.grf" doc:name="XML_To_Map"/>
-    <data-mapper:config name="Pojo_To_Map" transformationGraphPath="pojo_to_map.grf" doc:name="Pojo_To_Map"/>
-    <data-mapper:config name="XML_To_Map" transformationGraphPath="xml_to_map.grf" doc:name="XML_To_Map"/>
-    <data-mapper:config name="Map_To_XML_1" transformationGraphPath="map_to_xml_1.grf" doc:name="Map_To_XML_1"/>    
     
     <batch:job name="broadcastEmployees">
         <batch:threading-profile poolExhaustedAction="WAIT"/>
-        <batch:process-records>
+       <batch:process-records>
             <batch:step name="GetSAPEmployeeIfExists">
-                <enricher source="#[payload]" target="#[recordVars['userInSAP']]" doc:name="store in recordVars['userInSAP']">
+                <enricher source="#[payload.isEmpty() ? null : payload[0]]" target="#[recordVars.userInSAP]" doc:name="store in recordVars.userInSAP">
                     <processor-chain doc:name="Processor Chain">
-                        <sap:outbound-endpoint connector-ref="SAP" type="function" exchange-pattern="request-response" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
                             <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
   	<import>	
-		<USERID>#["*" + payload['Email'].toUpperCase() + "*"]</USERID> 		
+		<USERID>#["*" + payload.Email.toUpperCase() + "*"]</USERID> 		
 	</import>
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
-
-
                         </sap:outbound-endpoint>
-                        <data-mapper:transform config-ref="XML_To_Map" doc:name="XML To Map"/>
+                        <dw:transform-message doc:name="XML to Map">
+                            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+[] when payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA is :empty otherwise
+
+payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
+	id          : $.PERNO,
+	firstName   : $.FIRSTNAME,
+	lastName    : $.LAST_NAME,
+	subtype     : $.SUBTYPE,
+	objectid    : $.OBJECT_ID,
+	to          : $.TO_DATE,
+	from        : $.FROM_DATE,
+	dateOfBirth : $.BIRTHDATE,
+	idnumber    : $.PERID 
+}
+]]></dw:set-payload>
+                        </dw:transform-message>
+                        <logger message="SAP lookup result: #[payload]" level="INFO" doc:name="Logger"/>
 
                     </processor-chain>
                 </enricher>
-
             </batch:step>
-            <batch:step name="UpsertEmployee" >
-                <choice doc:name="Choice">
-                    <when expression="#[recordVars['userInSAP'] instanceof NullPayload]">
-                        <logger level="INFO" doc:name="Logger" message="inserting SAP employee...#[payload]"/>
-                        <enricher source="#[payload['EmployeeNumber']]" target="#[flowVars['EmployeeNumber']]" doc:name="store in '#[flowVars['EmployeeNumber']]'">
-                            <processor-chain doc:name="Processor Chain">
-                                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
-                                    <sap:definition><![CDATA[<ZMULE_NUMBER_GET_NEXT>
-  	<import>	
-		<NR_RANGE_NR>03</NR_RANGE_NR>
-		<OBJECT>RP_PREL</OBJECT>      
-	</import>
-</ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
 
 
+            <batch:step name="UpsertSAPEmployee">
 
-                
-                
-                                </sap:outbound-endpoint>
-                                <data-mapper:transform config-ref="XML_To_Map_1" doc:name="XML To Map"/>
-                                <logger message="new employee number: #[payload]" level="INFO" doc:name="Log new employee number"/>
-                            </processor-chain>
-                        </enricher>
-                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("EmployeeNumber", flowVars['EmployeeNumber']);
-]]></expression-component>
-                        <flow-ref name="createSapEmployeeSubflow" doc:name="call createSapEmployeeSubflow"/>
-                    </when>
-                    <otherwise>
-                        <logger message="updating SAP employee...#[payload]" level="INFO" doc:name="Logger"/>
-                        <expression-component doc:name="Set EmployeeNumber"><![CDATA[payload.put("id", recordVars['userInSAP']['id']);]]></expression-component>
-                        <flow-ref name="updateSapEmployeeSubflow" doc:name="call updateSapEmployeeSubflow"/>
-                    </otherwise>
-                </choice>
+
+                <flow-ref name="upsertSAPEmployeeSubflow" doc:name="call upsertSAPEmployeeSubflow"/>
             </batch:step>
         </batch:process-records>
         <batch:on-complete>
@@ -89,70 +74,250 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
         </batch:on-complete>
     </batch:job>
     
-    <sub-flow name="createSapEmployeeSubflow" >
-        <data-mapper:transform config-ref="Map_To_XML1" doc:name="Map To XML">
-            <data-mapper:input-arguments>
-                <data-mapper:input-argument key="sap_hire_org_COMP_CODE">${sap.hire.org.COMP_CODE}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_PERS_AREA">${sap.hire.org.PERS_AREA}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_EMPLOYEE_GROUP">${sap.hire.org.EMPLOYEE_GROUP}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_EMPLOYEE_SUBGROUP">${sap.hire.org.EMPLOYEE_SUBGROUP}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_PERSONNEL_SUBAREA">${sap.hire.org.PERSONNEL_SUBAREA}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_LEGAL_PERSON">${sap.hire.org.LEGAL_PERSON}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_PAYROLL_AREA">${sap.hire.org.PAYROLL_AREA}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_COSTCENTER">${sap.hire.org.COSTCENTER}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_ORG_UNIT">${sap.hire.org.ORG_UNIT}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_POSITION">${sap.hire.org.POSITION}</data-mapper:input-argument>
-				<data-mapper:input-argument key="sap_hire_org_JOB">${sap.hire.org.JOB}</data-mapper:input-argument>				
-				<data-mapper:input-argument key="currentDate">#[new java.util.Date()]</data-mapper:input-argument>                
-            </data-mapper:input-arguments>
-        </data-mapper:transform>
-        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" 
-        functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Create Employee" 
-        bapiTransaction="true" evaluateFunctionResponse="true"/>
-   
-    </sub-flow>
-    
-    <sub-flow name="updateSapEmployeeSubflow" >
-        <set-variable variableName="worker" value="#[payload]" doc:name="Store worker"/>
-        <transactional action="ALWAYS_BEGIN" doc:name="Transactional">
-            <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_ENQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Lock Employee" >
-                <sap:transaction action="ALWAYS_JOIN"/>
-                <sap:definition><![CDATA[<BAPI_EMPLOYEE_ENQUEUE>
+    <sub-flow name="upsertSAPEmployeeSubflow">
+        <choice doc:name="Insert or Update?">
+            <when expression="#[recordVars.userInSAP == null]">
+                <logger message="inserting SAP employee...#[payload]" level="INFO" doc:name="Log insert"/>
+                <enricher source="#[payload.EmployeeNumber]" target="#[payload.EmployeeNumber]" doc:name="Enrich payload with EmployeeNumber">
+                    <processor-chain doc:name="Processor Chain">
+                        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
+                            <sap:definition><![CDATA[<ZMULE_NUMBER_GET_NEXT>
+  	<import>	
+		<NR_RANGE_NR>03</NR_RANGE_NR>
+		<OBJECT>RP_PREL</OBJECT>      
+	</import>
+</ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
+                        </sap:outbound-endpoint>
+                        <dw:transform-message doc:name="Extract Employee Number">
+                            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+EmployeeNumber : payload.ZMULE_NUMBER_GET_NEXT.export.NUMBER]]></dw:set-payload>
+                        </dw:transform-message>
+                        <logger message="new employee number: #[payload]" level="INFO" doc:name="Log new employee number"/>
+                    </processor-chain>
+                </enricher>
+                <dw:transform-message doc:name="Map to XML">
+                    <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+---
+BAPI_HRMASTER_SAVE_REPL_MULT : {
+	tables : {
+		EMPLOYEE_COMMUNICATIONS : {
+			row: {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0105",
+				SUBTYPE             : "0001",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now as :string {format: "YYYYMMdd"},
+				COMMUNICATION_TYPE  : "0001",
+				COMMUNICATION_ID_NO : upper payload.Email,
+				E_MAIL              : ""
+			},
+			row: {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0105",
+				SUBTYPE             : "0010",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now as :string {format: "YYYYMMdd"},
+				COMMUNICATION_TYPE  : "0010",
+				COMMUNICATION_ID_NO : "",
+				E_MAIL              : upper payload.Email
+			}
+		},
+		EMPLOYEE_ORG_ASSIGNMENT : {
+			row : {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0001",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now as :string {format: "YYYYMMdd"},
+				COMP_CODE           : p('sap.hire.org.COMP_CODE'),
+				PERS_AREA           : p('sap.hire.org.PERS_AREA'),
+				EMPLOYEE_GROUP      : p('sap.hire.org.EMPLOYEE_GROUP'),
+				EMPLOYEE_SUBGROUP   : p('sap.hire.org.EMPLOYEE_SUBGROUP'),
+				PERSONNEL_SUBAREA   : p('sap.hire.org.PERSONNEL_SUBAREA'),
+				LEGAL_PERSON        : p('sap.hire.org.LEGAL_PERSON'),
+				PAYROLL_AREA        : p('sap.hire.org.PAYROLL_AREA'),
+				COSTCENTER          : p('sap.hire.org.COSTCENTER'),
+				ORG_UNIT            : p('sap.hire.org.ORG_UNIT'),
+				POSITION            : p('sap.hire.org.POSITION'),
+				JOB                 : p('sap.hire.org.JOB'),
+				OBJ_TYPE            : "S"
+			}
+		},
+		EMPLOYEE_PERSONAL_DATA : {
+			row : {
+				OBJ_ID                    : payload.EmployeeNumber,
+				INFOTYPE                  : "0002",
+				SUBTYPE                   : "",
+				OBJECT_IDENTIFICATION     : "",
+				LOCKINDIC                 : "",
+				TO_DATE                   : "99991231",
+				FROM_DATE                 : now as :string {format: "YYYYMMdd"},
+				LAST_NAME                 : payload.LastName,
+				SECOND_NAME               : payload.MiddleName default "",
+				FIRST_NAME                : payload.FirstName,
+				FULL_EMPLOYEE_NAME        : payload.FirstName ++ " " ++ payload.LastName,
+				KNOWN_AS                  : payload.FirstName,
+				MIDDLE_NAME               : "",
+				NAME_FORMAT_INDICATOR     : "0",
+				FORM_OF_ADDRESS_KEY       : "1",
+				GENDER_KEY                : payload.Gender,
+				DATE_BIRTH                : payload.DoB replace /-/ with "",
+				COUNTRY_OF_BIRTH          : "US",
+				STATE                     : "NJ",
+				BIRTHPLACE                : "Parsippany",
+				NATIONALITY               : "US",
+				THIRD_NATIONALITY         : "US",
+				LANGU                     : "EN",
+				NUMBER_OF_CHILDREN        : "1",
+				MODIFIER_FOR_PERSONNEL_ID : "10",
+				PERSIDNO                  : payload.Ssn default payload.EmployeeNumber ++ "0",
+				YEAR_OF_BIRTH             : (payload.DoB splitBy "-")[0],
+				MONTH_OF_BIRTH            : (payload.DoB splitBy "-")[1],
+				DAY_OF_BIRTH              : (payload.DoB splitBy "-")[2],
+				LAST_NAME_MATCHCODE       : upper payload.LastName,
+				FIRST_NAME_MATCHCODE      : upper payload.FirstName
+			}
+		},
+		EMPLOYEE_PERSONNEL_ACTION : {
+			row : {
+				OBJ_ID                  : payload.EmployeeNumber,
+				INFOTYPE                : "0000",
+				TO_DATE                 : "99991231",
+				FROM_DATE               : now as :string {format: "YYYYMMdd"},
+				ACTION_TYPE             : "01",
+				EMPLOYMENT_STATUS       : "3",
+				SPECIAL_PAYMENT_STATUS  : "1"	
+			}
+		},
+		EMPLOYEE_PAYROLL_STATUS : {
+			row : {
+				OBJ_ID                        : payload.EmployeeNumber,
+				INFOTYPE                      : "0003",
+				TO_DATE                       : "99991231",
+				FROM_DATE                     : "18000101",
+				EARLIEST_MD_CHANGE_SINCE_PAYR : now as :string {format: "YYYYMMdd"},
+				PDC_RECALCULATION_DATE        : now as :string {format: "YYYYMMdd"},
+				PERS_NO_INPUT_DATE            : now as :string {format: "YYYYMMdd"},
+				INITIAL_ENTRY_TIME            : now as :string {format: "HHmmss"},
+				INFOTYPE_VIEW_IND             : "10",
+				EARLIEST_PAYROLL_MD_CHANGE    : now as :string {format: "YYYYMMdd"}
+			}
+		},
+		HR_INFOTYPE_HEADER : {
+			row : {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0000",
+				FROM_DATE  : now as :string {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0001",
+				FROM_DATE  : now as :string {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0002",
+				FROM_DATE  : now as :string {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0003",
+				FROM_DATE  : now as :string {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0105",
+				SUBTYPE    : "0001",
+				FROM_DATE  : now as :string {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row : {
+				PLAN_VER  : "01",
+				OBJ_TYPE  : "P",
+				OBJ_ID    : payload.EmployeeNumber,
+				INFOTYPE  : "0105",
+				SUBTYPE   : "0010",
+				FROM_DATE : now as :string {format: "YYYYMMdd"},
+				TO_DATE   : "99991231"
+			}
+		},
+		HR_OBJECT_HEADER : {
+			row: {
+				PLAN_VER  : "01",
+				OBJ_TYPE  : "P",
+				OBJ_ID    : payload.EmployeeNumber,
+				OPERATOR  : "I"
+			}
+		}
+	}
+}]]></dw:set-payload>
+                </dw:transform-message>
+                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" evaluateFunctionResponse="true" bapiTransaction="true" responseTimeout="10000" doc:name="Create Employee"/>
+            </when>
+            <otherwise>
+                <logger message="updating SAP employee #[recordVars.userInSAP.id]...#[payload]" level="INFO" doc:name="Log update"/>
+                <batch:set-record-variable variableName="worker" value="#[payload]" doc:name="Store worker into record variable"/>
+                <transactional action="ALWAYS_BEGIN" doc:name="Transactional">
+                    <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_ENQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Lock Employee">
+                        <sap:transaction action="ALWAYS_JOIN"/>
+                        <sap:definition><![CDATA[<BAPI_EMPLOYEE_ENQUEUE>
   <import>
-    <NUMBER>#[payload.id]</NUMBER>
+    <NUMBER>#[recordVars.userInSAP.id]</NUMBER>
   </import>
 </BAPI_EMPLOYEE_ENQUEUE>]]></sap:definition>
-
-
-
-            </sap:outbound-endpoint>
-            <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
-            <data-mapper:transform config-ref="Map_To_XML_1" doc:name="Map To XML">
-                <data-mapper:input-arguments>
-                    <data-mapper:input-argument key="to">#[recordVars['userInSAP']['to']]</data-mapper:input-argument>
-                    <data-mapper:input-argument key="from">#[recordVars['userInSAP']['from']]</data-mapper:input-argument>
-                    <data-mapper:input-argument key="subtype">#[recordVars['userInSAP']['subtype']]</data-mapper:input-argument>
-                    <data-mapper:input-argument key="objectid">#[recordVars['userInSAP']['objectid']]</data-mapper:input-argument>
-                    <data-mapper:input-argument key="idnumber">#[recordVars['userInSAP']['idnumber']]</data-mapper:input-argument>
-                </data-mapper:input-arguments>
-            </data-mapper:transform>
-            <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Update Employee" bapiTransaction="true" >
-                <sap:transaction action="ALWAYS_JOIN"/>
-            </sap:outbound-endpoint>
-
-            <set-payload value="#[flowVars['worker']]" doc:name="Set Payload"/>
-            <sap:outbound-endpoint connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_DEQUEUE" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Unlock Employee" bapiTransaction="true" exchange-pattern="request-response">
-                <sap:transaction action="ALWAYS_JOIN"/>
-                <sap:definition><![CDATA[<BAPI_EMPLOYEE_DEQUEUE>
+                    </sap:outbound-endpoint>
+                    <dw:transform-message doc:name="Map to XML">
+                        <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+---
+BAPI_PERSDATA_CHANGE : {
+	import : {
+		FIRSTNAME       : recordVars.worker.FirstName,
+		LASTNAME        : recordVars.worker.LastName,
+		FULLNAME        : recordVars.worker.FirstName ++ " " ++ recordVars.worker.LastName,
+		EMPLOYEENUMBER  : recordVars.userInSAP.id,
+		RECORDNUMBER    : "000",
+		IDNUMBER        : recordVars.worker.Ssn default recordVars.userInSAP.id ++ "0",
+		SUBTYPE         : "",
+		LOCKINDICATOR   : "",
+		OBJECTID        : "",
+		VALIDITYBEGIN   : recordVars.userInSAP.from,
+		VALIDITYEND     : recordVars.userInSAP.to,
+		DATEOFBIRTH     : recordVars.worker.DoB as :string { format : "YYYY-MM-dd" },
+		GENDER          : recordVars.worker.Gender
+	}
+}]]></dw:set-payload>
+                    </dw:transform-message>
+                    <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_PERSDATA_CHANGE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Update Employee">
+                        <sap:transaction action="ALWAYS_JOIN"/>
+                    </sap:outbound-endpoint>
+                    <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_DEQUEUE" xmlVersion="2" outputXml="true" bapiTransaction="true" responseTimeout="10000" doc:name="Unlock Employee">
+                        <sap:transaction action="ALWAYS_JOIN"/>
+                        <sap:definition><![CDATA[<BAPI_EMPLOYEE_DEQUEUE>
   <import>
-    <NUMBER>#[payload.id]</NUMBER>
+    <NUMBER>#[recordVars.userInSAP.id]</NUMBER>
   </import>
 </BAPI_EMPLOYEE_DEQUEUE>]]></sap:definition>
-
-
-
-            </sap:outbound-endpoint>
-        </transactional>
-
+                    </sap:outbound-endpoint>
+                </transactional>
+            </otherwise>
+        </choice>
     </sub-flow>
+
 </mule>

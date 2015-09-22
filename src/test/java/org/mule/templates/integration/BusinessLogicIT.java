@@ -53,7 +53,8 @@ public class BusinessLogicIT extends AbstractTemplateTestCase {
 	public static void beforeTestClass() {
 		System.setProperty("poll.startDelayMillis", "8000");
 		System.setProperty("poll.frequencyMillis", "30000");
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MINUTE, -3);
 		System.setProperty(
 				"watermark.defaultExpression",
 				"#[groovy: new GregorianCalendar(" 

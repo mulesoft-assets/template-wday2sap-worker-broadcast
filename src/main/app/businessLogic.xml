@@ -28,6 +28,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
             <batch:step name="GetSAPEmployeeIfExists">
                 <enricher source="#[payload.isEmpty() ? null : payload[0]]" target="#[recordVars.userInSAP]" doc:name="store in recordVars.userInSAP">
                     <processor-chain doc:name="Processor Chain">
+                        <logger message="Querying for SAP employee: #[payload]" level="INFO" doc:name="Log before SAP query"/>
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_EMPLOYEE_GETDATA" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Query for Employee">
                             <sap:definition><![CDATA[<BAPI_EMPLOYEE_GETDATA>
   	<import>	
@@ -36,6 +37,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 </BAPI_EMPLOYEE_GETDATA>]]></sap:definition>
 
                         </sap:outbound-endpoint>
+                        <logger message="After SAP query: #[payload]" level="INFO" doc:name="Log after SAP query"/>
                         <dw:transform-message doc:name="XML to Map">
                             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
@@ -63,6 +65,7 @@ payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
 
 
             <batch:step name="UpsertSAPEmployee">
+                <logger message="Invoking upsertSapEmployeeSubflow" level="INFO" doc:name="Log invoke of subflow"/>
 
 
                 <flow-ref name="upsertSAPEmployeeSubflow" doc:name="call upsertSAPEmployeeSubflow"/>
@@ -80,6 +83,7 @@ payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
                 <logger message="inserting SAP employee...#[payload]" level="INFO" doc:name="Log insert"/>
                 <enricher source="#[payload.EmployeeNumber]" target="#[payload.EmployeeNumber]" doc:name="Enrich payload with EmployeeNumber">
                     <processor-chain doc:name="Processor Chain">
+                        <logger message="Retrieving new employee Number..." level="INFO" doc:name="Logger"/>
                         <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
                             <sap:definition><![CDATA[<ZMULE_NUMBER_GET_NEXT>
   	<import>	

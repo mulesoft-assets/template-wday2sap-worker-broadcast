@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 	
-<mule version="EE-3.7.2"
+<mule 
 	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
@@ -25,7 +25,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 		jcoUser="${sap.jco.user}" jcoPasswd="${sap.jco.passwd}" jcoSysnr="${sap.jco.sysnr}"
 		jcoClient="${sap.jco.client}" jcoLang="${sap.jco.lang}"
 		validateConnections="true"
-		doc:name="SAP"  />
+		doc:name="SAP" jcoTraceToLog="true"/>
 		
 	<wd-hr:config name="Workday_Human_Resource" hrUser="${wday.user}" hrPassword="${wday.password}" hrEndpoint="${wday.endpoint}" doc:name="Workday Human Resource">
 		<wd-hr:connection-pooling-profile initialisationPolicy="INITIALISE_ONE" exhaustedAction="WHEN_EXHAUSTED_GROW" />

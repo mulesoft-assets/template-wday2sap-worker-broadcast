@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 	
-<mule 
+<mule version="EE-3.7.2"
 	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 

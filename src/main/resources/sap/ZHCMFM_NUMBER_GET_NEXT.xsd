@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+<xsd:element name="ZHCMFM_NUMBER_GET_NEXT">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element name="import" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="IV_IGNORE_BUFFER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Single-Character Indicator</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="IV_NR_RANGE_NR" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number range number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="IV_OBJECT" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Name of number range object</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="IV_QUANTITY" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number of numbers to be assigned</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="IV_SUBOBJECT" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Number range object subobject value</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="IV_TOYEAR" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>To fiscal year</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element>
+<xsd:element name="export" minOccurs="0" maxOccurs="1">
+<xsd:complexType>
+<xsd:all>
+<xsd:element name="EV_NUMBER" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Personnel number</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element>
+<xsd:element name="EV_RETURNCODE" minOccurs="0" maxOccurs="1"><xsd:annotation><xsd:documentation>Return code</xsd:documentation></xsd:annotation>
+<xsd:complexType>
+<xsd:simpleContent>
+<xsd:extension base="xsd:string"/></xsd:simpleContent></xsd:complexType></xsd:element></xsd:all></xsd:complexType></xsd:element></xsd:sequence></xsd:complexType></xsd:element>
+</xsd:schema>

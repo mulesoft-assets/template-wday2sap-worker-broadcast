@@ -17,7 +17,8 @@
 	<properties>
 		<sap.jco.version>3.0.13</sap.jco.version>
 		<sap.idoc.version>3.0.12</sap.idoc.version>
-	</properties>
+	<mule.version>3.7.3</mule.version>
+    </properties>
 
 	<build>
 		<plugins>

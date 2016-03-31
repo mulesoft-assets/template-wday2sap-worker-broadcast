@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule version="EE-3.7.2"
+<mule 
 	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw"
 	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
@@ -82,19 +82,19 @@ payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
         <logger message="inserting SAP employee...#[payload]" level="INFO" doc:name="Log insert"/>
         <enricher source="#[payload.EmployeeNumber]" target="#[payload.EmployeeNumber]" doc:name="Enrich payload with EmployeeNumber">
             <processor-chain doc:name="Processor Chain">
-                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZMULE_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="get next Employee Number">
-                    <sap:definition><![CDATA[<ZMULE_NUMBER_GET_NEXT>
+                <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="ZHCMFM_NUMBER_GET_NEXT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="Get next Employee Number">
+                    <sap:definition><![CDATA[<ZHCMFM_NUMBER_GET_NEXT>
   	<import>	
-		<NR_RANGE_NR>03</NR_RANGE_NR>
-		<OBJECT>RP_PREL</OBJECT>      
+		<IV_NR_RANGE_NR>03</IV_NR_RANGE_NR>
+		<IV_OBJECT>RP_PREL</IV_OBJECT>      
 	</import>
-</ZMULE_NUMBER_GET_NEXT>]]></sap:definition>
+</ZHCMFM_NUMBER_GET_NEXT>]]></sap:definition>
                 </sap:outbound-endpoint>
                 <dw:transform-message doc:name="Extract Employee Number">
                     <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-EmployeeNumber : payload.ZMULE_NUMBER_GET_NEXT.export.NUMBER]]></dw:set-payload>
+EmployeeNumber : payload.ZHCMFM_NUMBER_GET_NEXT.export.EV_NUMBER]]></dw:set-payload>
                 </dw:transform-message>
                 <logger message="new employee number: #[payload]" level="INFO" doc:name="Log new employee number"/>
             </processor-chain>

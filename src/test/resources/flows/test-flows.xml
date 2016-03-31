@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule version="EE-3.7.2"
+<mule 
 	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" 
 	xmlns:sap="http://www.mulesoft.org/schema/mule/sap" 
 	xmlns:wd-hr="http://www.mulesoft.org/schema/mule/wd-hr" 
@@ -213,7 +213,8 @@ BAPI_HRMASTER_SAVE_REPL_MULT : {
 	}
 }]]></dw:set-payload>
         </dw:transform-message>
-        <sap:outbound-endpoint  connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP" exchange-pattern="request-response"/>
+        <sap:outbound-endpoint exchange-pattern="request-response" connector-ref="SAP" type="function" functionName="BAPI_HRMASTER_SAVE_REPL_MULT" xmlVersion="2" outputXml="true" responseTimeout="10000" doc:name="SAP"/>
+
         <logger message="SAP employee terminated..." level="INFO" doc:name="Logger"/>
     </sub-flow>
     

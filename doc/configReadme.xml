@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<configuration>
+	<placeholders>
+		<placeholder id="template_name">Workday to SAP Worker Broadcast</placeholder>
+	</placeholders>
+	<sections>
+		<section id="use_case">
+			<![CDATA[
+As a Workday admin I want to synchronize Workers from Workday to SAP.
+
+As implemented, this Anypoint Template leverages the [Batch Module](http://www.mulesoft.org/documentation/display/current/Batch+Processing).
+The batch job is divided in Process and On Complete stages.
+
+1. The integration is triggered by scheduler to Workday instance. New or modified workers are passed to the batch as input. Workers without at least one e-mail address assigned are filtered.
+2. In the batch the employee is fetched from SAP by the e-mail and mapped to SAP input data structure.
+3. Afterwards every employee is sent to destination instance - to SAP where it is asynchronously updated or created.
+]]>
+		</section>
+				<section id="considerations">
+			<![CDATA[
+			
+There are certain pre-requisites that must be considered to run this Anypoint Template. All of them deal with the preparations in both source and destination systems, that must be made in order for all to run smoothly. 
+**Failing to do so could lead to unexpected behavior of the template.**
+There are a couple of things you should take into account before running this Anypoint Template:
+**Workday email uniqueness**: The email can be repeated for two or more workers (or missing). Therefore Workday workers with duplicate emails will be removed from processing in the Process stage.
+
+## Disclaimer
+This Anypoint template uses a few private Maven dependencies from Mulesoft in order to work. If you intend to run this template with Maven support, you need to add three extra dependencies for SAP to the pom.xml.
+
+]]>
+		</section>
+		<section id="sap_dst">
+<![CDATA[
+This template uses custom BAPI functions. To create them please use following steps:
+
+1. Create function module `ZHCMFM_NUMBER_GET_NEXT` in transaction `SE37` as per source file `ZHCMFM_NUMBER_GET_NEXT.abap`
+
+Referenced files are in [src/main/resources] directory.
+]]>
+		</section>
+		<section id="application_configuration">
+<![CDATA[
+#### Application configuration
+
+scheduler.frequency `40000`
+scheduler.start.delay `0`
+
+# Watermarking default last query timestamp e.g. 2017-12-13T03:00:59Z
+watermark.default.expression `2017-12-13T03:00:59Z`
+
+#### Workday Connector configuration
++ wday.username `bob.dylan@orga`
++ wday.tenant `org457`
++ wday.password `DylanPassword123`
++ wday.host `servise425546.workday.com`
+
+#### SAP Connector configuration
++ sap.jco.ashost `your.sap.address.com`
++ sap.jco.user `SAP_USER`
++ sap.jco.passwd `SAP_PASS`
++ sap.jco.sysnr `14`
++ sap.jco.client `800`
++ sap.jco.lang `EN`
+
+### SAP HR configuration
+
++ sap.hire.org.COMP_CODE `3000`
++ sap.hire.org.PERS_AREA `300`
++ sap.hire.org.EMPLOYEE_GROUP `1`
++ sap.hire.org.EMPLOYEE_SUBGROUP `U5`
++ sap.hire.org.PERSONNEL_SUBAREA `0001`
++ sap.hire.org.LEGAL_PERSON `0001`
++ sap.hire.org.PAYROLL_AREA `PR`
++ sap.hire.org.COSTCENTER `4130`
++ sap.hire.org.ORG_UNIT `50000590`
++ sap.hire.org.POSITION `50000046`
++ sap.hire.org.JOB `50052752`
++ sap.hire.personal.PERSIDNO `50052755`
++ sap.hire.hr_infotype.TO_DATE `50052757`
++ sap.hire.default.dob `1980-01-01`
+]]>
+		</section>
+		<section id="api_calls">
+<![CDATA[
+There are no special considerations regarding API calls.
+]]>
+		</section>
+		<section id="default_endpoints_xml">
+		<![CDATA[
+This file should contain every inbound endpoint of your integration app. It is intended to contain the application API.
+In this particular template, this file contains a scheduler endpoint that queries Workday for updates using a watermark.
+]]>
+		</section>
+		<section id="default_business_logic_xml">
+		<![CDATA[
+This file holds the functional aspect of the template (points 2. to 3. described in the template overview). Its main component is a Batch job, and it includes *steps* for executing the broadcast operation from Workday to SAP.
+]]>
+	</section>
+	</sections>
+</configuration>

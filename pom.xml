@@ -35,19 +35,16 @@
 		<dependency>
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-objectstore-connector</artifactId>
-			<version>${objectstore.connector.version}</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.mulesoft.connectors</groupId>
 			<artifactId>mule-workday-connector</artifactId>
-			<version>${workday.connector.version}</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
         <dependency>
             <groupId>org.mule.connectors</groupId>
             <artifactId>mule-sap-connector</artifactId>
-            <version>${sap.connector.version}</version>
             <classifier>mule-plugin</classifier>
         </dependency>
 		 <!-- Please Add dependencies for SAP libraries -->    

@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
+	xmlns:workday="http://www.mulesoft.org/schema/mule/workday"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:batch="http://www.mulesoft.org/schema/mule/batch"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+
+	<flow name="businessLogicFlow" doc:id="884f86c5-66e1-4701-bb9b-594c2a60abf3" >
+		
+		<batch:job jobName="migrateWorkersBatch" doc:id="79b373e6-1aeb-43a9-9dfe-8ac0d2f31fdc" >
+        <batch:process-records >
+            <batch:step name="getFromSAP" doc:id="232087de-e311-49c1-a890-439c65ea1af2" acceptExpression="payload.Email != null">
+					<ee:transform doc:name="Store payload and prepare input for SAP" doc:id="c2667b49-05e0-4b21-9beb-45a8c36da99c" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_EMPLOYEE_GETDATA": {
+    "import": {
+      "USERID": "*" ++ upper(payload.Email as String)  ++  "*"
+    }
+  }
+}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="worker" ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call key="BAPI_EMPLOYEE_GETDATA" doc:name="Query for Employee" doc:id="7939ce1b-abf7-4be6-b6dc-cec2edb53a8d" config-ref="SAP_Outbound"/>
+					<ee:transform doc:name="Extend payload about user data" doc:id="0f507cca-ca61-4376-969a-9a253ff5f3d7" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+var users = payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
+    id          : $.PERNO,
+	firstName   : $.FIRSTNAME,
+	lastName    : $.LAST_NAME,
+	subtype     : $.SUBTYPE,
+	objectid    : $.OBJECT_ID,
+	to          : $.TO_DATE,
+	from        : $.FROM_DATE ,
+	dateOfBirth : $.BIRTHDATE ,
+	idnumber    : $.PERID 
+}
+---
+if (users[0].id != null) (vars.worker ++ {userInSAP: users[0]}) else vars.worker]]></ee:set-payload>
+						</ee:message>
+						<ee:variables >
+						</ee:variables>
+					</ee:transform>
+            </batch:step>
+                                    <batch:step name="insertSAPEmployees" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="payload.userInSAP == null and payload.Email != null">
+					<ee:transform doc:name="Store payload and prepare input for SAP" doc:id="3e7676c2-5627-46eb-b7da-1ca68f3d950f" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "ZHCMFM_NUMBER_GET_NEXT": {
+    "import": {
+      "IV_NR_RANGE_NR": "03",
+      "IV_OBJECT": "RP_PREL"
+    }
+  }
+}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="worker" ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call doc:name="get next Employee Number" doc:id="17b38116-adb4-4fb2-8264-3192acd18216" config-ref="SAP_Outbound" key="ZHCMFM_NUMBER_GET_NEXT"/>
+					<ee:transform doc:name="Add Employee Number to payload" doc:id="5ebbc6eb-958c-4172-b571-9b7133ae8147" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+vars.worker ++ {
+	EmployeeNumber: payload.ZHCMFM_NUMBER_GET_NEXT.export.EV_NUMBER
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<ee:transform doc:name="Prepare input for create new Employee" doc:id="e3c51f1e-e3a4-441b-a495-b45721e891b9" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+BAPI_HRMASTER_SAVE_REPL_MULT : {
+	tables : {
+		EMPLOYEE_COMMUNICATIONS : {
+			row: {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0105",
+				SUBTYPE             : "0001",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now() as String {format: "YYYYMMdd"},
+				COMMUNICATION_TYPE  : "0001",
+				COMMUNICATION_ID_NO : upper(payload.Email as String),
+				E_MAIL              : ""
+			},
+			row: {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0105",
+				SUBTYPE             : "0010",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now() as String {format: "YYYYMMdd"},
+				COMMUNICATION_TYPE  : "0010",
+				COMMUNICATION_ID_NO : "",
+				E_MAIL              : upper(payload.Email as String)
+			}
+		},
+		EMPLOYEE_ORG_ASSIGNMENT : {
+			row : {
+				OBJ_ID              : payload.EmployeeNumber,
+				INFOTYPE            : "0001",
+				TO_DATE             : "99991231",
+				FROM_DATE           : now() as String {format: "YYYYMMdd"},
+				COMP_CODE           : p('sap.hire.org.COMP_CODE'),
+				PERS_AREA           : p('sap.hire.org.PERS_AREA'),
+				EMPLOYEE_GROUP      : p('sap.hire.org.EMPLOYEE_GROUP'),
+				EMPLOYEE_SUBGROUP   : p('sap.hire.org.EMPLOYEE_SUBGROUP'),
+				PERSONNEL_SUBAREA   : p('sap.hire.org.PERSONNEL_SUBAREA'),
+				LEGAL_PERSON        : p('sap.hire.org.LEGAL_PERSON'),
+				PAYROLL_AREA        : p('sap.hire.org.PAYROLL_AREA'),
+				COSTCENTER          : p('sap.hire.org.COSTCENTER'),
+				ORG_UNIT            : p('sap.hire.org.ORG_UNIT'),
+				POSITION            : p('sap.hire.org.POSITION'),
+				JOB                 : p('sap.hire.org.JOB'),
+				OBJ_TYPE            : "S"
+			}
+		},
+		EMPLOYEE_PERSONAL_DATA : {
+			row : {
+				OBJ_ID                    : payload.EmployeeNumber,
+				INFOTYPE                  : "0002",
+				SUBTYPE                   : "",
+				OBJECT_IDENTIFICATION     : "",
+				LOCKINDIC                 : "",
+				TO_DATE                   : "99991231",
+				FROM_DATE                 : now() as String {format: "YYYYMMdd"},
+				LAST_NAME                 : payload.LastName,
+				SECOND_NAME               : payload.MiddleName default "",
+				FIRST_NAME                : payload.FirstName,
+				FULL_EMPLOYEE_NAME        : payload.FirstName ++ " " ++ payload.LastName,
+				KNOWN_AS                  : payload.FirstName,
+				MIDDLE_NAME               : "",
+				NAME_FORMAT_INDICATOR     : "0",
+				FORM_OF_ADDRESS_KEY       : "1",
+				GENDER_KEY                : payload.Gender,
+				DATE_BIRTH                : payload.DoB[0 to 9] replace /-/ with "", 
+				COUNTRY_OF_BIRTH          : "US",
+				STATE                     : "NJ",
+				BIRTHPLACE                : "Parsippany",
+				NATIONALITY               : "US",
+				THIRD_NATIONALITY         : "US",
+				LANGU                     : "EN",
+				NUMBER_OF_CHILDREN        : "1",
+				MODIFIER_FOR_PERSONNEL_ID : "10",
+				PERSIDNO                  : payload.Ssn default payload.EmployeeNumber ++ "0",
+				YEAR_OF_BIRTH             : (payload.DoB splitBy "-")[0],
+				MONTH_OF_BIRTH            : (payload.DoB splitBy "-")[1],
+				DAY_OF_BIRTH              : (payload.DoB splitBy "-")[2],
+				LAST_NAME_MATCHCODE       : upper(payload.LastName as String),
+				FIRST_NAME_MATCHCODE      : upper(payload.FirstName as String)
+			}
+		},
+		EMPLOYEE_PERSONNEL_ACTION : {
+			row : {
+				OBJ_ID                  : payload.EmployeeNumber,
+				INFOTYPE                : "0000",
+				TO_DATE                 : "99991231",
+				FROM_DATE               : now() as String {format: "YYYYMMdd"},
+				ACTION_TYPE             : "01",
+				EMPLOYMENT_STATUS       : "3",
+				SPECIAL_PAYMENT_STATUS  : "1"	
+			}
+		},
+		EMPLOYEE_PAYROLL_STATUS : {
+			row : {
+				OBJ_ID                        : payload.EmployeeNumber,
+				INFOTYPE                      : "0003",
+				TO_DATE                       : "99991231",
+				FROM_DATE                     : "18000101",
+				EARLIEST_MD_CHANGE_SINCE_PAYR : now() as String {format: "YYYYMMdd"},
+				PDC_RECALCULATION_DATE        : now() as String {format: "YYYYMMdd"},
+				PERS_NO_INPUT_DATE            : now() as String {format: "YYYYMMdd"},
+				INITIAL_ENTRY_TIME            : now() as String {format: "HHmmss"},
+				INFOTYPE_VIEW_IND             : "10",
+				EARLIEST_PAYROLL_MD_CHANGE    : now() as String {format: "YYYYMMdd"}
+			}
+		},
+		HR_INFOTYPE_HEADER : {
+			row : {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0000",
+				FROM_DATE  : now() as String {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0001",
+				FROM_DATE  : now() as String {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0002",
+				FROM_DATE  : now() as String {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0003",
+				FROM_DATE  : now() as String {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row: {
+				PLAN_VER   : "01",
+				OBJ_TYPE   : "P",
+				OBJ_ID     : payload.EmployeeNumber,
+				INFOTYPE   : "0105",
+				SUBTYPE    : "0001",
+				FROM_DATE  : now() as String {format: "YYYYMMdd"},
+				TO_DATE    : "99991231"
+			},
+			row : {
+				PLAN_VER  : "01",
+				OBJ_TYPE  : "P",
+				OBJ_ID    : payload.EmployeeNumber,
+				INFOTYPE  : "0105",
+				SUBTYPE   : "0010",
+				FROM_DATE : now() as String {format: "YYYYMMdd"},
+				TO_DATE   : "99991231"
+			}
+		},
+		HR_OBJECT_HEADER : {
+			row: {
+				PLAN_VER  : "01",
+				OBJ_TYPE  : "P",
+				OBJ_ID    : payload.EmployeeNumber,
+				OPERATOR  : "I"
+			}
+		}
+	}
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<sap:execute-synchronous-remote-function-call key="BAPI_HRMASTER_SAVE_REPL_MULT" doc:name="Create Employee" doc:id="a61f2183-97fe-4db7-83b0-3f013fd2ab96" config-ref="SAP_Outbound"/>
+					<ee:transform doc:name="Set java output" doc:id="15d3a766-a2c6-424e-beb9-3a9c741d0a6f" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+vars.worker]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+            </batch:step>
+            <batch:step name="updateSAPEmployees" doc:id="e3c1a4e5-c659-4a49-9b59-f764d0646995" acceptExpression="payload.userInSAP != null and payload.Email != null">
+					<try doc:name="Try" doc:id="0b66e226-dad7-46f4-8642-4d84e6688c3b" transactionalAction="ALWAYS_BEGIN">
+						<ee:transform doc:name="Store payload and prepare input for lock" doc:id="8b086af0-222b-405a-869f-98952df5b440">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_EMPLOYEE_ENQUEUE": {
+    "import": {
+      "NUMBER": payload.userInSAP.id
+    }
+  }
+}]]></ee:set-payload>
+						</ee:message>
+							<ee:variables >
+								<ee:set-variable variableName="worker" ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
+							</ee:variables>
+					</ee:transform>
+						<sap:execute-synchronous-remote-function-call doc:name="Lock Employee" doc:id="2ad0ae2d-49ed-498a-96b2-9140d5220222" config-ref="SAP_Outbound" key="BAPI_EMPLOYEE_ENQUEUE" transactionalAction="ALWAYS_JOIN"/>
+						<ee:transform doc:name="Prepare data for update" doc:id="e6bdf77c-698d-4c58-9243-b34689e6d963">
+						<ee:message>
+							<ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+BAPI_PERSDATA_CHANGE : {
+	"import" : {
+		FIRSTNAME       : vars.worker.FirstName,
+		LASTNAME        : vars.worker.LastName,
+		FULLNAME        : vars.worker.FirstName ++ " " ++ vars.worker.LastName,
+		EMPLOYEENUMBER  : vars.worker.userInSAP.id,
+		RECORDNUMBER    : "000",
+		IDNUMBER        : vars.worker.Ssn default vars.worker.userInSAP.id ++ "0",
+		SUBTYPE         : "",
+		LOCKINDICATOR   : "",
+		OBJECTID        : "",
+		DATEOFBIRTH     : vars.worker.DoB[0 to 9] replace /-/ with "",
+		GENDER          : vars.worker.Gender
+	}
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+						<sap:execute-synchronous-remote-function-call doc:name="Update Employee" doc:id="7923f8ad-d23a-437d-8099-2f0e7181e9d7" config-ref="SAP_Outbound" key="BAPI_PERSDATA_CHANGE" transactionalAction="ALWAYS_JOIN"/>
+						<ee:transform doc:name="Prepare input for unlock" doc:id="2ae51c50-72e5-4d99-99c1-af06e3982aca" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_EMPLOYEE_DEQUEUE": {
+    "import": {
+      "NUMBER": vars.worker.userInSAP.id
+    }
+  }
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<sap:execute-synchronous-remote-function-call doc:name="Unlock Employee" doc:id="be73b77c-27fe-4efb-a6fa-e1e88f5beafc" config-ref="SAP_Outbound" key="BAPI_EMPLOYEE_DEQUEUE" transactionalAction="ALWAYS_JOIN"/>
+						<ee:transform doc:name="Set java output" doc:id="806d6294-33cf-49ae-9e5a-c425d842a6c0" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+vars.worker]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+					</try>
+				</batch:step>
+        </batch:process-records>
+       			<batch:on-complete >
+						<ee:transform doc:name="Prepare migration result" doc:id="c84b4bc4-5a65-41c1-9d0c-f1ebd3d8db7a">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output text/plain
+---
+"Migration Report: \n"
+ 
+++ "\n Time [milliseconds]: " 		++ payload.elapsedTimeInMillis
+++ "\n Total Records: "				++ payload.totalRecords
+++ "\n Successful Records: "		++ payload.successfulRecords
+++ "\n Failed Records: "			++ payload.failedRecords
+++ "\n Loaded Records: "			++ payload.loadedRecords
+++ "\n Processed Records: " 		++ payload.processedRecords]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+				<logger level="INFO" doc:name="Migration process has finished!" doc:id="b7575d38-7dbd-4602-9186-1bbb25234896" message="Migration process has finished!" />
+			</batch:on-complete>
+    </batch:job>
+</flow>
+<flow name="mainFlow" doc:id="7c0a5bef-b3d5-442f-bff3-10d038f69a5e" >
+    <flow-ref doc:name="businessLogicFlow" doc:id="91360ede-4d71-44c7-9b64-8ee762e04ea0" name="businessLogicFlow"/>
+    <error-handler >
+        <on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="488b507d-e26c-4c56-8759-8bb4f6645d71" type="ANY">
+            <flow-ref doc:name="errorHandlingFlow" doc:id="afdaf73c-0137-4d60-84f6-5c41234771a3" name="errorHandlingFlow" />
+        </on-error-propagate>
+    </error-handler>
+</flow>
+</mule>
+
+
+        

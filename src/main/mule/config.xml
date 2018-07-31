@@ -1,32 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:workday="http://www.mulesoft.org/schema/mule/workday" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
 
-<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap"
-	xmlns:workday="http://www.mulesoft.org/schema/mule/workday"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
-http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd
-http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
-
-	<sap:outbound-config name="SAP_Outbound" doc:name="SAP Outbound" doc:id="47728d00-9fea-4755-824a-9d1c57ecc24f" >
-		<sap:simple-connection-provider-connection applicationServerHost="${sap.jco.ashost}" username="${sap.jco.user}" password="${sap.jco.passwd}" systemNumber="${sap.jco.sysnr}" client="${sap.jco.client}" language="${sap.jco.lang}" />
+	<sap:outbound-config name="SAP_Outbound" doc:id="47728d00-9fea-4755-824a-9d1c57ecc24f" doc:name="SAP Outbound">
+		<sap:simple-connection-provider-connection applicationServerHost="${sap.jco.ashost}" client="${sap.jco.client}" language="${sap.jco.lang}" password="${sap.jco.passwd}" systemNumber="${sap.jco.sysnr}" username="${sap.jco.user}" />
 	</sap:outbound-config>
-	<configuration-properties file="mule-artifact.properties"
-		doc:name="Configuration properties" doc:id="46877740-aac5-4812-8728-4718689aa9ec" />
-	<configuration-properties file="common.properties"
-		doc:name="Configuration properties" doc:id="dffa4da7-cc5c-4ecb-922e-1115b4387354" />
-	<configuration-properties file="mule.${mule.env}.properties"
-		doc:name="Configuration properties" doc:id="674beef8-9485-40a7-99b9-0685c9b7e863" />
-	<workday:config name="Workday_Config" doc:name="Workday Config"
-		doc:id="81500429-c0f8-40a3-9a92-e064ca4a2adb">
-		<workday:basic-connection username="${wday.username}"
-			password="${wday.password}" tenantName="${wday.tenant}" hostName="${wday.host}">
+	<configuration-properties file="mule-artifact.properties" doc:id="46877740-aac5-4812-8728-4718689aa9ec" doc:name="Configuration properties" />
+	<configuration-properties file="common.properties" doc:id="dffa4da7-cc5c-4ecb-922e-1115b4387354" doc:name="Configuration properties" />
+	<configuration-properties file="mule.${mule.env}.properties" doc:id="674beef8-9485-40a7-99b9-0685c9b7e863" doc:name="Configuration properties" />
+	<workday:config name="Workday_Config" doc:id="81500429-c0f8-40a3-9a92-e064ca4a2adb" doc:name="Workday Config">
+		<workday:basic-connection hostName="${wday.host}" password="${wday.password}" tenantName="${wday.tenant}" username="${wday.username}">
 			<workday:transport>
 				<workday:default-http-dispatcher-provider />
 			</workday:transport>
 		</workday:basic-connection>
 	</workday:config>
-</mule>
-
-
-        
+<global-property doc:name="Global Property" name="mule.env" value="dev" /></mule>

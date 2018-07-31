@@ -14,4 +14,4 @@
 			</workday:transport>
 		</workday:basic-connection>
 	</workday:config>
-<global-property doc:name="Global Property" name="mule.env" value="dev" /></mule>
+<global-property name="mule.env" value="dev" doc:name="Global Property" /></mule>

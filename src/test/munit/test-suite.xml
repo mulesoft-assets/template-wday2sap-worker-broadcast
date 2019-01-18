@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:sap="http://www.mulesoft.org/schema/mule/sap" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+    xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+    xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/current/mule-sap.xsd">
+
+    <munit:config name="test-suite.xml" />
+    <configuration-properties doc:name="Configuration properties" doc:id="143e737f-1ce1-420f-9ee7-d34dc4776858" file="mule.test.properties" />
+    <munit:before-test name="test-suiteBefore_Test" description="Before tests actions" doc:id="fa90b50e-8855-4d7b-9acd-7b0651004e6e">
+        <flow-ref doc:name="Call employeeInSAPSubFlow" doc:id="e1bd83e1-c5a3-41b4-ba8d-753293b87c73" name="employeeInSAPSubFlow" />
+        <ee:transform doc:name="Save initial data" doc:id="9bd690fb-7ca7-42c6-bd15-74689e2c3e62">
+            <ee:message>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="oldData"><![CDATA[%dw 2.0
+output application/java
+---
+vars.employeeSAP]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Prepare new data" doc:id="999dd06a-3d07-4a86-99af-7feed6608c6c">
+            <ee:message>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="newData"><![CDATA[%dw 2.0
+output application/java
+---
+"Test " ++ randomInt(1000)]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+    </munit:before-test>
+    <munit:test name="test-suiteTest" description="MUnit Test" doc:id="22bd3145-fe3d-41bc-9d0d-42ce3c62f408">
+        <munit:execution>
+            <flow-ref doc:name="Call queryFlow" doc:id="a058c80c-948c-475a-b813-1ce244dadf68" name="queryFlow" />
+            <ee:transform doc:name="Filtering test records" doc:id="f33387fe-3fe2-4a6c-9d33-539bd9f4c6b3">
+                <ee:message>
+                    <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload filter ($.Email == p('email.wday'))]]>
+                    </ee:set-payload>
+                </ee:message>
+            </ee:transform>
+            <ee:transform doc:name="Modify payload" doc:id="7f7f65ed-408a-4267-93fc-96f52bfe3636">
+                <ee:message>
+                    <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+[payload[0] - "FirstName" ++ {
+	"FirstName": vars.newData
+}]]]></ee:set-payload>
+                </ee:message>
+                <ee:variables>
+                    <ee:set-variable variableName="employeeInWorkday"><![CDATA[%dw 2.0
+output application/java
+---
+payload[0]]]></ee:set-variable>
+                </ee:variables>
+            </ee:transform>
+            <flow-ref doc:name="Call businessLogicFlow" doc:id="b1861107-5c2a-40e8-9fa9-86931e0e17c3" name="businessLogicFlow" />
+            <scripting:execute doc:name="Sleep for 30s until the processing is completed" doc:id="ee7fbcf7-5047-4bf7-a6a4-4fe78d58daea"
+                engine="groovy">
+                <scripting:code>sleep(30000)</scripting:code>
+            </scripting:execute>
+            <flow-ref doc:name="Call employeeInSAPSubFlow" doc:id="435c9f62-59e1-4f14-8c04-a77fc60795cc" name="employeeInSAPSubFlow" />
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that doc:name="Assert that record was updated" doc:id="d4cc1a80-2541-4180-99ea-c89d0befdff8"
+                expression="#[vars.employeeSAP[0].firstName]" is="#[MunitTools::equalTo(vars.newData)]" message="Record wasn't updated" />
+        </munit:validation>
+    </munit:test>
+    <sub-flow name="employeeInSAPSubFlow" doc:id="e258c714-75b2-4dd5-9f35-1f825089d361">
+        <ee:transform doc:name="Set XML Input" doc:id="d7279608-7214-4962-ab6c-1e98d46202ef">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+---
+{
+  "BAPI_EMPLOYEE_GETDATA": {
+    "import": {
+      "USERID": "*" ++ upper(p('email.wday'))  ++  "*"
+    }
+  }
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <sap:execute-synchronous-remote-function-call key="BAPI_EMPLOYEE_GETDATA" doc:name="Query for Employee"
+            doc:id="527fe553-bc60-4cd8-84c3-4d6dec92252c" config-ref="SAP_Outbound" />
+        <ee:transform doc:name="Set response to variable" doc:id="ef14723e-a904-4349-bfa6-d5487ea766a4">
+            <ee:message>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="employeeSAP"><![CDATA[%dw 2.0
+output application/java
+---
+payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
+    id          : $.PERNO,
+	firstName   : $.FIRSTNAME,
+	lastName    : $.LAST_NAME,
+	subtype     : $.SUBTYPE,
+	objectid    : $.OBJECT_ID,
+	to          : $.TO_DATE,
+	from        : $.FROM_DATE,
+	dateOfBirth : $.BIRTHDATE,
+	idnumber    : $.PERID
+}]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+    </sub-flow>
+    <munit:after-test name="test-suiteAfter_Test" description="After tests actions" doc:id="8f6ded27-7545-4af4-95d0-cbefb2fc2141">
+		<set-variable value="#[vars.employeeInWorkday ++ {userInSAP: vars.oldData[0]}]" doc:name="Set worker variable" doc:id="00aa31ee-a44e-4041-9a22-45e7f01d06d6" variableName="worker" />
+		<set-payload value="#[vars.worker]" doc:name="Set Payload" doc:id="8949e509-c958-4c29-a2b6-4bb694eca5a5" />
+		<flow-ref doc:name="Revert modifications" doc:id="1281076b-1a2d-421f-a64c-96c200311d40" name="updateEmployeeSubFlow" />
+    </munit:after-test>
+</mule>

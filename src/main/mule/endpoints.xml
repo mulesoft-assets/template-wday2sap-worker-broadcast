@@ -46,21 +46,14 @@ ns ns0 urn:com.workday/bsvc
 			ns0#Exclude_Contingent_Workers: false
 		},
 		ns0#Response_Group: {
-			ns0#Include_Reference: false,
-			ns0#Include_Personal_Information: true,
-			ns0#Include_Roles: false,
-			ns0#Include_Organizations: false, 
-			ns0#Include_Employment_Information: false,
+			ns0#Include_Personal_Information: true
 		}
 	}
 }
 	]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<workday:invoke service="Human_Resources" operation="Get_Workers" doc:name="Get Workers from Workday" doc:id="e0ba44f9-fbaa-4155-b81e-f3c463198536" config-ref="Workday_Config" />
-		<os:store key="watermark" failOnNullValue="false" doc:name="Store lastQueryTimestamp">
-        <os:value><![CDATA[#[payload.body.Get_Workers_Response.Request_Criteria.Transaction_Log_Criteria_Data.Transaction_Date_Range_Data.Updated_Through]]]></os:value>
-    </os:store>
+		<workday:human-resources doc:name="Get Workers from Workday" doc:id="550846ca-d7e0-4896-9a43-9431e284b6c0" config-ref="Workday_Config" operation="Get_Workers" target="response" targetValue="#[output application/json --- payload]"/>
 		<ee:transform doc:name="Transform Workday Response" doc:id="4239220e-212c-491b-89ef-dcf5cbd46dd8">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -70,7 +63,7 @@ fun genderSAP(gender) = result : if (gender == 'Not_Declared') '0'
                 else if (gender == 'Female') '2' 
                 else '1'
 ---  
-(payload.body.Get_Workers_Response.Response_Data.*Worker map (worker) -> {
+(vars.response.Get_Workers_Response.Response_Data.*Worker map (worker) -> {
 	FirstName       : worker.Worker_Data.Personal_Data.Name_Data.Legal_Name_Data.Name_Detail_Data.First_Name,
 	MiddleName      : worker.Worker_Data.Personal_Data.Name_Data.Legal_Name_Data.Name_Detail_Data.Middle_Name,
 	LastName        : worker.Worker_Data.Personal_Data.Name_Data.Legal_Name_Data.Name_Detail_Data.Last_Name,
@@ -84,6 +77,10 @@ fun genderSAP(gender) = result : if (gender == 'Not_Declared') '0'
 }) default [] ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Log Workers to sync" doc:id="05a5334e-2471-4733-ae5e-1bd2abc96026" message="#['Workers to sync: ' ++ write(payload)]"/>
+		<os:store key="watermark" failOnNullValue="false" doc:name="Store lastQueryTimestamp">
+        <os:value><![CDATA[#[vars.response.Get_Workers_Response.Request_Criteria.Transaction_Log_Criteria_Data.Transaction_Date_Range_Data.Updated_Through]]]></os:value>
+    </os:store>
 
 </flow>
 </mule>

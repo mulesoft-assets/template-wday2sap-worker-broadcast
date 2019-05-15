@@ -15,6 +15,6 @@
 
     <workday:config-version-30-config name="Workday_Config" doc:name="Workday Config version 30" doc:id="a0d55dc4-a572-4bd0-9026-0d5676bf4324">
         <workday:basic-authentication-api-v30-connection username="${wday.username}" password="${wday.password}"
-            tenantName="${wday.tenant}" hostName="${wday.host}" responseTimeout="25000" />
+            tenantName="${wday.tenant}" hostName="${wday.host}" responseTimeout="${wday.responseTimeout}" />
     </workday:config-version-30-config>
 </mule>

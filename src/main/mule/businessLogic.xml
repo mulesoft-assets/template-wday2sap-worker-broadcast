@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/sap http://www.mulesoft.org/schema/mule/sap/
 
         <batch:job jobName="migrateWorkersBatch" doc:id="79b373e6-1aeb-43a9-9dfe-8ac0d2f31fdc">
             <batch:process-records>
-                <batch:step name="getFromSAP" doc:id="232087de-e311-49c1-a890-439c65ea1af2" acceptExpression="payload.Email != null">
+                <batch:step name="getFromSAPStep" doc:id="232087de-e311-49c1-a890-439c65ea1af2" acceptExpression="payload.Email != null">
                     <ee:transform doc:name="Store payload and prepare input for SAP" doc:id="c2667b49-05e0-4b21-9beb-45a8c36da99c">
                         <ee:message>
                             <ee:set-payload><![CDATA[%dw 2.0
@@ -59,7 +59,7 @@ if (users[0].id != null) (vars.worker ++ {userInSAP: users[0]}) else vars.worker
                         </ee:variables>
                     </ee:transform>
                 </batch:step>
-                <batch:step name="insertSAPEmployees" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="payload.userInSAP == null and payload.Email != null">
+                <batch:step name="insertSAPEmployeesStep" doc:id="78a74ab4-9b91-416d-985a-acda2ac377eb" acceptExpression="payload.userInSAP == null and payload.Email != null">
 					<ee:transform doc:name="Save payload" doc:id="0630ca95-9023-468a-9a22-fad805e6fb76">
 						<ee:message>
 							<ee:set-payload><![CDATA[%dw 2.0
@@ -85,7 +85,7 @@ vars.worker]]></ee:set-payload>
                         </ee:message>
                     </ee:transform>
                 </batch:step>
-                <batch:step name="updateSAPEmployees" doc:id="e3c1a4e5-c659-4a49-9b59-f764d0646995" acceptExpression="payload.userInSAP != null and payload.Email != null">
+                <batch:step name="updateSAPEmployeesStep" doc:id="e3c1a4e5-c659-4a49-9b59-f764d0646995" acceptExpression="payload.userInSAP != null and payload.Email != null">
 					<ee:transform doc:name="Save payload" doc:id="57618bb7-4532-43c1-b5d3-5ee8c39a30fe" >
 						<ee:message >
 						</ee:message>

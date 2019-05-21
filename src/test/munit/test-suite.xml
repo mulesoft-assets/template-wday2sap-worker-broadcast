@@ -56,6 +56,9 @@ output application/java
                 <scripting:code>sleep(30000)</scripting:code>
             </scripting:execute>
             <flow-ref doc:name="Call employeeInSAPSubFlow" doc:id="435c9f62-59e1-4f14-8c04-a77fc60795cc" name="employeeInSAPSubFlow" />
+			<set-variable value="#[vars.employeeInWorkday ++ {userInSAP: vars.oldData[0]}]" doc:name="Set worker variable" doc:id="00aa31ee-a44e-4041-9a22-45e7f01d06d6" variableName="worker" />
+			<set-payload value="#[vars.worker]" doc:name="Set Payload" doc:id="8949e509-c958-4c29-a2b6-4bb694eca5a5" />
+			<flow-ref doc:name="Revert modifications" doc:id="1281076b-1a2d-421f-a64c-96c200311d40" name="updateEmployeeSubFlow" />
         </munit:execution>
         <munit:validation>
             <munit-tools:assert-that doc:name="Assert that record was updated" doc:id="d4cc1a80-2541-4180-99ea-c89d0befdff8"
@@ -100,9 +103,4 @@ payload.BAPI_EMPLOYEE_GETDATA.tables.PERSONAL_DATA.*row map {
             </ee:variables>
         </ee:transform>
     </sub-flow>
-    <munit:after-test name="test-suiteAfter_Test" description="After tests actions" doc:id="8f6ded27-7545-4af4-95d0-cbefb2fc2141">
-		<set-variable value="#[vars.employeeInWorkday ++ {userInSAP: vars.oldData[0]}]" doc:name="Set worker variable" doc:id="00aa31ee-a44e-4041-9a22-45e7f01d06d6" variableName="worker" />
-		<set-payload value="#[vars.worker]" doc:name="Set Payload" doc:id="8949e509-c958-4c29-a2b6-4bb694eca5a5" />
-		<flow-ref doc:name="Revert modifications" doc:id="1281076b-1a2d-421f-a64c-96c200311d40" name="updateEmployeeSubFlow" />
-    </munit:after-test>
 </mule>

@@ -24,7 +24,7 @@ http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/
 </flow>
 	<flow name="queryFlow">
     <os:retrieve key="watermark" target="lastQueryTimestamp" doc:name="Retrieve lastQueryTimestamp">
-        <os:default-value><![CDATA[${watermark.default.expression}]]></os:default-value>
+        <os:default-value ><![CDATA[#[read(p('watermark.default.expression'))]]]></os:default-value>
     </os:retrieve>
 		<ee:transform doc:name="Prepare Get Workers request" doc:id="0e2062da-4a79-471a-bbf5-80038e92ce9b">
 			<ee:message>

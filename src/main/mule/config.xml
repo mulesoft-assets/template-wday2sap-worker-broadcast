@@ -13,8 +13,8 @@
             language="${sap.jco.lang}" password="${sap.jco.passwd}" systemNumber="${sap.jco.sysnr}" username="${sap.jco.user}" />
     </sap:outbound-config>
 
-    <workday:config-version-30-config name="Workday_Config" doc:name="Workday Config version 30" doc:id="a0d55dc4-a572-4bd0-9026-0d5676bf4324">
-        <workday:basic-authentication-api-v30-connection username="${wday.username}" password="${wday.password}"
-            tenantName="${wday.tenant}" hostName="${wday.host}" responseTimeout="${wday.responseTimeout}" />
-    </workday:config-version-30-config>
+    <workday:config-version-32-config name="Workday_Config" doc:name="Workday Config version 30" doc:id="a0d55dc4-a572-4bd0-9026-0d5676bf4324">
+        <workday:basic-authentication-api-v32-connection userName="${wday.username}" password="${wday.password}"
+            tenantName="${wday.tenant}" hostName="${wday.host}"/>
+    </workday:config-version-32-config>
 </mule>
